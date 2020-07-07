@@ -41,6 +41,9 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 
+// import module của hệ thống
+import { AuthModule } from './views/auth/auth.module';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -54,7 +57,8 @@ import { ChartsModule } from 'ng2-charts';
     PerfectScrollbarModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    ChartsModule
+    ChartsModule,
+    AuthModule
   ],
   declarations: [
     AppComponent,

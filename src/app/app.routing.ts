@@ -81,10 +81,19 @@ export const routes: Routes = [
       {
         path: 'widgets',
         loadChildren: () => import('./views/widgets/widgets.module').then(m => m.WidgetsModule)
-      }
+      },
+      // {
+      //   path: 'auth',
+      //   loadChildren: () => import('./views/auth/auth.module').then(m => m.AuthModule)
+      // }
     ]
   },
-  { path: '**', component: P404Component }
+  {
+    path: 'auth',
+    loadChildren: () => import('./views/auth/auth.module').then(m => m.AuthModule)
+  },
+  { path: '**', component: P404Component },
+  
 ];
 
 @NgModule({
