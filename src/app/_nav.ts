@@ -1,101 +1,140 @@
 import { INavData } from '@coreui/angular';
 
 export const navItems: INavData[] = [
-  {
-    name: 'Dashboard',
-    url: '/dashboard',
-    icon: 'icon-speedometer',
-    badge: {
-      variant: 'info',
-      text: 'NEW'
-    }
-  },
+  // {
+  //   name: 'Dashboard',
+  //   url: '/dashboard',
+  //   icon: 'icon-speedometer',
+  //   badge: {
+  //     variant: 'info',
+  //     text: 'NEW'
+  //   }
+  // },
   {
     title: true,
-    name: 'Theme'
+    name: 'Đón tiếp'
   },
+  // {
+  //   name: 'Colors',
+  //   url: '/theme/colors',
+  //   icon: 'icon-drop'
+  // },
+  // {
+  //   name: 'Typography',
+  //   url: '/theme/typography',
+  //   icon: 'icon-pencil'
+  // },
   {
-    name: 'Colors',
+    name: 'Đón tiếp ngoại trú',
     url: '/theme/colors',
     icon: 'icon-drop'
   },
   {
-    name: 'Typography',
+    name: 'Danh sách đón tiếp',
     url: '/theme/typography',
     icon: 'icon-pencil'
   },
   {
     title: true,
-    name: 'Components'
+    name: 'Khám bệnh ngoại trú'
   },
   {
-    name: 'Base',
-    url: '/base',
+    name: 'Danh sách chờ khám',
+    url: '/base/forms',
+    icon: 'icon-calculator'
+  },
+  {
+    title: true,
+    name: 'Điều trị ngoại trú'
+  },
+  {
+    name: 'Ngoại trú',
+    url: '/basex',
     icon: 'icon-puzzle',
     children: [
       {
-        name: 'Cards',
+        name: 'Cấp số vào viện',
         url: '/base/cards',
         icon: 'icon-puzzle'
       },
       {
-        name: 'Carousels',
+        name: 'Danh sách bệnh án',
         url: '/base/carousels',
         icon: 'icon-puzzle'
       },
-      {
-        name: 'Collapses',
-        url: '/base/collapses',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Forms',
-        url: '/base/forms',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Navbars',
-        url: '/base/navbars',
-        icon: 'icon-puzzle'
+      // {
+      //   name: 'Collapses',
+      //   url: '/base/collapses',
+      //   icon: 'icon-puzzle'
+      // },
+      // {
+      //   name: 'Forms',
+      //   url: '/base/forms',
+      //   icon: 'icon-puzzle'
+      // },
+      // {
+      //   name: 'Navbars',
+      //   url: '/base/navbars',
+      //   icon: 'icon-puzzle'
 
-      },
-      {
-        name: 'Pagination',
-        url: '/base/paginations',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Popovers',
-        url: '/base/popovers',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Progress',
-        url: '/base/progress',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Switches',
-        url: '/base/switches',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Tables',
-        url: '/base/tables',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Tabs',
-        url: '/base/tabs',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Tooltips',
-        url: '/base/tooltips',
-        icon: 'icon-puzzle'
-      }
+      // },
+      // {
+      //   name: 'Pagination',
+      //   url: '/base/paginations',
+      //   icon: 'icon-puzzle'
+      // },
+      // {
+      //   name: 'Popovers',
+      //   url: '/base/popovers',
+      //   icon: 'icon-puzzle'
+      // },
+      // {
+      //   name: 'Progress',
+      //   url: '/base/progress',
+      //   icon: 'icon-puzzle'
+      // },
+      // {
+      //   name: 'Switches',
+      //   url: '/base/switches',
+      //   icon: 'icon-puzzle'
+      // },
+      // {
+      //   name: 'Tables',
+      //   url: '/base/tables',
+      //   icon: 'icon-puzzle'
+      // },
+      // {
+      //   name: 'Tabs',
+      //   url: '/base/tabs',
+      //   icon: 'icon-puzzle'
+      // },
+      // {
+      //   name: 'Tooltips',
+      //   url: '/base/tooltips',
+      //   icon: 'icon-puzzle'
+      // }
     ]
   },
+  {
+    title: true,
+    name: 'Điều trị nội trú'
+  },
+  {
+    name: 'Nội trú',
+    url: '/base',
+    icon: 'icon-star',
+    children: [
+      {
+        name: 'Cấp số vào viện',
+        url: '/base/cards',
+        icon: 'icon-star'
+      },
+      {
+        name: 'Danh sách bệnh án',
+        url: '/base/carousels',
+        icon: 'icon-star'
+      }]
+    },
   {
     name: 'Buttons',
     url: '/buttons',
@@ -192,45 +231,45 @@ export const navItems: INavData[] = [
   {
     divider: true
   },
-  {
-    title: true,
-    name: 'Extras',
-  },
-  {
-    name: 'Pages',
-    url: '/pages',
-    icon: 'icon-star',
-    children: [
-      {
-        name: 'Login',
-        url: '/login',
-        icon: 'icon-star'
-      },
-      {
-        name: 'Register',
-        url: '/register',
-        icon: 'icon-star'
-      },
-      {
-        name: 'Error 404',
-        url: '/404',
-        icon: 'icon-star'
-      },
-      {
-        name: 'Error 500',
-        url: '/500',
-        icon: 'icon-star'
-      }
-    ]
-  },
-  {
-    name: 'Disabled',
-    url: '/dashboard',
-    icon: 'icon-ban',
-    badge: {
-      variant: 'secondary',
-      text: 'NEW'
-    },
-    attributes: { disabled: true },
-  }
+  // {
+  //   title: true,
+  //   name: 'Extras',
+  // },
+  // {
+  //   name: 'Pages',
+  //   url: '/pages',
+  //   icon: 'icon-star',
+  //   children: [
+  //     {
+  //       name: 'Login',
+  //       url: '/login',
+  //       icon: 'icon-star'
+  //     },
+  //     {
+  //       name: 'Register',
+  //       url: '/register',
+  //       icon: 'icon-star'
+  //     },
+  //     {
+  //       name: 'Error 404',
+  //       url: '/404',
+  //       icon: 'icon-star'
+  //     },
+      // {
+      //   name: 'Error 500',
+      //   url: '/500',
+      //   icon: 'icon-star'
+      // }
+    // ]
+  // },
+  // {
+  //   name: 'Disabled',
+  //   url: '/dashboard',
+  //   icon: 'icon-ban',
+  //   badge: {
+  //     variant: 'secondary',
+  //     text: 'NEW'
+  //   },
+  //   attributes: { disabled: true },
+  // }
 ];

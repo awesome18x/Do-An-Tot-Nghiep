@@ -20,6 +20,6 @@ export class DefaultLayoutComponent {
   }
 
   logout() {
-    this.router.navigate(['/auth']);
+    this.router.navigate(['/auth/login']);
   }
 }
