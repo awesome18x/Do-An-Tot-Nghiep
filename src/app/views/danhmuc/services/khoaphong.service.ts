@@ -17,9 +17,9 @@ export class KhoaphongService {
     return this.http.get<PhongKham[]>(this.API_URL + 'api/dmkhoaphong?type=2');
   }
 
-  getAllKhoaPhong(type: number): Observable<PhongKham[]> {
-    const locloai = `?type=${type}`;
-    return this.http.get<PhongKham[]>(this.API_URL + 'api/dmkhoaphong' + locloai);
+  getAllKhoaPhong(type: number, pageSize: number, pageIndex: number): Observable<PhongKham[]> {
+    const queryString = `?type=${type}&pageSize=${pageSize}&pageIndex=${pageIndex}`;
+    return this.http.get<PhongKham[]>(this.API_URL + 'api/dmkhoaphong' + queryString);
   }
 
   getKhoaPhongById(id: string): Observable<PhongKham> {

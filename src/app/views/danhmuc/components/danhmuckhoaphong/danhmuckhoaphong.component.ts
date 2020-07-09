@@ -10,6 +10,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class DanhmuckhoaphongComponent implements OnInit {
   type: number = 3;
+  pageSize: number = 10;
+  pageIndex: number = 1;
   selectedPK: string;
   total: number;
   khoaPhongs: PhongKham[] = [];
@@ -20,11 +22,11 @@ export class DanhmuckhoaphongComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getKhoaPhong(this.type);
+    this.getKhoaPhong(this.type, this.pageSize, this.pageIndex);
   }
 
-  getKhoaPhong(type: number) {
-    this.khoaPhongService.getAllKhoaPhong(this.type).subscribe((data: any) => {
+  getKhoaPhong(type: number, pageSize: number, pageIndex: number) {
+    this.khoaPhongService.getAllKhoaPhong(this.type, this.pageSize, this.pageIndex).subscribe((data: any) => {
       // console.log(data);
       this.khoaPhongs = data.dmKhoaPhong;
       console.log(this.khoaPhongs);
@@ -34,7 +36,7 @@ export class DanhmuckhoaphongComponent implements OnInit {
 
   onChange(type: number) {
     this.type = type;
-    this.getKhoaPhong(this.type);
+    this.getKhoaPhong(this.type, this.pageSize, this.pageIndex);
   }
 
   public openConfirmationDialog(id: string) {
@@ -44,7 +46,7 @@ export class DanhmuckhoaphongComponent implements OnInit {
       if (confirmed) {
         this.khoaPhongService.deleteKhoaphong(id).subscribe(data => {
           this.toatsService.success('Đã xoá thành công', 'Thành công');
-          this.getKhoaPhong(this.type);
+          this.getKhoaPhong(this.type, this.pageSize, this.pageIndex);
         }, (error) => {
           this.toatsService.warning('Có lỗi xảy ra', 'Thất bại');
         });

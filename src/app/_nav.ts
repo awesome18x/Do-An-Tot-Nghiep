@@ -14,16 +14,6 @@ export const navItems: INavData[] = [
     title: true,
     name: 'Đón tiếp'
   },
-  // {
-  //   name: 'Colors',
-  //   url: '/theme/colors',
-  //   icon: 'icon-drop'
-  // },
-  // {
-  //   name: 'Typography',
-  //   url: '/theme/typography',
-  //   icon: 'icon-pencil'
-  // },
   {
     name: 'Đón tiếp ngoại trú',
     url: '/dontiep',
@@ -134,7 +124,21 @@ export const navItems: INavData[] = [
         url: '/base/carousels',
         icon: 'icon-star'
       }]
-    },
+  },
+  {
+    title: true,
+    name: 'Danh Mục'
+  },
+  {
+    name: 'Danh mục khoa phòng',
+    url: '/danhmuc',
+    icon: 'icon-bell'
+  },
+  {
+    name: 'Danh mục bệnh viện',
+    url: '/danhmuc/benh-vien',
+    icon: 'icon-list'
+  },
   // {
   //   name: 'Buttons',
   //   url: '/buttons',
