@@ -53,5 +53,5 @@ export class PagesService {
         endIndex: endIndex,
         pages: pages
     };
-}
+  }
 }
