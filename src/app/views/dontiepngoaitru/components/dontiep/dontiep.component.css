@@ -16,3 +16,7 @@
 hr.new2 {
     border-top: 1px dashed greenyellow;
 }
+
+.col-form-label {
+    font-weight: 500;
+}
