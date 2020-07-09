@@ -1,0 +1,18 @@
+/* .location-text {
+    text-align: right;
+}
+
+@media screen and (min-width: 480px) {
+    .location-text {
+         text-align: center; 
+    }
+} */
+
+
+/* .col-form-label {
+    font-weight: bold;
+} */
+
+hr.new2 {
+    border-top: 1px dashed greenyellow;
+}

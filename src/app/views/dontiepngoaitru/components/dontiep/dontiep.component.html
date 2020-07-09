@@ -4,38 +4,182 @@
             <strong>Đón Tiếp Bệnh Nhân</strong>
         </div>
         <div class="card-body">
-            <div class="row align-items-center">
-                <div class="col-12 col-xl mb-3 mb-xl-0">
-                    Normal
+            <form class="form-horizontal">
+                <div class="row text-right">
+                    <div class="col-lg-6 col-md-12">
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label" for="mhs">Mã hồ sơ</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="mhs">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label" for="ndk">Nơi đăng ký</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="ndk">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label" for="dcttbh">Địa chỉ theo thẻ BH</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="dcttbh">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label" for="mkv">Mã khu vực</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="mkv">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label" for="ht">Họ tên</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="ht">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label" for="CMND">CMND</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="CMND">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label" for="qt">Quốc tịch</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="qt">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label" for="tt">Tỉnh thành</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="tt">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label" for="dcsn">Địa chỉ: Số nhà</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="dcsn">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label" for="ndkk">Nội dung khám</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="ndkk">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label" for="lk">Loại khám</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="lk">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label" for="bvt">Bệnh viện trước</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="bvt">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-12">
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label" for="SHSBHYT">Số hồ sơ BHYT</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="SHSBHYT">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label" for="tn">Từ ngày</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="tn">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label" for="dn">Đến ngày</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="dn">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label" for="mvbhyt">Mã vạch BHYT</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="mvbhyt">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label" for="ns">Ngày sinh</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="ns">
+                            </div>
+                            <label class="col-md-4 col-form-label text-left">Tuổi: </label>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label" for="gt">Giới tính</label>
+                            <div class="col-md-3 form-check form-check-inline mr-1" id="inline-radios">
+                                <input type="radio" class="form-check-input" id="nline-radios">
+                                <label for="nline-radios" class="form-check-label">Nam</label>
+                            </div>
+                            <div class="col-md-3 form-check form-check-inline mr-1" id="inline-radios">
+                                <input type="radio" class="form-check-input" id="nline-radios">
+                                <label for="nline-radios" class="form-check-label">Nữ</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label" for="dantoc">Dân tộc</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="dantoc">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label" for="qh">Quận huyện</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="qh">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label" for="dienthoai">Điện thoại</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="dienthoai">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label" for="mst">Mã số thuế</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="mst">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label" for="buongkham">Buồng khám</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="buongkham">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label" for="cdtd">Chẩn đoán tuyến dưới</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="cdtd">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-                    <button type="button" class="btn btn-block btn-primary">Primary</button>
+                <hr class="new2">
+                <div class="row align-items-center">
+
+                    <div class="col-4 col-sm-4 col-md mb-3 mb-xl-0 text-center">
+                        <button type="button" class="btn btn-primary">Đón tiếp</button>
+                    </div>
+                    <div class="col-4 col-sm-4 col-md mb-3 mb-xl-0 text-center">
+                        <button type="button" class="btn btn-success">Lưu và tạo mới</button>
+                    </div>
+                    <div class="col-4 col-sm-4 col-md mb-3 mb-xl-0 text-center">
+                        <button type="button" class="btn btn-secondary">Làm lại</button>
+                    </div>
+
+
                 </div>
-                <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-                    <button type="button" class="btn btn-block btn-secondary">Secondary</button>
-                </div>
-                <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-                    <button type="button" class="btn btn-block btn-success">Success</button>
-                </div>
-                <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-                    <button type="button" class="btn btn-block btn-warning">Warning</button>
-                </div>
-                <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-                    <button type="button" class="btn btn-block btn-danger">Danger</button>
-                </div>
-                <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-                    <button type="button" class="btn btn-block btn-info">Info</button>
-                </div>
-                <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-                    <button type="button" class="btn btn-block btn-light">Light</button>
-                </div>
-                <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-                    <button type="button" class="btn btn-block btn-dark">Dark</button>
-                </div>
-                <div class="col-6 col-sm-4 col-md-2 col-xl mb-3 mb-xl-0">
-                    <button type="button" class="btn btn-block btn-link">Link</button>
-                </div>
-            </div>
+            </form>
+
         </div>
     </div>
 </div>
