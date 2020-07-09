@@ -31,7 +31,7 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Danh sách đón tiếp',
-    url: '/theme/typography',
+    url: '/dontiep/danh-sach-don-tiep',
     icon: 'icon-pencil'
   },
   {
