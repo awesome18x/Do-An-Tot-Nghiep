@@ -26,7 +26,7 @@ export const navItems: INavData[] = [
   // },
   {
     name: 'Đón tiếp ngoại trú',
-    url: '/theme/colors',
+    url: '/dontiep',
     icon: 'icon-drop'
   },
   {
@@ -40,7 +40,7 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Danh sách chờ khám',
-    url: '/base/forms',
+    url: '/danhsach',
     icon: 'icon-calculator'
   },
   {

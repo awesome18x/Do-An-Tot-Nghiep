@@ -40,9 +40,12 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
+import { ToastrModule } from 'ngx-toastr';
 
 // import module của hệ thống
 import { AuthModule } from './views/auth/auth.module';
+import { DontiepngoaitruModule } from './views/dontiepngoaitru/dontiepngoaitru.module';
+import { DanhsachModule } from './views/danhsach/danhsach.module';
 
 @NgModule({
   imports: [
@@ -57,8 +60,13 @@ import { AuthModule } from './views/auth/auth.module';
     PerfectScrollbarModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 1000
+    }),
     ChartsModule,
-    AuthModule
+    AuthModule,
+    DontiepngoaitruModule,
+    DanhsachModule
   ],
   declarations: [
     AppComponent,

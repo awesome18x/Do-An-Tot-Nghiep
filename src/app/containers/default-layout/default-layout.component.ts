@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import { navItems } from '../../_nav';
 import { Router } from '@angular/router';
+import { AuthService } from '../../views/auth/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,14 +13,15 @@ export class DefaultLayoutComponent {
   public navItems = navItems;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   toggleMinimize(e) {
     this.sidebarMinimized = e;
   }
 
-  logout() {
-    this.router.navigate(['/auth/login']);
+  async logout() {
+    await this.authService.logout();
   }
 }

@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../../environments/environment';
 import { AuthData } from '../../../models/authdata';
 import { Injectable } from '@angular/core';
@@ -14,7 +15,11 @@ export class AuthService {
   private tokenTimer: any;
   private authStatusListener = new Subject<boolean>();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private toastrService: ToastrService
+  ) {}
 
   getToken() {
     return this.token;
@@ -31,9 +36,9 @@ export class AuthService {
     return this.authStatusListener.asObservable();
   }
 
-  createUser(email: string, password: string) {
+  createUser(username: string, password: string) {
     const authData: AuthData = {
-      email,
+      username,
       password
     };
     this.http
@@ -43,9 +48,9 @@ export class AuthService {
       });
   }
 
-  login(email: string, password: string) {
+  login(username: string, password: string) {
     const authData: AuthData = {
-      email,
+      username,
       password
     };
     this.http
@@ -54,6 +59,9 @@ export class AuthService {
         authData
       )
       .subscribe(response => {
+        if (!response) {
+          alert('Sai mật khẩu hoặc password, vui lòng kiểm tra lại');
+        }
         const token = response.token;
         this.token = token;
         if (token) {
@@ -65,8 +73,12 @@ export class AuthService {
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
           console.log(expirationDate);
           this.saveAuthData(token, expirationDate);
+          this.toastrService.success('Đăng nhập thành công', 'Thành công');
           this.router.navigate(['/']);
         }
+      }, (error) => {
+        alert('Sai mật khẩu hoặc password, vui lòng kiểm tra lại');
+        console.log('Có lỗi xảy ra: ', error);
       });
   }
 
@@ -91,7 +103,7 @@ export class AuthService {
     this.authStatusListener.next(false);
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
-    this.router.navigate(['/']);
+    this.router.navigate(['/auth']);
   }
 
   private setAuthTimer(duration: number) {

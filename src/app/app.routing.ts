@@ -1,3 +1,4 @@
+import { AuthGuard } from './views/auth/services/auth.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -12,40 +13,38 @@ import { RegisterComponent } from './views/register/register.component';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'dontiep',
     pathMatch: 'full',
   },
   {
-    path: '404',
-    component: P404Component,
-    data: {
-      title: 'Page 404'
-    }
+    path: 'auth',
+    loadChildren: () => import('./views/auth/auth.module').then(m => m.AuthModule)
   },
-  {
-    path: '500',
-    component: P500Component,
-    data: {
-      title: 'Page 500'
-    }
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
-    data: {
-      title: 'Login Page'
-    }
-  },
-  {
-    path: 'register',
-    component: RegisterComponent,
-    data: {
-      title: 'Register Page'
-    }
-  },
+  // {
+  //   path: '500',
+  //   component: P500Component,
+  //   data: {
+  //     title: 'Page 500'
+  //   }
+  // },
+  // {
+  //   path: 'login',
+  //   component: LoginComponent,
+  //   data: {
+  //     title: 'Login Page'
+  //   }
+  // },
+  // {
+  //   path: 'register',
+  //   component: RegisterComponent,
+  //   data: {
+  //     title: 'Register Page'
+  //   }
+  // },
   {
     path: '',
     component: DefaultLayoutComponent,
+    canActivate: [AuthGuard],
     data: {
       title: 'Home'
     },
@@ -82,18 +81,25 @@ export const routes: Routes = [
         path: 'widgets',
         loadChildren: () => import('./views/widgets/widgets.module').then(m => m.WidgetsModule)
       },
-      // {
-      //   path: 'auth',
-      //   loadChildren: () => import('./views/auth/auth.module').then(m => m.AuthModule)
-      // }
+      {
+        path: 'dontiep',
+        loadChildren: () => import('./views/dontiepngoaitru/dontiepngoaitru.module').then(m => m.DontiepngoaitruModule)
+      },
+      {
+        path: 'danhsach',
+        loadChildren: () => import('./views/danhsach/danhsach.module').then(m => m.DanhsachModule)
+      }
     ]
   },
   {
-    path: 'auth',
-    loadChildren: () => import('./views/auth/auth.module').then(m => m.AuthModule)
+    path: '404',
+    component: P404Component,
+    data: {
+      title: 'Page 404'
+    }
   },
   { path: '**', component: P404Component },
-  
+
 ];
 
 @NgModule({

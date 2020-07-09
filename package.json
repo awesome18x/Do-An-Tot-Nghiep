@@ -28,7 +28,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^9.1.1",
+    "@angular/animations": "^9.1.11",
     "@angular/common": "^9.1.1",
     "@angular/compiler": "^9.1.1",
     "@angular/core": "^9.1.1",
@@ -50,6 +50,7 @@
     "ng2-charts": "^2.3.0",
     "ngx-bootstrap": "^5.6.1",
     "ngx-perfect-scrollbar": "^9.0.0",
+    "ngx-toastr": "^12.1.0",
     "rxjs": "^6.5.5",
     "simple-line-icons": "^2.4.1",
     "ts-helpers": "^1.1.2",

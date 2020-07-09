@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
@@ -11,6 +12,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
   declarations: [LoginComponent, ResetPasswordComponent],
   imports: [
     ReactiveFormsModule,
+    HttpClientModule,
     CommonModule,
     AuthRoutingModule
   ],
