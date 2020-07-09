@@ -1,5 +1,7 @@
 export class PhongKham {
-    id: string;
+    _id: string;
     name: string;
-    type: string;
+    type: number;
+    ma: string;
+    diachi: string;
 }

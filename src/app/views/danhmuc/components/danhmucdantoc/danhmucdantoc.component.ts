@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DantocService } from '../../services/dantoc.service';
+import { DanToc } from '../../../../models/dantoc';
 
 @Component({
   selector: 'app-danhmucdantoc',
@@ -6,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./danhmucdantoc.component.css']
 })
 export class DanhmucdantocComponent implements OnInit {
-
-  constructor() { }
+  Dantocs: DanToc;
+  constructor(
+    private dantocService: DantocService
+  ) { }
 
   ngOnInit(): void {
+    this.dantocService.getAllDanToc().subscribe(data => {
+      console.log(data);
+    });
   }
 
 }

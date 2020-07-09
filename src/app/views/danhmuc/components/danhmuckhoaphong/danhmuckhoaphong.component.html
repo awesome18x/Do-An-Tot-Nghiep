@@ -1,1 +1,67 @@
-<p>danhmuckhoaphong works!</p>
+<div class="animated fadeIn">
+    <div class="card">
+        <div class="card-header">
+            <strong>Danh Mục Khoa Phòng</strong>
+            <div class="card-header-actions">
+                Tổng: {{ total }}
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-2 col-4">
+                    <button type="button" class="btn btn-primary"> <i class="fa fa-plus"></i>Thêm mới</button>
+                </div>
+
+                <div class="col-md-3 offset-md-3">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa fa-filter"></i>
+                            </span>
+                        </div>
+                        <select class="form-control" [(ngModel)]="type" (change)="onChange($event.target.value)" name="select">
+                            <option value="3">--Tất cả--</option>
+                            <option value="1">Khoa</option>
+                            <option value="2">Phòng Khám</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa fa-search"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Search by name">
+                    </div>
+                </div>
+            </div>
+            <table class="table table-bordered  table-striped  table-responsive-lg text-center">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Mã</th>
+                        <th>Tên</th>
+                        <th>Địa chỉ</th>
+                        <th>Cấp Quản Lý</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of khoaPhongs; let i = index">
+                        <th>{{ i + 1 }}</th>
+                        <td>{{ item?.ma }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.diachi }}</td>
+                        <td>{{ item.type === 1 ? 'Khoa' : 'Phòng Khám' }}</td>
+                        <td>
+                            <button type="button" class="btn btn-warning">Sửa</button>
+                            <button type="button" class="btn btn-danger" (click)="openConfirmationDialog(item._id)">Xoá</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

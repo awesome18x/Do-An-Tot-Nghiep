@@ -6,9 +6,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { DefaultLayoutComponent } from './containers';
 
 import { P404Component } from './views/error/404.component';
-import { P500Component } from './views/error/500.component';
-import { LoginComponent } from './views/login/login.component';
-import { RegisterComponent } from './views/register/register.component';
+// import { P500Component } from './views/error/500.component';
+// import { LoginComponent } from './views/login/login.component';
+// import { RegisterComponent } from './views/register/register.component';
 
 export const routes: Routes = [
   {
@@ -67,6 +67,10 @@ export const routes: Routes = [
       {
         path: 'danhsach',
         loadChildren: () => import('./views/danhsach/danhsach.module').then(m => m.DanhsachModule)
+      },
+      {
+        path: 'danhmuc',
+        loadChildren: () => import('./views/danhmuc/danhmuc.module').then(m => m.DanhmucModule)
       }
     ]
   },

@@ -1,12 +1,14 @@
 /* .location-text {
-    text-align: right;
+    text-align: left;
 }
 
-@media screen and (min-width: 480px) {
+*/
+
+@media screen and (max-width: 480px) {
     .location-text {
-         text-align: center; 
+        text-align: left !important;
     }
-} */
+}
 
 
 /* .col-form-label {
@@ -20,3 +22,8 @@ hr.new2 {
 .col-form-label {
     font-weight: 500;
 }
+
+
+/* .location-text {
+    text-align: left !important;
+} */
