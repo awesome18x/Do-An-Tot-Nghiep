@@ -46,6 +46,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AuthModule } from './views/auth/auth.module';
 import { DontiepngoaitruModule } from './views/dontiepngoaitru/dontiepngoaitru.module';
 import { DanhsachModule } from './views/danhsach/danhsach.module';
+import { DanhmucModule } from './views/danhmuc/danhmuc.module';
 
 @NgModule({
   imports: [
@@ -66,7 +67,8 @@ import { DanhsachModule } from './views/danhsach/danhsach.module';
     ChartsModule,
     AuthModule,
     DontiepngoaitruModule,
-    DanhsachModule
+    DanhsachModule,
+    DanhmucModule
   ],
   declarations: [
     AppComponent,

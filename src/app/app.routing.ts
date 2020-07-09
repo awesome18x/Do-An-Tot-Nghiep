@@ -20,27 +20,6 @@ export const routes: Routes = [
     path: 'auth',
     loadChildren: () => import('./views/auth/auth.module').then(m => m.AuthModule)
   },
-  // {
-  //   path: '500',
-  //   component: P500Component,
-  //   data: {
-  //     title: 'Page 500'
-  //   }
-  // },
-  // {
-  //   path: 'login',
-  //   component: LoginComponent,
-  //   data: {
-  //     title: 'Login Page'
-  //   }
-  // },
-  // {
-  //   path: 'register',
-  //   component: RegisterComponent,
-  //   data: {
-  //     title: 'Register Page'
-  //   }
-  // },
   {
     path: '',
     component: DefaultLayoutComponent,

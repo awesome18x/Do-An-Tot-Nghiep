@@ -228,9 +228,9 @@ export const navItems: INavData[] = [
   //     text: 'NEW'
   //   }
   // },
-  // {
-  //   divider: true
-  // },
+  {
+    divider: true
+  },
   // {
   //   title: true,
   //   name: 'Extras',
