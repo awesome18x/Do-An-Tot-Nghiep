@@ -1,0 +1,48 @@
+<div class="animated fadeIn">
+    <div class="card">
+        <div class="card-header">
+            <strong>Thêm mới khoa / phòng</strong>
+
+        </div>
+        <div class="card-body">
+            <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="select1">Cấp quản lý <span class="red">(*)</span></label>
+                    <div class="col-md-9">
+                        <select id="select1" name="select1" class="form-control" formControlName="type">
+                            <option [ngValue]="null" disabled>-- Chọn cấp quản lý --</option>
+                            <option value="1">Khoa</option>
+                            <option value="2">Phòng</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Tên <span class="red">(*)</span></label>
+                    <div class="col-md-9">
+                        <input type="text" id="text-input" formControlName="name" name="text-input" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="address-input">Địa chỉ</label>
+                    <div class="col-md-9">
+                        <input type="email" id="address-input" formControlName="diaChi" name="email-input" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="password-input">Mã <span class="red">(*)</span></label>
+                    <div class="col-md-9">
+                        <input type="text" id="password-input" formControlName="ma" name="password-input" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row mt-7">
+                    <div class="col-3 offset-3">
+                        <button type="submit" class="btn btn-block btn-primary">Lưu lại</button>
+                    </div>
+                    <div class="col-3">
+                        <button routerLink="../list" type="button" class="btn btn-block btn-secondary">Thoát</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

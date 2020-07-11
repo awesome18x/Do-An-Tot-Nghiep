@@ -26,6 +26,10 @@ export class KhoaphongService {
     return this.http.get<PhongKham>(this.API_URL + `api/dmkhoaphong/${id}`);
   }
 
+  createKhoaPhong(khoaphong: PhongKham): Observable<PhongKham> {
+    return this.http.post<PhongKham>(this.API_URL + 'api/dmkhoaphong/create', khoaphong);
+  }
+
   updatekhoaPhong(id: string, khoaphong: PhongKham): Observable<PhongKham> {
     return this.http.put<PhongKham>(this.API_URL + `api/dmkhoaphong/${id}`, khoaphong);
   }

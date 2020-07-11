@@ -1,3 +1,4 @@
+import { CreateComponent } from './components/danhmuckhoaphong/create/create.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DanhmucdantocComponent } from './components/danhmucdantoc/danhmucdantoc.component';
@@ -5,6 +6,7 @@ import { DanhmucbenhvienComponent } from './components/danhmucbenhvien/danhmucbe
 import { DanhmucicdComponent } from './components/danhmucicd/danhmucicd.component';
 import { DanhmuckhoaphongComponent } from './components/danhmuckhoaphong/danhmuckhoaphong.component';
 import { DanhmucdvktComponent } from './components/danhmucdvkt/danhmucdvkt.component';
+import { ListComponent } from './components/danhmuckhoaphong/list/list.component';
 
 
 const routes: Routes = [
@@ -27,7 +29,26 @@ const routes: Routes = [
   },
   {
     path: 'khoa-phong',
-    component: DanhmuckhoaphongComponent
+    component: DanhmuckhoaphongComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'list',
+        pathMatch: 'full'
+      },
+      {
+        component: ListComponent,
+        path: 'list'
+      },
+      {
+        path: 'create-or-update',
+        component: CreateComponent
+      },
+      {
+        path: ':id',
+        component: CreateComponent
+      }
+    ]
   },
   {
     path: 'dvkt',

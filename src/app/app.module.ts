@@ -47,6 +47,7 @@ import { AuthModule } from './views/auth/auth.module';
 import { DontiepngoaitruModule } from './views/dontiepngoaitru/dontiepngoaitru.module';
 import { DanhsachModule } from './views/danhsach/danhsach.module';
 import { DanhmucModule } from './views/danhmuc/danhmuc.module';
+import { ListComponent } from './views/danhmuckhoaphong/list/list.component';
 
 @NgModule({
   imports: [
@@ -76,7 +77,8 @@ import { DanhmucModule } from './views/danhmuc/danhmuc.module';
     P404Component,
     P500Component,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ListComponent
   ],
   providers: [{
     provide: LocationStrategy,

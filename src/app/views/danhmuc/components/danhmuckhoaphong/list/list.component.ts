@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { PhongKham } from '../../../../models/phongkham';
-import { KhoaphongService } from '../../services/khoaphong.service';
-import { ConfirmDialogService } from '../../confirm-dialog/confirm-dialog.service';
+import { PhongKham } from '../../../../../models/phongkham';
+import { KhoaphongService } from '../../../services/khoaphong.service';
 import { ToastrService } from 'ngx-toastr';
+import { ConfirmDialogService } from '../../../confirm-dialog/confirm-dialog.service';
+import { Router } from '@angular/router';
+
 @Component({
-  selector: 'app-danhmuckhoaphong',
-  templateUrl: './danhmuckhoaphong.component.html',
-  styleUrls: ['./danhmuckhoaphong.component.css']
+  selector: 'app-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.css']
 })
-export class DanhmuckhoaphongComponent implements OnInit {
+export class ListComponent implements OnInit {
   show: boolean = true;
   type: number = 3;
   pageSize: number = 10;
@@ -19,7 +21,8 @@ export class DanhmuckhoaphongComponent implements OnInit {
   constructor(
     private khoaPhongService: KhoaphongService,
     private confirmationDialogService: ConfirmDialogService,
-    private toatsService: ToastrService
+    private toatsService: ToastrService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -62,5 +65,14 @@ export class DanhmuckhoaphongComponent implements OnInit {
 
 
   loadPage() {}
+
+  create() {
+    this.router.navigateByUrl('danhmuc/khoaphong/create-or-update');
+  }
+
+  update(id: string) {
+    console.log(id);
+    this.router.navigate(['danhmuc/khoaphong/create-or-update', id]);
+  }
 
 }

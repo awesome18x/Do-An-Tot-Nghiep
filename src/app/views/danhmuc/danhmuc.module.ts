@@ -1,5 +1,5 @@
 import { ConfirmDialogService } from './confirm-dialog/confirm-dialog.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -12,6 +12,10 @@ import { DanhmucdvktComponent } from './components/danhmucdvkt/danhmucdvkt.compo
 import { DanhmucdantocComponent } from './components/danhmucdantoc/danhmucdantoc.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { CreateComponent } from './components/danhmuckhoaphong/create/create.component';
+import { ListComponent } from './components/danhmuckhoaphong/list/list.component';
+
 
 @NgModule({
   declarations: [
@@ -20,14 +24,18 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     DanhmucicdComponent,
     DanhmucdvktComponent,
     DanhmucdantocComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    CreateComponent,
+    ListComponent
   ],
   imports: [
     CommonModule,
     DanhmucRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgbModalModule
+    ReactiveFormsModule,
+    NgbModalModule,
+    NgbPaginationModule
   ],
   exports: [
     ConfirmDialogComponent
