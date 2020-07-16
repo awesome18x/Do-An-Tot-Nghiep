@@ -97,7 +97,6 @@ export class DontiepComponent implements OnInit {
       idbuongkham: [this.phongKhamSelected],
       chandoantuyenduoi: ['']
     });
-    console.log('h2h2h2');
   }
 
   onChange() {}
