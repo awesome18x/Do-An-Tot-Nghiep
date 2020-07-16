@@ -4,80 +4,88 @@
             <strong>Đón Tiếp Bệnh Nhân</strong>
         </div>
         <div class="card-body">
-            <form class="form-horizontal">
+            <form [formGroup]="dangKyKhamBenhForm" class="form-horizontal" (ngSubmit)="onSubmit()">
                 <div class="row text-right location-text">
                     <div class="col-lg-6 col-md-12">
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label" for="mhs">Mã hồ sơ</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="mhs">
+                                <input type="text" class="form-control" id="mhs" formControlName="mahoso">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label" for="ndk">Nơi đăng ký</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="ndk">
+                                <input type="text" class="form-control" id="ndk" formControlName="noidkthebhyt">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label" for="dcttbh">Địa chỉ theo thẻ BH</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="dcttbh">
+                                <input type="text" class="form-control" id="dcttbh" formControlName="diachithebhyt">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label" for="mkv">Mã khu vực</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="mkv">
+                                <!-- <input type="text" class="form-control" id="mkv" formControlName="makhuvuc"> -->
+                                <select class="form-control" id="mkv" formControlName="makhuvuc">
+                                    <option [ngValue]="null" disabled>--Chọn--</option>
+                                    <option value="K1">K1</option>
+                                    <option value="K2">K2</option>
+                                    <option value="K3">K3</option>
+                                </select>
                             </div>
                         </div>
-
                         <div class="form-group row">
-                            <label class="col-md-4 col-form-label" for="ht">Họ tên</label>
+                            <label class="col-md-4 col-form-label" for="ht">Họ tên <span class="red">(*)</span></label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="ht">
+                                <input type="text" class="form-control" id="ht" formControlName="hoten">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label" for="CMND">CMND</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="CMND">
+                                <input type="text" class="form-control" id="CMND" formControlName="cmnd">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label" for="qt">Quốc tịch</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="qt">
+                                <input type="text" class="form-control" id="qt" formControlName="quoctich">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label" for="tt">Tỉnh thành</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="tt">
+                                <input type="text" class="form-control" id="tt" formControlName="tinhthanh">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-4 col-form-label" for="dcsn">Địa chỉ: Số nhà</label>
+                            <label class="col-md-4 col-form-label" for="dcsn">Địa chỉ: Số nhà <span class="red">(*)</span></label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="dcsn">
+                                <input type="text" class="form-control" id="dcsn" formControlName="diachinha">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label" for="ndkk">Nội dung khám</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="ndkk">
+                                <input type="text" class="form-control" id="ndkk" formControlName="noidungkham">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-4 col-form-label" for="lk">Loại khám</label>
+                            <label class="col-md-4 col-form-label" for="lk">Loại khám <span class="red">(*)</span></label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="lk">
+                                <!-- <input type="text" class="form-control" id="lk" formControlName="idloaikham"> -->
+                                <select class="form-control" id="mkv" formControlName="idloaikham">
+                                    <option [value]="item._id" *ngFor="let item of loaiKhams;">{{item.name}}</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label" for="bvt">Bệnh viện trước</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="bvt">
+                                <input type="text" class="form-control" id="bvt" formControlName="idbenhvientruoc">
                             </div>
                         </div>
                     </div>
@@ -86,99 +94,96 @@
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label" for="SHSBHYT">Số hồ sơ BHYT</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="SHSBHYT">
+                                <input type="text" class="form-control" id="SHSBHYT" formControlName="sohosobhyt">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label" for="tn">Từ ngày</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="tn">
+                                <input type="text" class="form-control" id="tn" formControlName="ngaybatdau">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label" for="dn">Đến ngày</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="dn">
+                                <input type="text" class="form-control" id="dn" formControlName="ngayketthuc">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label" for="mvbhyt">Mã vạch BHYT</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="mvbhyt">
+                                <input type="text" class="form-control" id="mvbhyt" #hehe>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-4 col-form-label" for="ns">Ngày sinh</label>
+                            <label class="col-md-4 col-form-label" for="ns">Ngày sinh <span class="red">(*)</span></label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" id="ns">
+                                <input type="text" class="form-control" id="ns" formControlName="ngaysinh">
                             </div>
                             <label class="col-md-4 col-form-label text-left">Tuổi: </label>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-4 col-form-label" for="gt">Giới tính</label>
-                            <div class="col-md-3 form-check form-check-inline mr-1" id="inline-radios">
-                                <input type="radio" class="form-check-input" id="nline-radios">
-                                <label for="nline-radios" class="form-check-label">Nam</label>
+                            <label class="col-md-4 col-form-label" for="gt">Giới tính <span class="red">(*)</span></label>
+                            <div class="col-md-2 custom-control custom-radio custom-control-inline">
+                                <input type="radio" class="custom-control-input" id="customRadio" name="example" value="1">
+                                <label class="custom-control-label" for="customRadio">Nam</label>
                             </div>
-                            <div class="col-md-3 form-check form-check-inline mr-1" id="inline-radios">
-                                <input type="radio" class="form-check-input" id="nline-radios">
-                                <label for="nline-radios" class="form-check-label">Nữ</label>
+                            <div class="col-md-2 custom-control custom-radio custom-control-inline">
+                                <input type="radio" class="custom-control-input" id="customRadio2" name="example" value="2">
+                                <label class="custom-control-label" for="customRadio2">Nữ</label>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label" for="dantoc">Dân tộc</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="dantoc">
+                                <input type="text" class="form-control" id="dantoc" formControlName="dantoc">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label" for="qh">Quận huyện</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="qh">
+                                <input type="text" class="form-control" id="qh" formControlName="quanhuyen">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-4 col-form-label" for="dienthoai">Điện thoại</label>
+                            <label class="col-md-4 col-form-label" for="dienthoai">Điện thoại <span class="red">(*)</span></label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="dienthoai">
+                                <input type="text" class="form-control" id="dienthoai" formControlName="dienthoai">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label" for="mst">Mã số thuế</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="mst">
+                                <input type="text" class="form-control" id="mst" formControlName="masothue">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-4 col-form-label" for="buongkham">Buồng khám</label>
+                            <label class="col-md-4 col-form-label" for="buongkham">Buồng khám <span class="red">(*)</span></label>
                             <div class="col-md-8">
-                                <select class="form-control" [(ngModel)]="selectedPK" name="select">
-                                    <option [value]="item" *ngFor="let item of phongKhams;">{{item.name}}</option>
+                                <select class="form-control" name="select" formControlName="idbuongkham">
+                                    <option [value]="item._id" *ngFor="let item of phongKhams;">{{item.name}}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label" for="cdtd">Chẩn đoán tuyến dưới</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="cdtd">
+                                <input type="text" class="form-control" id="cdtd" formControlName="chandoantuyenduoi">
                             </div>
                         </div>
                     </div>
                 </div>
                 <hr class="new2">
                 <div class="row align-items-center">
-
                     <div class="col-4 col-sm-4 col-md mb-3 mb-xl-0 text-center">
-                        <button type="button" class="btn btn-primary">Đón tiếp</button>
+                        <button type="submit" class="btn btn-primary">Đón tiếp</button>
                     </div>
                     <div class="col-4 col-sm-4 col-md mb-3 mb-xl-0 text-center">
                         <button type="button" class="btn btn-success">Lưu và tạo mới</button>
                     </div>
                     <div class="col-4 col-sm-4 col-md mb-3 mb-xl-0 text-center">
-                        <button type="button" class="btn btn-secondary">Làm lại</button>
+                        <button type="button" class="btn btn-secondary" (click)="resetForm()">Làm lại</button>
                     </div>
-
-
                 </div>
             </form>
 

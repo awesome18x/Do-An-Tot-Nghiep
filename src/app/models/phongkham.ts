@@ -3,5 +3,5 @@ export class PhongKham {
     name: string;
     type: number;
     ma: string;
-    diachi: string;
+    diaChi: string;
 }

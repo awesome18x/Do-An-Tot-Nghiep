@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DontiepngoaitruRoutingModule } from './dontiepngoaitru-routing.module';
 import { DontiepComponent } from './components/dontiep/dontiep.component';
 import { DanhsachdontiepComponent } from './components/danhsachdontiep/danhsachdontiep.component';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     DontiepngoaitruRoutingModule,
-    FormsModule
+    ReactiveFormsModule
   ]
 })
 export class DontiepngoaitruModule { }

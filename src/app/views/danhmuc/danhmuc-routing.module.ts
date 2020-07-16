@@ -45,7 +45,7 @@ const routes: Routes = [
         component: CreateComponent
       },
       {
-        path: ':id',
+        path: 'create-or-update/:id',
         component: CreateComponent
       }
     ]

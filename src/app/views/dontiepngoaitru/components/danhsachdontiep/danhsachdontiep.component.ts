@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PhongKham } from '../../../../models/phongkham';
 import { KhoaphongService } from '../../services/khoaphong.service';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-danhsachdontiep',
@@ -8,7 +9,7 @@ import { KhoaphongService } from '../../services/khoaphong.service';
   styleUrls: ['./danhsachdontiep.component.css']
 })
 export class DanhsachdontiepComponent implements OnInit {
-
+  hello: FormGroup;
   phongKhams: PhongKham[] = [];
   selectedPK: PhongKham;
   constructor(

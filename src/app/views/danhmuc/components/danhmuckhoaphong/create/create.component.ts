@@ -14,7 +14,6 @@ export class CreateComponent implements OnInit {
   private khoaPhongId: string;
   isLoading: boolean = false;
   createForm: FormGroup;
-  khoaphong: PhongKham;
   getKhoaPhong: PhongKham;
   constructor(
     private router: Router,
@@ -29,8 +28,24 @@ export class CreateComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.get('id')) {
         this.khoaPhongId = paramMap.get('id');
-        this.khoaPhongService.getKhoaPhongById(this.khoaPhongId).subscribe(data => {
-          console.log(data);
+        this.khoaPhongService.getKhoaPhongById(this.khoaPhongId).subscribe((data: any) => {
+          console.log(data.DMKhoaPhong);
+          this.getKhoaPhong = {
+            _id: data.DMKhoaPhong._id,
+            name: data.DMKhoaPhong.name,
+            type: data.DMKhoaPhong.type,
+            diaChi: data.DMKhoaPhong.diaChi,
+            ma: data.DMKhoaPhong.ma
+          };
+          this.createForm.setValue({
+            name: this.getKhoaPhong.name,
+            type: this.getKhoaPhong.type,
+            diaChi: this.getKhoaPhong.diaChi,
+            ma: this.getKhoaPhong.ma
+          });
+          console.log(this.getKhoaPhong);
+          // data.DMKhoaPhong;
+          // console.log(this.getKhoaPhong);
         }, (error) => {
           console.log(error);
         });
@@ -50,7 +65,7 @@ export class CreateComponent implements OnInit {
 
 
   returnPage() {
-    this.router.navigate(['/danhmuc/khoaphong/list']);
+    this.router.navigate(['danhmuc/khoaphong/list']);
   }
 
   onSubmit() {
@@ -58,19 +73,28 @@ export class CreateComponent implements OnInit {
     if (this.createForm.invalid) {
       return;
     }
-    const khoaPhong = new PhongKham();
-    khoaPhong.type = this.createForm.value.type;
-    khoaPhong.name = this.createForm.value.name;
-    khoaPhong.diachi = this.createForm.value.diaChi;
-    khoaPhong.ma = this.createForm.value.ma;
-    this.router.navigate(['/danhmuc/khoaphong/list']);
-    // this.khoaPhongService.createKhoaPhong(khoaPhong).subscribe(data => {
-    //   console.log(data);
-    //   this.toastrService.success('Tạo mới khoa phòng thành công', 'Thành công');
-    //   this.router.navigate(['../list']);
-    // }, (error) => {
-    //   console.log(error);
-    // });
+    if (this.getKhoaPhong._id) {
+      this.khoaPhongService.updatekhoaPhong(this.getKhoaPhong._id, this.createForm.value).subscribe(data => {
+        this.toastrService.success('Cập nhật thay đổi thành công', 'Thành công');
+        this.router.navigate(['danhmuc/khoaphong/list']);
+      }, (error) => {
+        console.log(error);
+      });
+    } else {
+      const khoaPhong = new PhongKham();
+      khoaPhong.type = this.createForm.value.type;
+      khoaPhong.name = this.createForm.value.name;
+      khoaPhong.diaChi = this.createForm.value.diaChi;
+      khoaPhong.ma = this.createForm.value.ma;
+      // this.router.navigate(['/danhmuc/khoaphong/list']);
+      this.khoaPhongService.createKhoaPhong(khoaPhong).subscribe(data => {
+        console.log(data);
+        this.toastrService.success('Tạo mới khoa phòng thành công', 'Thành công');
+        this.router.navigate(['danhmuc/khoaphong/list']);
+      }, (error) => {
+        console.log(error);
+      });
+    }
 
   }
 
