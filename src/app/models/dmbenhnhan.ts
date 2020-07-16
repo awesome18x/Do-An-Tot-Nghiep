@@ -9,4 +9,5 @@ export class DMBenhNhan {
     dienthoai: string;
     dantoc: string;
     MST: string;
+    quoctich: string;
 }

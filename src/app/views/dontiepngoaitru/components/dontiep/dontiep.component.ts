@@ -1,3 +1,5 @@
+import { DMBenhNhan } from './../../../../models/dmbenhnhan';
+import { DMTheBHYT } from './../../../../models/dmthebhyt';
 import { HSPhieuKham } from './../../../../models/hsphieukham';
 import { Component, OnInit } from '@angular/core';
 import { PhongKham } from '../../../../models/phongkham';
@@ -5,10 +7,11 @@ import { KhoaphongService } from '../../services/khoaphong.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoaikhamService } from '../../services/loaikham.service';
 import { LoaiKham } from '../../../../models/loaikham';
-import { zip } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { zip, asapScheduler } from 'rxjs';
+import { tap, flatMap } from 'rxjs/operators';
 import * as moment from 'moment';
 import { HsphieukhamService } from '../../services/hsphieukham.service';
+import { AppAsideComponent } from '@coreui/angular';
 
 @Component({
   selector: 'app-dontiep',
@@ -81,7 +84,7 @@ export class DontiepComponent implements OnInit {
       diachinha: [''],
       noidungkham: [''],
       idloaikham: [this.loaiKhamSelected],
-      idbenhvientruoc: [''],
+      benhvientruoc: [''],
       sohosobhyt: [''],
       ngaybatdau: [this.handau],
       ngayketthuc: [this.hancuoi],
@@ -100,18 +103,62 @@ export class DontiepComponent implements OnInit {
   onChange() {}
 
   onSubmit() {
-    const body = new HSPhieuKham();
-    body.hoten = this.dangKyKhamBenhForm.value.hoten;
-    body.idbuongkham = this.dangKyKhamBenhForm.value.idbuongkham;
-    body.idloaikham = this.dangKyKhamBenhForm.value.idloaikham;
-    body.ngaydontiep = new Date();
-    console.log(body);
-    // console.log(this.dangKyKhamBenhForm.value);
+    // từ đón tiếp => tạo ra 3 bảng 1 lúc
+    const thebhyt = new DMTheBHYT();
+    const benhnhan = new DMBenhNhan();
+    const phieukham = new HSPhieuKham();
+    // create HSPhieuKham
+    phieukham.hoten = this.dangKyKhamBenhForm.value.hoten;
+    phieukham.idbuongkham = this.dangKyKhamBenhForm.value.idbuongkham;
+    phieukham.idloaikham = this.dangKyKhamBenhForm.value.idloaikham;
+    phieukham.mahoso = this.dangKyKhamBenhForm.value.mahoso;
+    phieukham.ngaydontiep = new Date();
+    phieukham.benhvientruoc = this.dangKyKhamBenhForm.value.benhvientruoc;
+    phieukham.chandoantuyenduoi = this.dangKyKhamBenhForm.value.chandoantuyenduoi;
+    phieukham.trangthai = 1;
+    console.log(phieukham);
+
+    // asdasd.create()
+    // .pipe(
+    //   platMap((data) => {
+    //     return vcvxv.create(data);
+    //   }),
+    //   platMap((data1) => {
+    //     return asapScheduler.cr();
+    //   }).148
+    // ).
+
+
+    // create DMBenhNhan
+    benhnhan.hoten = this.dangKyKhamBenhForm.value.hoten;
+    benhnhan.ngaysinh = this.dangKyKhamBenhForm.value.ngaysinh;
+    benhnhan.gioitinh = +this.dangKyKhamBenhForm.value.gioitinh;
+    benhnhan.CMND = this.dangKyKhamBenhForm.value.cmnd;
+    benhnhan.quoctich = this.dangKyKhamBenhForm.value.cmnd;
+    benhnhan.dantoc = this.dangKyKhamBenhForm.value.dantoc;
+    benhnhan.sdt = this.dangKyKhamBenhForm.value.dienthoai;
+    benhnhan.MST = this.dangKyKhamBenhForm.value.masothue;
+    // console.log(typeof(+this.dangKyKhamBenhForm.value.gioitinh));
     // this.hsPhieuKhamService.createHSPhieuKham
+
+    // create DMTheBHYT
+    thebhyt.mathe = this.dangKyKhamBenhForm.value.mahoso;
+    thebhyt.noidangkythe = this.dangKyKhamBenhForm.value.noidkthebhyt;
+    thebhyt.handau = this.dangKyKhamBenhForm.value.ngaybatdau;
+    thebhyt.hancuoi = this.dangKyKhamBenhForm.value.ngayketthuc;
+    thebhyt.makhuvuc = this.dangKyKhamBenhForm.value.makhuvuc;
+
+
+    this.hsPhieuKhamService.createHSPhieuKham(phieukham)
+      .pipe(
+        flatMap((data: any) => {
+          return data;
+        })
+      )
   }
 
   resetForm() {
-    this.dangKyKhamBenhForm.reset();
+    this.dangKyKhamBenhForm.reset(this.dangKyKhamBenhForm.value);
   }
 
 }
