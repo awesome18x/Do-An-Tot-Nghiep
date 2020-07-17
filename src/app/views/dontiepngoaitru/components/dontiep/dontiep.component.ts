@@ -141,15 +141,28 @@ export class DontiepComponent implements OnInit {
     const createTheBHYT = this.theBHYTService.createTheBHYT(thebhyt);
     const createDMBenhNhan = this.dmBenhNhanService.createDMBenhNhan(benhnhan);
 
-    zip([createTheBHYT, createDMBenhNhan]).pipe(
-      flatMap(([thebhyt1, benhnhan1]: any[]) => {
-        phieukham.idthebhyt = thebhyt1._id;
-        phieukham.idbenhnhan = benhnhan1._id;
+    // forkJoin([createTheBHYT, createDMBenhNhan]).pipe(
+    //   mergeMap(([thebhyt1, benhnhan1]: any[]) => {
+    //     phieukham.idthebhyt = thebhyt1._id;
+    //     phieukham.idbenhnhan = benhnhan1._id;
+    //     return this.hsPhieuKhamService.createHSPhieuKham(phieukham);
+    //   })
+    // ).subscribe(data => {
+    //   console.log(data);
+    // }, error => {
+    //   console.log(error);
+    // });
+    forkJoin([createTheBHYT, createDMBenhNhan]).pipe(
+      mergeMap((data: [DMTheBHYT, DMBenhNhan]) => {
+        phieukham.idthebhyt = data[0]._id;
+        // console.log(data[0].TheBHYT._id);
+        phieukham.idbenhnhan = data[1]._id;
+        // console.log(data[1]);
         return this.hsPhieuKhamService.createHSPhieuKham(phieukham);
       })
     ).subscribe(data => {
       console.log(data);
-    }, error => {
+    }, (error) => {
       console.log(error);
     });
   }
