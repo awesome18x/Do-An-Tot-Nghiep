@@ -37,8 +37,8 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
-        component: ListComponent,
-        path: 'list'
+        path: 'list',
+        component: ListComponent
       },
       {
         path: 'create-or-update',

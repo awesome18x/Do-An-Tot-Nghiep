@@ -7,7 +7,7 @@ import { DMBenhNhan } from '../../../models/dmbenhnhan';
 @Injectable({
   providedIn: 'root'
 })
-export class LoaikhamService {
+export class DMBenhNhanService {
   API_URL = environment.API_URL;
 
   constructor(

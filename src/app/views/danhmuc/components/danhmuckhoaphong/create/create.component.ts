@@ -40,7 +40,7 @@ export class CreateComponent implements OnInit {
           this.createForm.setValue({
             name: this.getKhoaPhong.name,
             type: this.getKhoaPhong.type,
-            diaChi: this.getKhoaPhong.diaChi,
+            diaChi: this.getKhoaPhong.diaChi ?  this.getKhoaPhong.diaChi : '',
             ma: this.getKhoaPhong.ma
           });
           console.log(this.getKhoaPhong);
@@ -76,7 +76,7 @@ export class CreateComponent implements OnInit {
     if (this.getKhoaPhong._id) {
       this.khoaPhongService.updatekhoaPhong(this.getKhoaPhong._id, this.createForm.value).subscribe(data => {
         this.toastrService.success('Cập nhật thay đổi thành công', 'Thành công');
-        this.router.navigate(['danhmuc/khoaphong/list']);
+        this.router.navigate(['danhmuc/khoa-phong/list']);
       }, (error) => {
         console.log(error);
       });
@@ -90,7 +90,7 @@ export class CreateComponent implements OnInit {
       this.khoaPhongService.createKhoaPhong(khoaPhong).subscribe(data => {
         console.log(data);
         this.toastrService.success('Tạo mới khoa phòng thành công', 'Thành công');
-        this.router.navigate(['danhmuc/khoaphong/list']);
+        this.router.navigate(['danhmuc/khoa-phong/list']);
       }, (error) => {
         console.log(error);
       });

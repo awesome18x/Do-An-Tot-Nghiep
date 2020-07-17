@@ -1,3 +1,4 @@
+import { TheBHYTService } from './../../services/thebhyt.service';
 import { DMBenhNhan } from './../../../../models/dmbenhnhan';
 import { DMTheBHYT } from './../../../../models/dmthebhyt';
 import { HSPhieuKham } from './../../../../models/hsphieukham';
@@ -7,11 +8,12 @@ import { KhoaphongService } from '../../services/khoaphong.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoaikhamService } from '../../services/loaikham.service';
 import { LoaiKham } from '../../../../models/loaikham';
-import { zip, asapScheduler } from 'rxjs';
-import { tap, flatMap } from 'rxjs/operators';
+import { zip, asapScheduler, of, forkJoin } from 'rxjs';
+import { tap, flatMap, mergeMap, retry } from 'rxjs/operators';
 import * as moment from 'moment';
 import { HsphieukhamService } from '../../services/hsphieukham.service';
 import { AppAsideComponent } from '@coreui/angular';
+import { DMBenhNhanService } from '../../services/dmbenhnhan.service';
 
 @Component({
   selector: 'app-dontiep',
@@ -31,7 +33,9 @@ export class DontiepComponent implements OnInit {
     private fb: FormBuilder,
     private khoaPhongService: KhoaphongService,
     private loaikhamService: LoaikhamService,
-    private hsPhieuKhamService: HsphieukhamService
+    private hsPhieuKhamService: HsphieukhamService,
+    private theBHYTService: TheBHYTService,
+    private dmBenhNhanService: DMBenhNhanService
   ) { }
 
   ngOnInit() {
@@ -46,29 +50,9 @@ export class DontiepComponent implements OnInit {
     )
     .subscribe(() => {
       this.initForm();
-      // this.loaiKhams = loaiKham.loaikham;
-      // this.loaiKhamSelected = loaiKham.loaikham[0]._id;
-      // this.phongKhams = phongKham.dmKhoaPhong;
-    }, error => console.log(error));
-    // this.loaikhamService.getAllLoaiKham()
-    // .subscribe((data: any) => {
-    //   console.log(data);
-    //   this.loaiKhams = data.loaikham;
-    //   this.loaiKhamSelected = data.loaikham[0]._id;
-    //   console.log(this.loaiKhamSelected);
-    // });
-    // this.khoaPhongService.getAllPhongKham()
-    // .subscribe((data: any) => {
-    //   console.log(data);
-    //   this.phongKhams = data.dmKhoaPhong;
-    // }, (error) => {
-    //   console.log(error);
-    // });
-    // this.initForm();
-    // this.dangKyKhamBenhForm.patchValue({
-    //   idloaikham: this.
-    // })
-    // this.el.nativeElement.hehe.
+    }, (error) => {
+      console.log(error);
+    });
   }
 
   initForm() {
@@ -115,18 +99,7 @@ export class DontiepComponent implements OnInit {
     phieukham.benhvientruoc = this.dangKyKhamBenhForm.value.benhvientruoc;
     phieukham.chandoantuyenduoi = this.dangKyKhamBenhForm.value.chandoantuyenduoi;
     phieukham.trangthai = 1;
-    console.log(phieukham);
-
-    // asdasd.create()
-    // .pipe(
-    //   platMap((data) => {
-    //     return vcvxv.create(data);
-    //   }),
-    //   platMap((data1) => {
-    //     return asapScheduler.cr();
-    //   }).148
-    // ).
-
+    // console.log(phieukham);
 
     // create DMBenhNhan
     benhnhan.hoten = this.dangKyKhamBenhForm.value.hoten;
@@ -137,8 +110,6 @@ export class DontiepComponent implements OnInit {
     benhnhan.dantoc = this.dangKyKhamBenhForm.value.dantoc;
     benhnhan.sdt = this.dangKyKhamBenhForm.value.dienthoai;
     benhnhan.MST = this.dangKyKhamBenhForm.value.masothue;
-    // console.log(typeof(+this.dangKyKhamBenhForm.value.gioitinh));
-    // this.hsPhieuKhamService.createHSPhieuKham
 
     // create DMTheBHYT
     thebhyt.mathe = this.dangKyKhamBenhForm.value.mahoso;
@@ -147,13 +118,20 @@ export class DontiepComponent implements OnInit {
     thebhyt.hancuoi = this.dangKyKhamBenhForm.value.ngayketthuc;
     thebhyt.makhuvuc = this.dangKyKhamBenhForm.value.makhuvuc;
 
+    const createTheBHYT = this.theBHYTService.createTheBHYT(thebhyt);
+    const createDMBenhNhan = this.dmBenhNhanService.createDMBenhNhan(benhnhan);
 
-    this.hsPhieuKhamService.createHSPhieuKham(phieukham)
-      .pipe(
-        flatMap((data: any) => {
-          return data;
-        })
-      )
+    zip([createTheBHYT, createDMBenhNhan]).pipe(
+      mergeMap(([thebhyt1, benhnhan1]: any[]) => {
+        phieukham.idthebhyt = thebhyt1._id;
+        phieukham.idbenhnhan = benhnhan1._id;
+        return this.hsPhieuKhamService.createHSPhieuKham(phieukham);
+      })
+    ).subscribe(data => {
+      console.log(data);
+    }, error => {
+      console.log(error);
+    });
   }
 
   resetForm() {

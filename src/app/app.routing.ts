@@ -81,7 +81,7 @@ export const routes: Routes = [
       title: 'Page 404'
     }
   },
-  { path: '**', component: P404Component },
+  // { path: '**', component: P404Component },
 
 ];
 

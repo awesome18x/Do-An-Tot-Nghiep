@@ -7,7 +7,7 @@ import { DMTheBHYT } from '../../../models/dmthebhyt';
 @Injectable({
   providedIn: 'root'
 })
-export class LoaikhamService {
+export class TheBHYTService {
   API_URL = environment.API_URL;
 
   constructor(
@@ -15,6 +15,6 @@ export class LoaikhamService {
   ) { }
 
   createTheBHYT(body: DMTheBHYT): Observable<DMTheBHYT> {
-    return this.http.post<DMTheBHYT>(this.API_URL + 'api/dmloaikham', body);
+    return this.http.post<DMTheBHYT>(this.API_URL + 'api/dmthebhyt', body);
   }
 }
