@@ -15,6 +15,6 @@ export class TheBHYTService {
   ) { }
 
   createTheBHYT(body: DMTheBHYT): Observable<DMTheBHYT> {
-    return this.http.post<DMTheBHYT>(this.API_URL + 'api/dmthebhyt', body);
+    return this.http.post<DMTheBHYT>(this.API_URL + 'api/thebhyt/create', body);
   }
 }

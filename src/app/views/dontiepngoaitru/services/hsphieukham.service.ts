@@ -15,6 +15,6 @@ export class HsphieukhamService {
   ) { }
 
   createHSPhieuKham(body: HSPhieuKham): Observable<HSPhieuKham> {
-    return this.http.post<HSPhieuKham>(this.API_URL + 'hsphieukham', body);
+    return this.http.post<HSPhieuKham>(this.API_URL + 'api/hsphieukham/create', body);
   }
 }

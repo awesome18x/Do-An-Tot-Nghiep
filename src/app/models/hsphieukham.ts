@@ -15,7 +15,7 @@ export class HSPhieuKham {
     ngayhentaikham: Date;
     hoten: string;
     dantoc: string;
-    mahoso: string;
+    sothebhyt: string;
     idPhieuDVKT: string;
     idDonThuoc: string;
     maphieukham: string;

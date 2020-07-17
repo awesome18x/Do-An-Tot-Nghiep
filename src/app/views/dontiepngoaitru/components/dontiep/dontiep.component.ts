@@ -57,12 +57,12 @@ export class DontiepComponent implements OnInit {
 
   initForm() {
     this.dangKyKhamBenhForm = this.fb.group({
-      mahoso: ['', Validators.required],
+      sothebhyt: ['HS4010123298834985'],
       noidkthebhyt: ['', Validators.required],
-      diachithebhyt: ['', Validators.required],
+      diachitheothe: ['', Validators.required],
       makhuvuc: [null],
       hoten: ['', Validators.required],
-      cmnd: [''],
+      socmnd: [''],
       quoctich: ['Việt Nam'],
       tinhthanh: [''],
       diachinha: [''],
@@ -94,7 +94,7 @@ export class DontiepComponent implements OnInit {
     phieukham.hoten = this.dangKyKhamBenhForm.value.hoten;
     phieukham.idbuongkham = this.dangKyKhamBenhForm.value.idbuongkham;
     phieukham.idloaikham = this.dangKyKhamBenhForm.value.idloaikham;
-    phieukham.mahoso = this.dangKyKhamBenhForm.value.mahoso;
+    phieukham.sothebhyt = this.dangKyKhamBenhForm.value.sothebhyt;
     phieukham.ngaydontiep = new Date();
     phieukham.benhvientruoc = this.dangKyKhamBenhForm.value.benhvientruoc;
     phieukham.chandoantuyenduoi = this.dangKyKhamBenhForm.value.chandoantuyenduoi;
@@ -105,24 +105,44 @@ export class DontiepComponent implements OnInit {
     benhnhan.hoten = this.dangKyKhamBenhForm.value.hoten;
     benhnhan.ngaysinh = this.dangKyKhamBenhForm.value.ngaysinh;
     benhnhan.gioitinh = +this.dangKyKhamBenhForm.value.gioitinh;
-    benhnhan.CMND = this.dangKyKhamBenhForm.value.cmnd;
-    benhnhan.quoctich = this.dangKyKhamBenhForm.value.cmnd;
+    benhnhan.socmnd = this.dangKyKhamBenhForm.value.socmnd;
+    benhnhan.quoctich = this.dangKyKhamBenhForm.value.quoctich;
     benhnhan.dantoc = this.dangKyKhamBenhForm.value.dantoc;
     benhnhan.sdt = this.dangKyKhamBenhForm.value.dienthoai;
-    benhnhan.MST = this.dangKyKhamBenhForm.value.masothue;
+    benhnhan.masothue = this.dangKyKhamBenhForm.value.masothue;
+    benhnhan.diachi = this.dangKyKhamBenhForm.value.diachinha;
+    // console.log(benhnhan);
 
     // create DMTheBHYT
-    thebhyt.mathe = this.dangKyKhamBenhForm.value.mahoso;
+    thebhyt.sothebhyt = this.dangKyKhamBenhForm.value.sothebhyt;
     thebhyt.noidangkythe = this.dangKyKhamBenhForm.value.noidkthebhyt;
+    thebhyt.diachitheothe = this.dangKyKhamBenhForm.value.diachitheothe;
     thebhyt.handau = this.dangKyKhamBenhForm.value.ngaybatdau;
     thebhyt.hancuoi = this.dangKyKhamBenhForm.value.ngayketthuc;
     thebhyt.makhuvuc = this.dangKyKhamBenhForm.value.makhuvuc;
+    // console.log(thebhyt);
+
+    // this.dmBenhNhanService.createDMBenhNhan(benhnhan).subscribe(data => {
+    //   console.log(data);
+    // }, error => {
+    //   console.log(error);
+    // });
+    // this.theBHYTService.createTheBHYT(thebhyt).subscribe(data => {
+    //   console.log(data);
+    // }, (error) => {
+    //   console.log(error);
+    // });
+    // this.hsPhieuKhamService.createHSPhieuKham(phieukham).subscribe(data => {
+    //   console.log(data);
+    // }, (error) => {
+    //   console.log(error);
+    // });
 
     const createTheBHYT = this.theBHYTService.createTheBHYT(thebhyt);
     const createDMBenhNhan = this.dmBenhNhanService.createDMBenhNhan(benhnhan);
 
     zip([createTheBHYT, createDMBenhNhan]).pipe(
-      mergeMap(([thebhyt1, benhnhan1]: any[]) => {
+      flatMap(([thebhyt1, benhnhan1]: any[]) => {
         phieukham.idthebhyt = thebhyt1._id;
         phieukham.idbenhnhan = benhnhan1._id;
         return this.hsPhieuKhamService.createHSPhieuKham(phieukham);

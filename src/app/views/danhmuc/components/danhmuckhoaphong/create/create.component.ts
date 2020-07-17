@@ -41,7 +41,7 @@ export class CreateComponent implements OnInit {
             name: this.getKhoaPhong.name,
             type: this.getKhoaPhong.type,
             diaChi: this.getKhoaPhong.diaChi ?  this.getKhoaPhong.diaChi : '',
-            ma: this.getKhoaPhong.ma
+            ma: this.getKhoaPhong.ma ? this.getKhoaPhong.ma : ''
           });
           console.log(this.getKhoaPhong);
           // data.DMKhoaPhong;
@@ -65,7 +65,7 @@ export class CreateComponent implements OnInit {
 
 
   returnPage() {
-    this.router.navigate(['danhmuc/khoaphong/list']);
+    this.router.navigate(['danhmuc/khoa-phong/list']);
   }
 
   onSubmit() {

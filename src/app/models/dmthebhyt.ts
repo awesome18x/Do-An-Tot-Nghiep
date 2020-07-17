@@ -1,9 +1,9 @@
 export class DMTheBHYT {
     _id: string;
-    idphieukham: string;
-    mathe: string;
+    sothebhyt: string;
     handau: Date;
     hancuoi: Date;
     noidangkythe: string;
+    diachitheothe: string;
     makhuvuc: string;
 }

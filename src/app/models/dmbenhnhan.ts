@@ -5,9 +5,9 @@ export class DMBenhNhan {
     ngaysinh: Date;
     sdt: number;
     diachi: string;
-    CMND: string;
+    socmnd: string;
     dienthoai: string;
     dantoc: string;
-    MST: string;
+    masothue: string;
     quoctich: string;
 }

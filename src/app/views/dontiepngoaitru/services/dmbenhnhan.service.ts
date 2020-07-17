@@ -15,6 +15,6 @@ export class DMBenhNhanService {
   ) { }
 
   createDMBenhNhan(body: DMBenhNhan): Observable<DMBenhNhan> {
-    return this.http.post<DMBenhNhan>(this.API_URL + 'api/dmbenhnhan', body);
+    return this.http.post<DMBenhNhan>(this.API_URL + 'api/dmbenhnhan/create', body);
   }
 }
