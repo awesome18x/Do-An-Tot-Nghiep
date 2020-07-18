@@ -8,10 +8,11 @@ import { DanhsachdakhamComponent } from './components/danhsachdakham/danhsachdak
 import { DanhsachhuykhamComponent } from './components/danhsachhuykham/danhsachhuykham.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { PhieukhamngoaitruComponent } from './components/phieukhamngoaitru/phieukhamngoaitru.component';
 
 
 @NgModule({
-  declarations: [DanhsachchokhamComponent, DanhsachdangkhamComponent, DanhsachdakhamComponent, DanhsachhuykhamComponent],
+  declarations: [DanhsachchokhamComponent, DanhsachdangkhamComponent, DanhsachdakhamComponent, DanhsachhuykhamComponent, PhieukhamngoaitruComponent],
   imports: [
     ReactiveFormsModule,
     FormsModule,

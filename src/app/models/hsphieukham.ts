@@ -14,8 +14,10 @@ export class HSPhieuKham {
     luotkham: number;
     ngayhentaikham: Date;
     hoten: string;
+    tuoi: number;
     dantoc: string;
     sothebhyt: string;
+    isbhyt: boolean;
     idPhieuDVKT: string;
     idDonThuoc: string;
     maphieukham: string;

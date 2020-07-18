@@ -9,7 +9,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoaikhamService } from '../../services/loaikham.service';
 import { LoaiKham } from '../../../../models/loaikham';
 import { zip, asapScheduler, of, forkJoin } from 'rxjs';
-import { tap, flatMap, mergeMap, retry } from 'rxjs/operators';
+import { tap, flatMap, mergeMap, retry, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { HsphieukhamService } from '../../services/hsphieukham.service';
 import { AppAsideComponent } from '@coreui/angular';
@@ -90,16 +90,6 @@ export class DontiepComponent implements OnInit {
     const thebhyt = new DMTheBHYT();
     const benhnhan = new DMBenhNhan();
     const phieukham = new HSPhieuKham();
-    // create HSPhieuKham
-    phieukham.hoten = this.dangKyKhamBenhForm.value.hoten;
-    phieukham.idbuongkham = this.dangKyKhamBenhForm.value.idbuongkham;
-    phieukham.idloaikham = this.dangKyKhamBenhForm.value.idloaikham;
-    phieukham.sothebhyt = this.dangKyKhamBenhForm.value.sothebhyt;
-    phieukham.ngaydontiep = new Date();
-    phieukham.benhvientruoc = this.dangKyKhamBenhForm.value.benhvientruoc;
-    phieukham.chandoantuyenduoi = this.dangKyKhamBenhForm.value.chandoantuyenduoi;
-    phieukham.trangthai = 1;
-    // console.log(phieukham);
 
     // create DMBenhNhan
     benhnhan.hoten = this.dangKyKhamBenhForm.value.hoten;
@@ -122,49 +112,55 @@ export class DontiepComponent implements OnInit {
     thebhyt.makhuvuc = this.dangKyKhamBenhForm.value.makhuvuc;
     // console.log(thebhyt);
 
-    // this.dmBenhNhanService.createDMBenhNhan(benhnhan).subscribe(data => {
-    //   console.log(data);
-    // }, error => {
-    //   console.log(error);
-    // });
-    // this.theBHYTService.createTheBHYT(thebhyt).subscribe(data => {
-    //   console.log(data);
-    // }, (error) => {
-    //   console.log(error);
-    // });
-    // this.hsPhieuKhamService.createHSPhieuKham(phieukham).subscribe(data => {
-    //   console.log(data);
-    // }, (error) => {
-    //   console.log(error);
-    // });
+    // create HSPhieuKham
+    phieukham.hoten = this.dangKyKhamBenhForm.value.hoten;
+    phieukham.idbuongkham = this.dangKyKhamBenhForm.value.idbuongkham;
+    phieukham.idloaikham = this.dangKyKhamBenhForm.value.idloaikham;
+    phieukham.sothebhyt = this.dangKyKhamBenhForm.value.sothebhyt;
+    phieukham.ngaydontiep = new Date();
+    phieukham.benhvientruoc = this.dangKyKhamBenhForm.value.benhvientruoc;
+    phieukham.chandoantuyenduoi = this.dangKyKhamBenhForm.value.chandoantuyenduoi;
+    phieukham.isbhyt = true;
+    phieukham.trangthai = 1;
+    // console.log(phieukham);
+
 
     const createTheBHYT = this.theBHYTService.createTheBHYT(thebhyt);
     const createDMBenhNhan = this.dmBenhNhanService.createDMBenhNhan(benhnhan);
 
-    // forkJoin([createTheBHYT, createDMBenhNhan]).pipe(
-    //   mergeMap(([thebhyt1, benhnhan1]: any[]) => {
-    //     phieukham.idthebhyt = thebhyt1._id;
-    //     phieukham.idbenhnhan = benhnhan1._id;
-    //     return this.hsPhieuKhamService.createHSPhieuKham(phieukham);
-    //   })
-    // ).subscribe(data => {
-    //   console.log(data);
-    // }, error => {
-    //   console.log(error);
-    // });
-    forkJoin([createTheBHYT, createDMBenhNhan]).pipe(
-      mergeMap((data: [DMTheBHYT, DMBenhNhan]) => {
-        phieukham.idthebhyt = data[0]._id;
-        // console.log(data[0].TheBHYT._id);
-        phieukham.idbenhnhan = data[1]._id;
-        // console.log(data[1]);
-        return this.hsPhieuKhamService.createHSPhieuKham(phieukham);
-      })
-    ).subscribe(data => {
-      console.log(data);
-    }, (error) => {
-      console.log(error);
-    });
+    // giả sử ko có BHYT:
+    //   - Chỉ có 2 bảng được insert dữ liệu là HSPhieuKham và DMBenhNhan
+    //   - Cách giải quyết ntn:
+    //     + Lấy được id bệnh nhân trước rồi mới insert dữ liệ vào HSPhieuKham
+    if (!phieukham.isbhyt) {
+      this.dmBenhNhanService.createDMBenhNhan(benhnhan).pipe(
+        map(result => {
+          phieukham.idbenhnhan = result._id;
+          return phieukham;
+        }),
+        // tslint:disable-next-line: no-shadowed-variable
+        mergeMap(phieukham => this.hsPhieuKhamService.createHSPhieuKham(phieukham))
+      ).subscribe(data => {
+        console.log(data);
+      }, (error) => {
+        console.log(error);
+      });
+    } else {
+      // Nếu BN có thẻ BHYT thì insert dữ liệu vào 2 bảng DMBenhNhan và DMTheBHYT
+      // sau đó lấy id gắn vào HSPhieuKham
+
+        forkJoin([createTheBHYT, createDMBenhNhan]).pipe(
+          mergeMap((data: [DMTheBHYT, DMBenhNhan]) => {
+            phieukham.idthebhyt = data[0]._id;
+            phieukham.idbenhnhan = data[1]._id;
+            return this.hsPhieuKhamService.createHSPhieuKham(phieukham);
+          })
+        ).subscribe(data => {
+          console.log(data);
+        }, (error) => {
+          console.log(error);
+        });
+    }
   }
 
   resetForm() {
