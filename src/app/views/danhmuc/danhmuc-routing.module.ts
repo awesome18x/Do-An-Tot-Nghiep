@@ -7,6 +7,8 @@ import { DanhmucicdComponent } from './components/danhmucicd/danhmucicd.componen
 import { DanhmuckhoaphongComponent } from './components/danhmuckhoaphong/danhmuckhoaphong.component';
 import { DanhmucdvktComponent } from './components/danhmucdvkt/danhmucdvkt.component';
 import { ListComponent } from './components/danhmuckhoaphong/list/list.component';
+import { DsdtComponent } from './components/danhmucdantoc/dsdt/dsdt.component';
+import { NewdtComponent } from './components/danhmucdantoc/newdt/newdt.component';
 
 
 const routes: Routes = [
@@ -17,7 +19,26 @@ const routes: Routes = [
   },
   {
     path: 'dan-toc',
-    component: DanhmucdantocComponent
+    component: DanhmucdantocComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'list',
+        pathMatch: 'full'
+      },
+      {
+        path: 'list',
+        component: DsdtComponent
+      },
+      {
+        path: 'create-or-update',
+        component: NewdtComponent
+      },
+      {
+        path: 'create-or-update/:id',
+        component: NewdtComponent
+      }
+    ]
   },
   {
     path: 'benh-vien',

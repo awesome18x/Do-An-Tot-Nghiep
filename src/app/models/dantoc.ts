@@ -1,5 +1,5 @@
 export class DanToc {
-    id: string;
+    _id: string;
     name: string;
     ma: number;
     STT: number;

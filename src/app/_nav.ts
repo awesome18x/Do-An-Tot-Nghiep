@@ -131,12 +131,17 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Danh mục khoa phòng',
-    url: '/danhmuc',
-    icon: 'icon-bell'
+    url: '/danhmuc/khoa-phong',
+    icon: 'icon-list'
   },
   {
     name: 'Danh mục bệnh viện',
     url: '/danhmuc/benh-vien',
+    icon: 'icon-list'
+  },
+  {
+    name: 'Danh mục dân tộc',
+    url: '/danhmuc/dan-toc',
     icon: 'icon-list'
   },
   // {

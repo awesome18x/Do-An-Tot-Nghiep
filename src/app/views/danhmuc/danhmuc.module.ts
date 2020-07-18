@@ -15,6 +15,8 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { CreateComponent } from './components/danhmuckhoaphong/create/create.component';
 import { ListComponent } from './components/danhmuckhoaphong/list/list.component';
+import { DsdtComponent } from './components/danhmucdantoc/dsdt/dsdt.component';
+import { NewdtComponent } from './components/danhmucdantoc/newdt/newdt.component';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { ListComponent } from './components/danhmuckhoaphong/list/list.component
     DanhmucdantocComponent,
     ConfirmDialogComponent,
     CreateComponent,
-    ListComponent
+    ListComponent,
+    DsdtComponent,
+    NewdtComponent
   ],
   imports: [
     CommonModule,

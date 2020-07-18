@@ -15,6 +15,7 @@ export class CreateComponent implements OnInit {
   isLoading: boolean = false;
   createForm: FormGroup;
   getKhoaPhong: PhongKham;
+  mode: string;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -27,9 +28,10 @@ export class CreateComponent implements OnInit {
     this.initForm();
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.get('id')) {
+        this.mode = 'update';
         this.khoaPhongId = paramMap.get('id');
         this.khoaPhongService.getKhoaPhongById(this.khoaPhongId).subscribe((data: any) => {
-          console.log(data.DMKhoaPhong);
+          // console.log(data.DMKhoaPhong);
           this.getKhoaPhong = {
             _id: data.DMKhoaPhong._id,
             name: data.DMKhoaPhong.name,
@@ -43,12 +45,14 @@ export class CreateComponent implements OnInit {
             diaChi: this.getKhoaPhong.diaChi ?  this.getKhoaPhong.diaChi : '',
             ma: this.getKhoaPhong.ma ? this.getKhoaPhong.ma : ''
           });
-          console.log(this.getKhoaPhong);
+          // console.log(this.getKhoaPhong);
           // data.DMKhoaPhong;
           // console.log(this.getKhoaPhong);
         }, (error) => {
           console.log(error);
         });
+      } else {
+        this.mode = 'create';
       }
     });
   }
@@ -73,7 +77,7 @@ export class CreateComponent implements OnInit {
     if (this.createForm.invalid) {
       return;
     }
-    if (this.getKhoaPhong._id) {
+    if (this.mode === 'update') {
       this.khoaPhongService.updatekhoaPhong(this.getKhoaPhong._id, this.createForm.value).subscribe(data => {
         this.toastrService.success('Cập nhật thay đổi thành công', 'Thành công');
         this.router.navigate(['danhmuc/khoa-phong/list']);
@@ -86,7 +90,6 @@ export class CreateComponent implements OnInit {
       khoaPhong.name = this.createForm.value.name;
       khoaPhong.diaChi = this.createForm.value.diaChi;
       khoaPhong.ma = this.createForm.value.ma;
-      // this.router.navigate(['/danhmuc/khoaphong/list']);
       this.khoaPhongService.createKhoaPhong(khoaPhong).subscribe(data => {
         console.log(data);
         this.toastrService.success('Tạo mới khoa phòng thành công', 'Thành công');
