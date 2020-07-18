@@ -71,6 +71,10 @@ export const routes: Routes = [
       {
         path: 'danhmuc',
         loadChildren: () => import('./views/danhmuc/danhmuc.module').then(m => m.DanhmucModule)
+      },
+      {
+        path: 'option',
+        loadChildren: () => import('./views/option/option.module').then(m => m.OptionModule)
       }
     ]
   },

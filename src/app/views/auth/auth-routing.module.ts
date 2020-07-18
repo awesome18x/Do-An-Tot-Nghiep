@@ -1,4 +1,3 @@
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -10,9 +9,6 @@ const routes: Routes = [
   },
   {
     path: 'login', component: LoginComponent
-  },
-  {
-    path: 'reset-password', component: ResetPasswordComponent
   }
 ];
 
