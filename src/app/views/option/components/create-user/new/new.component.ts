@@ -69,7 +69,6 @@ export class NewComponent implements OnInit {
     });
 
     this.initForm();
-
   }
 
   initForm() {
@@ -91,21 +90,36 @@ export class NewComponent implements OnInit {
   onSubmit() {
     this.loading = true;
     this.submitted = true;
-    if (this.createForm.invalid) {
+    if (this.mode === false && this.createForm.invalid) {
       this.loading = false;
       return;
     }
-    // console.log(this.createForm.value);
-    this.userService.createNewUser(this.createForm.value).subscribe(data => {
+    if (this.mode === true) {
       this.loading = false;
       this.submitted = false;
-      this.toastrService.success('Tạo mới tài khoản thành công');
-      this.createForm.reset();
-    }, (error) => {
-      this.loading = false;
-      console.log(error);
-      this.toastrService.warning('Có lỗi xảy ra', 'Thất bại');
-    });
+      this.userService.updateUserById(
+        this.createForm.value.hocvi,
+        this.createForm.value.khoaphong,
+        this.createForm.value.CCHN,
+        this.createForm.value.active
+        ).subscribe((data: any) => {
+          console.log(data);
+        }, (error) => {
+          console.log(error);
+      });
+    } else {
+      this.userService.createNewUser(this.createForm.value).subscribe(data => {
+        this.loading = false;
+        this.submitted = false;
+        this.toastrService.success('Tạo mới tài khoản thành công');
+        this.createForm.reset();
+      }, (error) => {
+        this.loading = false;
+        console.log(error);
+        this.toastrService.warning('Có lỗi xảy ra', 'Thất bại');
+      });
+    }
+
   }
 
   backPage() {

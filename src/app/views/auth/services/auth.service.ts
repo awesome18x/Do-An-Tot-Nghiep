@@ -14,6 +14,7 @@ export class AuthService {
   private isAuthenticated = false;
   private token: string;
   private userID: string;
+  private hoten: string;
   private tokenTimer: any;
   private authStatusListener = new Subject<boolean>();
   private currentUserSubject: BehaviorSubject<User>;
@@ -69,6 +70,7 @@ export class AuthService {
         const token = response.token;
         this.token = token;
         this.userID = response.user._id;
+        this.hoten = response.user.hoten;
         if (token) {
           const expiresInDuration = response.expiresIn;
           this.setAuthTimer(expiresInDuration);
@@ -79,6 +81,7 @@ export class AuthService {
           console.log(expirationDate);
           this.saveAuthData(token, expirationDate);
           localStorage.setItem('userID', this.userID);
+          localStorage.setItem('hoten', this.hoten);
           this.toastrService.success('Đăng nhập thành công', 'Thành công');
           this.router.navigate(['/']);
         }
@@ -128,6 +131,7 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('expiration');
     localStorage.removeItem('userID');
+    localStorage.removeItem('hoten');
   }
 
   private getAuthData() {

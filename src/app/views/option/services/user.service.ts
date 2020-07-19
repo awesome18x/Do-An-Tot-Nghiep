@@ -34,4 +34,15 @@ export class UserService {
     };
     return this.http.post<any>(this.API_URL + `api/user/change-password/${id}`, body);
   }
+
+  updateUserById(hocvi: string, khoaphong: string, CCHN: string, active: boolean): Observable<User> {
+    const id = localStorage.getItem('userID');
+    const body = {
+      hocvi: hocvi,
+      khoaphong: khoaphong,
+      CCHN: CCHN,
+      active: active
+    };
+    return this.http.post<any>(this.API_URL + `api/user/update-user/${id}`, body);
+  }
 }
