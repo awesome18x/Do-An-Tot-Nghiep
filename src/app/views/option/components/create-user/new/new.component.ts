@@ -103,6 +103,8 @@ export class NewComponent implements OnInit {
         this.createForm.value.active
         ).subscribe((data: any) => {
           console.log(data);
+          this.toastrService.success('Cập nhật tài khoản thành công');
+          this.router.navigate(['/option/create-user']);
         }, (error) => {
           console.log(error);
       });

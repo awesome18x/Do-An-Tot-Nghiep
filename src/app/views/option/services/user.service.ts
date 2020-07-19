@@ -43,6 +43,6 @@ export class UserService {
       CCHN: CCHN,
       active: active
     };
-    return this.http.post<any>(this.API_URL + `api/user/update-user/${id}`, body);
+    return this.http.put<any>(this.API_URL + `api/user/update-user/${id}`, body);
   }
 }
