@@ -35,11 +35,12 @@ export class NewComponent implements OnInit {
       if (param.get('id')) {
         this.mode = true;
         this.userService.getUserById(param.get('id')).subscribe((data: any) => {
+          console.log(data);
           this.user = {
             _id: data.user._id,
             username: data.user.username,
             hocvi: data.user.hocvi,
-            khoaphong: null,
+            khoaphong: data.user.khoaphong._id,
             hoten: data.user.hoten,
             CCHN: data.user.CCHN,
             active: data.user.active
@@ -61,9 +62,7 @@ export class NewComponent implements OnInit {
     });
 
     this.khoaPhongService.getAllPhongKham().subscribe((data: any) => {
-      console.log(data);
       this.phongKhams = data.dmKhoaPhong;
-      // this.selectedPK = data.dmKhoaPhong[0];
     }, (error) => {
       console.log(error);
     });
