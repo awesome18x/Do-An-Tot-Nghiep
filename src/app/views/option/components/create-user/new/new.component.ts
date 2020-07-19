@@ -1,8 +1,9 @@
+import { User } from './../../../../../models/user';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { PhongKham } from '../../../../../models/phongkham';
 import { KhoaphongService } from '../../../services/khoaphong.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -13,20 +14,52 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./new.component.css']
 })
 export class NewComponent implements OnInit {
+  mode: boolean;
   loading: boolean;
   submitted: boolean = false;
   createForm: FormGroup;
   phongKhams: PhongKham[] = [];
-  selectedPK: PhongKham;
+  // selectedPK: PhongKham;
+  user: User;
   constructor(
     private khoaPhongService: KhoaphongService,
     private fb: FormBuilder,
     private router: Router,
     private userService: UserService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private activatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
+    this.activatedRoute.paramMap.subscribe((param: ParamMap) => {
+      if (param.get('id')) {
+        this.mode = true;
+        this.userService.getUserById(param.get('id')).subscribe((data: any) => {
+          this.user = {
+            _id: data.user._id,
+            username: data.user.username,
+            hocvi: data.user.hocvi,
+            khoaphong: null,
+            hoten: data.user.hoten,
+            CCHN: data.user.CCHN,
+            active: data.user.active
+          };
+          this.createForm.setValue({
+            khoaphong: this.user.khoaphong ? this.user.khoaphong : null,
+            hocvi: this.user.hocvi ? this.user.hocvi : '',
+            hoten: this.user.hoten ? this.user.hoten : '',
+            CCHN: this.user.CCHN ? this.user.CCHN : '',
+            active: this.user.active ? this.user.active : false,
+            username: this.user.username ? this.user.username : '',
+            password: ''
+          });
+          console.log(this.user);
+        }, (error) => {
+          console.log(error);
+        });
+      }
+    });
+
     this.khoaPhongService.getAllPhongKham().subscribe((data: any) => {
       console.log(data);
       this.phongKhams = data.dmKhoaPhong;
@@ -73,6 +106,10 @@ export class NewComponent implements OnInit {
       console.log(error);
       this.toastrService.warning('Có lỗi xảy ra', 'Thất bại');
     });
+  }
+
+  backPage() {
+    this.router.navigate(['/option/create-user']);
   }
 
 }

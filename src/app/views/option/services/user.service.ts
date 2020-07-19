@@ -19,6 +19,19 @@ export class UserService {
   }
 
   getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.API_URL + 'api/user/get-all');
+    return this.http.get<User[]>(this.API_URL + 'api/user/all');
+  }
+
+  getUserById(id: string) {
+    return this.http.get<User>(this.API_URL + `api/user/${id}`);
+  }
+
+  resetPassword(oldPassword: string, newPassword: string) {
+    const id = localStorage.getItem('userID');
+    const body = {
+      oldPassword: oldPassword,
+      newPassword: newPassword
+    };
+    return this.http.post<any>(this.API_URL + `api/user/change-password/${id}`, body);
   }
 }

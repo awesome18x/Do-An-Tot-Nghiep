@@ -36,7 +36,7 @@
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label" for="username">Username <span class="red">(*)</span></label>
                     <div class="col-md-9">
-                        <input type="text" id="username" formControlName="username" name="text-input" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+                        <input type="text" [disabled]="mode" id="username" formControlName="username" name="text-input" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
                         <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
                             <div *ngIf="f.username.errors.required">Vui lòng nhập username để đăng nhập tài khoản</div>
                         </div>
@@ -45,7 +45,7 @@
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label" for="address-input">Password <span class="red">(*)</span></label>
                     <div class="col-md-9">
-                        <input type="text" id="address-input" formControlName="password" name="email-input" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                        <input type="text" [disabled]="mode" id="address-input" formControlName="password" name="email-input" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
                         <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                             <div *ngIf="f.password.errors.required">Vui lòng nhập họ tên</div>
                             <div *ngIf="f.password.errors.minlength">Mật khẩu nên có ít nhất 6 ký tự</div>
@@ -77,7 +77,7 @@
                         </button>
                     </div>
                     <div class="col-3">
-                        <button type="button" routerLink="../" class="btn btn-block btn-secondary">Thoát</button>
+                        <button type="button" (click)="backPage()" class="btn btn-block btn-secondary">Thoát</button>
                     </div>
                 </div>
             </form>

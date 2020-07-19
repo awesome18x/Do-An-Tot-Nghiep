@@ -13,6 +13,7 @@ import { User } from '../../../models/user';
 export class AuthService {
   private isAuthenticated = false;
   private token: string;
+  private userID: string;
   private tokenTimer: any;
   private authStatusListener = new Subject<boolean>();
   private currentUserSubject: BehaviorSubject<User>;
@@ -56,7 +57,7 @@ export class AuthService {
       password
     };
     this.http
-      .post<{ token: string; expiresIn: number }>(
+      .post<{ token: string; expiresIn: number; user: any}>(
         'http://localhost:3000/api/user/login',
         authData
       )
@@ -67,6 +68,7 @@ export class AuthService {
         console.log(response);
         const token = response.token;
         this.token = token;
+        this.userID = response.user._id;
         if (token) {
           const expiresInDuration = response.expiresIn;
           this.setAuthTimer(expiresInDuration);
@@ -76,6 +78,7 @@ export class AuthService {
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
           console.log(expirationDate);
           this.saveAuthData(token, expirationDate);
+          localStorage.setItem('userID', this.userID);
           this.toastrService.success('Đăng nhập thành công', 'Thành công');
           this.router.navigate(['/']);
         }
@@ -124,6 +127,7 @@ export class AuthService {
   private clearAuthData() {
     localStorage.removeItem('token');
     localStorage.removeItem('expiration');
+    localStorage.removeItem('userID');
   }
 
   private getAuthData() {
