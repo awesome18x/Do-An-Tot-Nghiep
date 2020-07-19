@@ -1,0 +1,86 @@
+<div class="animated fadeIn">
+    <div class="card">
+        <div class="card-header">
+            <strong>Thêm mới tài khoản</strong>
+
+        </div>
+        <div class="card-body">
+            <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="select1">Chọn khoa quản lý<span class="red">(*)</span></label>
+                    <div class="col-md-9">
+                        <select class="form-control" name="select" formControlName="khoaphong" [ngClass]="{ 'is-invalid': submitted && f.khoaphong.errors }">
+                            <option [ngValue]="null" disabled>--Chọn Khoa--</option>
+                            <option [value]="item._id" *ngFor="let item of phongKhams;">{{item.name}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.khoaphong.errors" class="invalid-feedback">
+                            <div *ngIf="f.khoaphong.errors.required">Vui lòng chọn 1 khoa</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="hocvi">Học vị</label>
+                    <div class="col-md-9">
+                        <input type="text" id="hocvi" formControlName="hocvi" name="text-input" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Họ Tên <span class="red">(*)</span></label>
+                    <div class="col-md-9">
+                        <input type="text" id="text-input" formControlName="hoten" name="text-input" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.hoten.errors }">
+                        <div *ngIf="submitted && f.hoten.errors" class="invalid-feedback">
+                            <div *ngIf="f.hoten.errors.required">Vui lòng nhập họ tên</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="username">Username <span class="red">(*)</span></label>
+                    <div class="col-md-9">
+                        <input type="text" id="username" formControlName="username" name="text-input" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+                        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                            <div *ngIf="f.username.errors.required">Vui lòng nhập username để đăng nhập tài khoản</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="address-input">Password <span class="red">(*)</span></label>
+                    <div class="col-md-9">
+                        <input type="text" id="address-input" formControlName="password" name="email-input" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                            <div *ngIf="f.password.errors.required">Vui lòng nhập họ tên</div>
+                            <div *ngIf="f.password.errors.minlength">Mật khẩu nên có ít nhất 6 ký tự</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="password-input">Giấy CCHN<span class="red">(*)</span></label>
+                    <div class="col-md-9">
+                        <input type="text" id="password-input" formControlName="CCHN" name="password-input" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.CCHN.errors }">
+                        <div *ngIf="submitted && f.CCHN.errors" class="invalid-feedback">
+                            <div *ngIf="f.CCHN.errors.required">Vui lòng cung cấp mã số chứng chỉ hành nghề</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-9 offset-md-3 col-form-label">
+                        <div class="form-check form-check-inline mr-1">
+                            <input class="form-check-input" type="checkbox" formControlName="active" id="active" value="true">
+                            <label class="form-check-label" for="active">Hoạt động</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row mt-7">
+                    <div class="col-3 offset-3">
+                        <button type="submit" class="btn btn-block btn-primary">Lưu lại
+                            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        </button>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" routerLink="../" class="btn btn-block btn-secondary">Thoát</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

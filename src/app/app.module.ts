@@ -63,7 +63,7 @@ import { OptionModule } from './views/option/option.module';
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     ToastrModule.forRoot({
-      timeOut: 1000
+      timeOut: 2500
     }),
     ChartsModule,
     AuthModule,

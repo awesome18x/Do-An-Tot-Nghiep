@@ -2,9 +2,10 @@ import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../../environments/environment';
 import { AuthData } from '../../../models/authdata';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { User } from '../../../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class AuthService {
   private token: string;
   private tokenTimer: any;
   private authStatusListener = new Subject<boolean>();
+  private currentUserSubject: BehaviorSubject<User>;
 
   constructor(
     private http: HttpClient,
@@ -62,6 +64,7 @@ export class AuthService {
         if (!response) {
           alert('Sai mật khẩu hoặc password, vui lòng kiểm tra lại');
         }
+        console.log(response);
         const token = response.token;
         this.token = token;
         if (token) {
