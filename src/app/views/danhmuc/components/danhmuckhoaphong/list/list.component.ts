@@ -16,7 +16,7 @@ export class ListComponent implements OnInit {
   pageSize: number = 10;
   pageIndex: number = 1;
   selectedPK: string;
-  total: number;
+  totalItems: number;
   khoaPhongs: PhongKham[] = [];
   constructor(
     private khoaPhongService: KhoaphongService,
@@ -31,10 +31,8 @@ export class ListComponent implements OnInit {
 
   getKhoaPhong(type: number, pageSize: number, pageIndex: number) {
     this.khoaPhongService.getAllKhoaPhong(this.type, this.pageSize, this.pageIndex).subscribe((data: any) => {
-      // console.log(data);
+      this.totalItems = data.count;
       this.khoaPhongs = data.dmKhoaPhong;
-      console.log(this.khoaPhongs);
-      this.total = data.count;
       /*
         thử xem có đc ko? pagination
       */
@@ -64,7 +62,10 @@ export class ListComponent implements OnInit {
   }
 
 
-  loadPage() {}
+  loadPage(page: number) {
+    this.pageIndex = page;
+    this.getKhoaPhong(this.type, this.pageSize, this.pageIndex);
+  }
 
   create() {
     this.router.navigateByUrl('danhmuc/khoaphong/create-or-update');

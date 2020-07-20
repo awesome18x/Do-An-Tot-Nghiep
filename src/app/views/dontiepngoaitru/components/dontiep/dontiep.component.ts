@@ -39,6 +39,7 @@ export class DontiepComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.initForm();
     zip(this.loaikhamService.getAllLoaiKham(), this.khoaPhongService.getAllPhongKham())
     .pipe(
       tap(([loaiKham, phongKham]: any[]) => {

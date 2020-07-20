@@ -48,6 +48,7 @@ import { DontiepngoaitruModule } from './views/dontiepngoaitru/dontiepngoaitru.m
 import { DanhsachModule } from './views/danhsach/danhsach.module';
 import { DanhmucModule } from './views/danhmuc/danhmuc.module';
 import { OptionModule } from './views/option/option.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   imports: [
@@ -70,7 +71,8 @@ import { OptionModule } from './views/option/option.module';
     DontiepngoaitruModule,
     DanhsachModule,
     DanhmucModule,
-    OptionModule
+    OptionModule,
+    SharedModule
   ],
   declarations: [
     AppComponent,

@@ -12,7 +12,7 @@ import { DanhmucdvktComponent } from './components/danhmucdvkt/danhmucdvkt.compo
 import { DanhmucdantocComponent } from './components/danhmucdantoc/danhmucdantoc.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { CreateComponent } from './components/danhmuckhoaphong/create/create.component';
 import { ListComponent } from './components/danhmuckhoaphong/list/list.component';
 import { DsdtComponent } from './components/danhmucdantoc/dsdt/dsdt.component';
