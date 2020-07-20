@@ -9,7 +9,7 @@
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label" for="select1">Chọn khoa quản lý<span class="red">(*)</span></label>
                     <div class="col-md-9">
-                        <select class="form-control" name="select" formControlName="khoaphong" [ngClass]="{ 'is-invalid': submitted && f.khoaphong.errors }">
+                        <select [attr.disabled]="mode" class="form-control" name="select" formControlName="khoaphong" [ngClass]="{ 'is-invalid': submitted && f.khoaphong.errors }">
                             <option [ngValue]="null" disabled>--Chọn Khoa--</option>
                             <option [value]="item._id" *ngFor="let item of phongKhams;">{{item.name}}</option>
                         </select>

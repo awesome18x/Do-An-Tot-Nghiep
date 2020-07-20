@@ -98,7 +98,6 @@ export class NewComponent implements OnInit {
       this.submitted = false;
       this.userService.updateUserById(
         this.createForm.value.hocvi,
-        this.createForm.value.khoaphong,
         this.createForm.value.CCHN,
         this.createForm.value.active
         ).subscribe((data: any) => {
@@ -109,6 +108,7 @@ export class NewComponent implements OnInit {
           console.log(error);
       });
     } else {
+      console.log(this.createForm.value);
       this.userService.createNewUser(this.createForm.value).subscribe(data => {
         this.loading = false;
         this.submitted = false;
