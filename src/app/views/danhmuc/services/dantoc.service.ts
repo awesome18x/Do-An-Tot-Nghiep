@@ -14,8 +14,9 @@ export class DantocService {
     private http: HttpClient
   ) { }
 
-  getAllDanToc(): Observable<DanToc[]> {
-    return this.http.get<DanToc[]>(this.API_URL + 'api/dantoc');
+  getAllDanToc(pageSize: number, pageIndex: number): Observable<DanToc[]> {
+    const queryString = `?pageSize=${pageSize}&pageIndex=${pageIndex}`;
+    return this.http.get<DanToc[]>(this.API_URL + 'api/dantoc' + queryString);
   }
 
   getDanTocById(id: string): Observable<DanToc> {

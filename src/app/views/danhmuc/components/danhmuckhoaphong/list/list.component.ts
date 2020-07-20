@@ -40,8 +40,9 @@ export class ListComponent implements OnInit {
   }
 
   onChange(type: number) {
-    this.type = type;
-    this.getKhoaPhong(this.type, this.pageSize, this.pageIndex);
+    // this.type = type;
+    // console.log(type);
+    this.getKhoaPhong(type, this.pageSize, this.pageIndex);
   }
 
   public openConfirmationDialog(id: string) {

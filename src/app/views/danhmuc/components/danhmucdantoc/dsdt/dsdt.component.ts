@@ -24,17 +24,13 @@ export class DsdtComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.dantocService.getAllDanToc().subscribe((data: any) => {
-      this.Dantocs = data.dantoc;
-      this.total = data.count;
-      console.log(this.Dantocs);
-    });
+    this.getAllDanToc(this.pageSize, this.pageIndex);
   }
 
-  getAllDanToc() {
-    this.dantocService.getAllDanToc().subscribe((data: any) => {
+  getAllDanToc(pageSize: number, pageIndex: number) {
+    this.dantocService.getAllDanToc(pageSize, pageIndex).subscribe((data: any) => {
       this.Dantocs = data.dantoc;
-      console.log(this.Dantocs);
+      this.total = data.count;
     });
   }
 
@@ -46,7 +42,7 @@ export class DsdtComponent implements OnInit {
       if (confirmed) {
         this.dantocService.deleteDanTocById(id).subscribe(data => {
           this.toatsService.success('Đã xoá thành công', 'Thành công');
-          this.getAllDanToc();
+          this.getAllDanToc(this.pageSize, this.pageIndex);
         }, (error) => {
           this.toatsService.warning('Có lỗi xảy ra', 'Thất bại');
         });
@@ -54,6 +50,12 @@ export class DsdtComponent implements OnInit {
       // console.log('User confirmed:', confirmed);
     })
     .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
+  }
+
+
+  loadPage(page: number) {
+    this.pageIndex = page;
+    this.getAllDanToc(this.pageSize, this.pageIndex);
   }
 
 }
