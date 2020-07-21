@@ -67,7 +67,7 @@ export class NewdtComponent implements OnInit {
         this.toastService.success('Cập nhật dân tộc thành công', 'Thành công');
         this.router.navigate(['danhmuc/dan-toc']);
       }, (error) => {
-        this.toastService.success(error, 'Có lỗi xảy ra');
+        this.toastService.warning(error, 'Có lỗi xảy ra');
         console.log(error);
       });
     } else {
