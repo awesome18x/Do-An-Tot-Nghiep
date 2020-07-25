@@ -144,6 +144,11 @@ export const navItems: INavData[] = [
     url: '/danhmuc/dan-toc',
     icon: 'icon-list'
   },
+  {
+    name: 'Danh mục DVKT',
+    url: '/danhmuc/dvkt',
+    icon: 'icon-list'
+  },
   // {
   //   name: 'Buttons',
   //   url: '/buttons',
