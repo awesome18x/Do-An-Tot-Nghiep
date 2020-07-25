@@ -50,7 +50,7 @@ export class ResetPasswordComponent implements OnInit {
     }, (error) => {
       this.loading = false;
       this.submitted = false;
-      this.toastrService.warning('Có lỗi xảy ra', 'Thất bại');
+      this.toastrService.warning('Mật khẩu cũ không đúng', 'Thất bại');
       console.log(error);
     });
   }
