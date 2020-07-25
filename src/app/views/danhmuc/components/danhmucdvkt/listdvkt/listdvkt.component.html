@@ -3,7 +3,7 @@
         <div class="card-header">
             <strong>Danh Mục Dịch Vụ Kỹ Thuật</strong>
             <div class="card-header-actions">
-                Tổng: {{ total }}
+                Tổng:
             </div>
         </div>
         <div class="card-body">
@@ -38,16 +38,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of Dantocs; let i = index">
-                        <th>{{ i + 1 }}</th>
-                        <td>{{ item?.ma }}</td>
-                        <td>{{ item.name }}</td>
-                        <td>{{ item.STT }}</td>
-                        <td>
-                            <button type="button" class="btn btn-warning" [routerLink]="['../create-or-update', item._id]" routerLinkActive="router-link-active">Sửa</button>
-                            <button type="button" class="btn btn-danger" (click)="openConfirmationDialog(item._id)">Xoá</button>
-                        </td>
-                    </tr>
+
                 </tbody>
                 <!-- <tfoot> -->
 
@@ -55,8 +46,8 @@
             </table>
             <div class="col-md-12 text-right">
                 <!-- <div class="col-md-10 text-right" *ngIf="totalItems > itemsPerPage"> -->
-                <ngb-pagination [collectionSize]="total" [pageSize]="pageSize" [(page)]="pageIndex" [maxSize]="5" [rotate]="true" (pageChange)="loadPage($event)" style="float: right;">
-                </ngb-pagination>
+                <!-- <ngb-pagination [collectionSize]="total" [pageSize]="pageSize" [(page)]="pageIndex" [maxSize]="5" [rotate]="true" (pageChange)="loadPage($event)" style="float: right;">
+                </ngb-pagination> -->
                 <!-- </div> -->
             </div>
         </div>

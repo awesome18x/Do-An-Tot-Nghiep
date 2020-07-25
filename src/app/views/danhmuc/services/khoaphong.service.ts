@@ -13,8 +13,8 @@ export class KhoaphongService {
     private http: HttpClient
   ) { }
 
-  getAllPhongKham(): Observable<PhongKham[]> {
-    return this.http.get<PhongKham[]>(this.API_URL + 'api/dmkhoaphong?type=2');
+  getAllPhongKham(type: number): Observable<PhongKham[]> {
+    return this.http.get<PhongKham[]>(this.API_URL + `api/dmkhoaphong?type=${type}`);
   }
 
   getAllKhoaPhong(type: number, pageSize: number, pageIndex: number): Observable<PhongKham[]> {

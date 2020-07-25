@@ -19,6 +19,7 @@ import { DsdtComponent } from './components/danhmucdantoc/dsdt/dsdt.component';
 import { NewdtComponent } from './components/danhmucdantoc/newdt/newdt.component';
 import { NewdvktComponent } from './components/danhmucdvkt/newdvkt/newdvkt.component';
 import { ListdvktComponent } from './components/danhmucdvkt/listdvkt/listdvkt.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -34,7 +35,7 @@ import { ListdvktComponent } from './components/danhmucdvkt/listdvkt/listdvkt.co
     DsdtComponent,
     NewdtComponent,
     NewdvktComponent,
-    ListdvktComponent
+    ListdvktComponent,
   ],
   imports: [
     CommonModule,
@@ -43,7 +44,9 @@ import { ListdvktComponent } from './components/danhmucdvkt/listdvkt/listdvkt.co
     FormsModule,
     ReactiveFormsModule,
     NgbModalModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+    NgSelectModule
+
   ],
   exports: [
     ConfirmDialogComponent
