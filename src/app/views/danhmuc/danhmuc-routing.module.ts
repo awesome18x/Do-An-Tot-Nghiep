@@ -1,3 +1,5 @@
+import { NewdvktComponent } from './components/danhmucdvkt/newdvkt/newdvkt.component';
+import { ListdvktComponent } from './components/danhmucdvkt/listdvkt/listdvkt.component';
 import { CreateComponent } from './components/danhmuckhoaphong/create/create.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -73,7 +75,26 @@ const routes: Routes = [
   },
   {
     path: 'dvkt',
-    component: DanhmucdvktComponent
+    component: DanhmucdvktComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'list',
+        pathMatch: 'full'
+      },
+      {
+        path: 'list',
+        component: ListdvktComponent
+      },
+      {
+        path: 'create-or-update',
+        component: NewdvktComponent
+      },
+      {
+        path: 'create-or-update/:id',
+        component: NewdvktComponent
+      }
+    ]
   }
 ];
 

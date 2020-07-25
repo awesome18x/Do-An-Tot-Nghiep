@@ -17,6 +17,8 @@ import { CreateComponent } from './components/danhmuckhoaphong/create/create.com
 import { ListComponent } from './components/danhmuckhoaphong/list/list.component';
 import { DsdtComponent } from './components/danhmucdantoc/dsdt/dsdt.component';
 import { NewdtComponent } from './components/danhmucdantoc/newdt/newdt.component';
+import { NewdvktComponent } from './components/danhmucdvkt/newdvkt/newdvkt.component';
+import { ListdvktComponent } from './components/danhmucdvkt/listdvkt/listdvkt.component';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { NewdtComponent } from './components/danhmucdantoc/newdt/newdt.component
     CreateComponent,
     ListComponent,
     DsdtComponent,
-    NewdtComponent
+    NewdtComponent,
+    NewdvktComponent,
+    ListdvktComponent
   ],
   imports: [
     CommonModule,

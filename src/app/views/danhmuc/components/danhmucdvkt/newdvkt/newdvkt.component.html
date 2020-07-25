@@ -1,0 +1,87 @@
+<div class="animated fadeIn">
+    <div class="card">
+        <div class="card-header">
+            <strong>Thêm mới danh mục DVKT</strong>
+
+        </div>
+        <div class="card-body">
+            <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="phanloai">Phân loại <span class="red">(*)</span></label>
+                    <div class="col-md-9">
+                        <select class="form-control" id="phanloai" formControlName="type">
+                            <option value="1">1. Công khám</option>
+                            <option value="2">2. Siêu âm</option>
+                            <option value="3">3. X-Quang</option>
+                            <option value="4">4. Huyết học</option>
+                            <option value="5">5. Vi sinh</option>
+                            <option value="6">6. Sinh hoá</option>
+                            <option value="7">7. Nước tiểu</option>
+                            <option value="8">8. Giường nội trú</option>
+                            <option value="9">9. Công vận chuyển</option>
+                            <option value="10">10. Phẫu thuật</option>
+                            <option value="11">11. Gây tê gây mê</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="mabhyt">Mã DV<span class="red">(*)</span></label>
+                    <div class="col-md-9">
+                        <input type="text" id="mabhyt" class="form-control" formControlName="madv">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="name">Tên <span class="red">(*)</span></label>
+                    <div class="col-md-9">
+                        <input type="text" id="name" class="form-control" formControlName="name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="donvi">Đơn vị <span class="red">(*)</span></label>
+                    <div class="col-md-9">
+                        <input type="text" id="donvi" class="form-control" formControlName="donvi">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="giabh">Giá BH</label>
+                    <div class="col-md-9">
+                        <input type="text" id="giabh" class="form-control" formControlName="giabh">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="giadv">Giá DV</label>
+                    <div class="col-md-9">
+                        <input type="text" id="giadv" class="form-control" formControlName="giadv">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="buongthuchien">Buồng thực hiện</label>
+                    <div class="col-md-9">
+                        <input type="text" id="buongthuchien" class="form-control" formControlName="buongthuchien">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="khoathuchien">Khoa thực hiện</label>
+                    <div class="col-md-9">
+                        <input type="text" id="khoathuchien" class="form-control" formControlName="khoathuchien">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="active">Kích hoạt</label>
+                    <div class="col-md-1">
+                        <input type="checkbox" id="active" class="form-control text-left" formControlName="active">
+                    </div>
+                </div>
+
+                <div class="form-group row mt-7">
+                    <div class="col-3 offset-3">
+                        <button type="submit" class="btn btn-block btn-primary">Lưu lại</button>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" class="btn btn-block btn-secondary">Thoát</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
