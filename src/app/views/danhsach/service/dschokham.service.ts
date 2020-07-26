@@ -17,4 +17,7 @@ export class DSChoKhamService {
   getBNChoKham(status: number, idbuongkham: string): Observable<HSPhieuKham[]> {
     return this.http.get<HSPhieuKham[]>(this.API_URL + `api/hsphieukham?status=${status}&idbuongkham=${idbuongkham}`);
   }
+  getPhieuKhamById(id: string): Observable<HSPhieuKham> {
+    return this.http.get<HSPhieuKham>(this.API_URL + `api/hsphieukham/${id}`);
+  }
 }

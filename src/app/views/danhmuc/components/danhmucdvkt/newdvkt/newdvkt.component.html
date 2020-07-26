@@ -27,13 +27,13 @@
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label" for="mabhyt">Mã DV<span class="red">(*)</span></label>
                     <div class="col-md-9">
-                        <input type="text" id="mabhyt" class="form-control" formControlName="madv">
+                        <input type="text" id="mabhyt" class="form-control" formControlName="madv" [ngClass]="{ 'is-invalid': submited && f.madv.errors }">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label" for="name">Tên <span class="red">(*)</span></label>
                     <div class="col-md-9">
-                        <input type="text" id="name" class="form-control" formControlName="name">
+                        <input type="text" id="name" class="form-control" formControlName="name" [ngClass]="{ 'is-invalid': submited && f.name.errors }">
                     </div>
                 </div>
                 <!-- <div class="form-group row">
@@ -51,7 +51,7 @@
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label" for="giadv">Giá DV</label>
                     <div class="col-md-9">
-                        <input type="text" id="giadv" class="form-control" formControlName="giadv">
+                        <input type="text" id="giadv" class="form-control" formControlName="giadv" [ngClass]="{ 'is-invalid': submited && f.giadv.errors }">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -82,7 +82,7 @@
                         <button type="submit" class="btn btn-block btn-primary">Lưu lại</button>
                     </div>
                     <div class="col-3">
-                        <button type="button" class="btn btn-block btn-secondary">Thoát</button>
+                        <button (click)="returnPage()" type="button" class="btn btn-block btn-secondary">Thoát</button>
                     </div>
                 </div>
             </form>

@@ -20,7 +20,6 @@
                                         <span class="input-group-text">
                                             <i class="fa fa-user"></i>
                                         </span>
-
                                     </div>
                                     <input class="form-control" type="text" placeholder="Tìm kiếm theo tên BN">
                                 </div>
@@ -135,7 +134,7 @@
                                 <td>1</td>
                                 <td>{{ item.NgayDonTiep | date:'dd/MM hh:mm'}}</td>
                                 <td>
-                                    <button type="button" class="btn btn-block btn-success" routerLink="../phieu-kham-ngoai-tru/1">Khám</button>
+                                    <button type="button" class="btn btn-block btn-success" (click)="getPhieuKham(item._id)">Khám</button>
                                     <button type="button" class="btn btn-block btn-warning"> <i class="fa fa-volume-up"></i>Gọi</button>
                                 </td>
                             </tr>

@@ -1,0 +1,8 @@
+input[type="checkbox"]:disabled+label::before {
+    background: blue;
+}
+
+input[type="checkbox"]:disabled+label:hover::before {
+    background: blue;
+    border: 1px solid #d4d4d5;
+}

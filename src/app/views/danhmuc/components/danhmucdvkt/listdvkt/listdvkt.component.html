@@ -3,23 +3,45 @@
         <div class="card-header">
             <strong>Danh Mục Dịch Vụ Kỹ Thuật</strong>
             <div class="card-header-actions">
-                Tổng:
+                Tổng: {{ total }}
             </div>
         </div>
         <div class="card-body">
             <div class="row mb-3">
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <button type="button" class="btn btn-primary" routerLink="../create-or-update"> <i class="fa fa-plus icon"></i>Thêm mới</button>
                 </div>
-
-                <div class="col-md-4 offset-6">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa fa-filter"></i>
+                            </span>
+                        </div>
+                        <select class="form-control" id="phanloai" (change)="changePage($event.target.value)">
+                            <option value="0" >--Chọn loại dvkt--</option>
+                            <option value="1">1. Công khám</option>
+                            <option value="2">2. Siêu âm</option>
+                            <option value="3">3. X-Quang</option>
+                            <option value="4">4. Huyết học</option>
+                            <option value="5">5. Vi sinh</option>
+                            <option value="6">6. Sinh hoá</option>
+                            <option value="7">7. Nước tiểu</option>
+                            <option value="8">8. Giường nội trú</option>
+                            <option value="9">9. Công vận chuyển</option>
+                            <option value="10">10. Phẫu thuật</option>
+                            <option value="11">11. Gây tê gây mê</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4 ">
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
                                 <i class="fa fa-search"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Search by name">
+                        <input type="text" class="form-control" placeholder="Tìm theo tên hoặc mã">
                     </div>
                 </div>
             </div>
@@ -32,13 +54,40 @@
                         <th>Loại DVKT</th>
                         <th>Giá DV</th>
                         <th>Giá BH</th>
-                        <th>BHYT</th>
                         <th>Hoạt động</th>
                         <th>#</th>
                     </tr>
                 </thead>
                 <tbody>
-
+                    <tr *ngFor="let item of dvkts; let i = index">
+                        <th>{{ i + 1 }}</th>
+                        <td>{{ item?.MaDV }}</td>
+                        <td>{{ item?.Name }}</td>
+                        <td>
+                            <div [ngSwitch]="item.Type">
+                                <div *ngSwitchCase="1">Công khám</div>
+                                <div *ngSwitchCase="2">Siêu âm</div>
+                                <div *ngSwitchCase="3">X-Quang</div>
+                                <div *ngSwitchCase="4">Huyết học</div>
+                                <div *ngSwitchCase="5">Vi sinh</div>
+                                <div *ngSwitchCase="6">Sinh hoá</div>
+                                <div *ngSwitchCase="7">Nước tiểu</div>
+                                <div *ngSwitchCase="8">Giường nội trú</div>
+                                <div *ngSwitchCase="9">Công vận chuyển</div>
+                                <div *ngSwitchCase="10">Phẫu thuật</div>
+                                <div *ngSwitchCase="11">Gây tê gây mê</div>
+                            </div>
+                        </td>
+                        <td>{{ item.GiaBH | currency:'VND'}}</td>
+                        <td>{{ item.GiaDV | currency:'VND'}}</td>
+                        <td>
+                            <input type="checkbox" class="i-checks" i-checks id="IsBHYT" disabled [checked]="item.active">
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-warning" [routerLink]="['../create-or-update', item._id]" routerLinkActive="router-link-active">Sửa</button>
+                            <button type="button" class="btn btn-danger" (click)="openConfirmationDialog(item._id)">Xoá</button>
+                        </td>
+                    </tr>
                 </tbody>
                 <!-- <tfoot> -->
 
@@ -46,8 +95,8 @@
             </table>
             <div class="col-md-12 text-right">
                 <!-- <div class="col-md-10 text-right" *ngIf="totalItems > itemsPerPage"> -->
-                <!-- <ngb-pagination [collectionSize]="total" [pageSize]="pageSize" [(page)]="pageIndex" [maxSize]="5" [rotate]="true" (pageChange)="loadPage($event)" style="float: right;">
-                </ngb-pagination> -->
+                <ngb-pagination [collectionSize]="total" [pageSize]="pageSize" [(page)]="pageIndex" [maxSize]="5" [rotate]="true" (pageChange)="loadPage($event)" style="float: right;">
+                </ngb-pagination>
                 <!-- </div> -->
             </div>
         </div>

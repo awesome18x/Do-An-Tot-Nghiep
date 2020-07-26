@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { KhoaphongService } from '../../service/khoaphong.service';
@@ -20,13 +21,13 @@ export class DanhsachchokhamComponent implements OnInit {
   tongChoKhams: number;
   constructor(
     private khoaPhongService: KhoaphongService,
-    private dsChoKhamService: DSChoKhamService
+    private dsChoKhamService: DSChoKhamService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.timee = this.time.getHours() + ':' + this.time.getMinutes();
     this.khoaPhongService.getAllPhongKham().subscribe((data: any) => {
-      console.log(data);
       this.phongKhams = data.dmKhoaPhong;
       this.id_default = data.dmKhoaPhong[0]._id;
       this.getListBNChoKham(this.status_chokham, this.id_default);
@@ -50,6 +51,11 @@ export class DanhsachchokhamComponent implements OnInit {
   onChange(event) {
     this.id_default = event;
     this.getListBNChoKham(this.status_chokham, this.id_default);
+  }
+
+  getPhieuKham(id) {
+    // console.log(id);
+    this.router.navigate([`/danhsach/phieu-kham-ngoai-tru/${id}`]);
   }
 
 }

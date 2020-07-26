@@ -9,16 +9,27 @@ import { DanhsachhuykhamComponent } from './components/danhsachhuykham/danhsachh
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PhieukhamngoaitruComponent } from './components/phieukhamngoaitru/phieukhamngoaitru.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
-  declarations: [DanhsachchokhamComponent, DanhsachdangkhamComponent, DanhsachdakhamComponent, DanhsachhuykhamComponent, PhieukhamngoaitruComponent],
+  declarations: [
+    DanhsachchokhamComponent,
+    DanhsachdangkhamComponent,
+    DanhsachdakhamComponent,
+    DanhsachhuykhamComponent,
+    PhieukhamngoaitruComponent
+  ],
   imports: [
+    CommonModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    CommonModule,
-    DanhsachRoutingModule
+    DanhsachRoutingModule,
+    NgbModule
+  ],
+  exports: [
+    PhieukhamngoaitruComponent
   ]
 })
 export class DanhsachModule { }

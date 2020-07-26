@@ -14,6 +14,7 @@ import * as moment from 'moment';
 import { HsphieukhamService } from '../../services/hsphieukham.service';
 import { AppAsideComponent } from '@coreui/angular';
 import { DMBenhNhanService } from '../../services/dmbenhnhan.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dontiep',
@@ -35,7 +36,8 @@ export class DontiepComponent implements OnInit {
     private loaikhamService: LoaikhamService,
     private hsPhieuKhamService: HsphieukhamService,
     private theBHYTService: TheBHYTService,
-    private dmBenhNhanService: DMBenhNhanService
+    private dmBenhNhanService: DMBenhNhanService,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit() {
@@ -59,28 +61,28 @@ export class DontiepComponent implements OnInit {
   initForm() {
     this.dangKyKhamBenhForm = this.fb.group({
       sothebhyt: ['HS4010123298834985'],
-      noidkthebhyt: ['', Validators.required],
-      diachitheothe: ['', Validators.required],
+      noidkthebhyt: [null, Validators.required],
+      diachitheothe: [null, Validators.required],
       makhuvuc: [null],
-      hoten: ['', Validators.required],
-      socmnd: [''],
+      hoten: [null, Validators.required],
+      socmnd: [null],
       quoctich: ['Việt Nam'],
-      tinhthanh: [''],
-      diachinha: [''],
-      noidungkham: [''],
+      tinhthanh: [null],
+      diachinha: [null],
+      noidungkham: [null],
       idloaikham: [this.loaiKhamSelected],
-      benhvientruoc: [''],
-      sohosobhyt: [''],
+      benhvientruoc: [null],
+      sohosobhyt: [null],
       ngaybatdau: [this.handau],
       ngayketthuc: [this.hancuoi],
-      ngaysinh: [''],
-      gioitinh: [''],
+      ngaysinh: [null],
+      gioitinh: [null],
       dantoc: ['Kinh'],
-      quanhuyen: [''],
-      dienthoai: [''],
-      masothue: [''],
+      quanhuyen: [null],
+      dienthoai: [null],
+      masothue: [null],
       idbuongkham: [this.phongKhamSelected],
-      chandoantuyenduoi: ['']
+      chandoantuyenduoi: [null]
     });
   }
 
@@ -157,6 +159,7 @@ export class DontiepComponent implements OnInit {
             return this.hsPhieuKhamService.createHSPhieuKham(phieukham);
           })
         ).subscribe(data => {
+          this.toastrService.success('Đón tiếp bệnh nhân mới thành công', 'Thành công');
           console.log(data);
         }, (error) => {
           console.log(error);

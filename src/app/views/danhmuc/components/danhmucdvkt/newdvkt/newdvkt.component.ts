@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./newdvkt.component.css']
 })
 export class NewdvktComponent implements OnInit {
+  submited: boolean;
   createForm: FormGroup;
   buongkhams: PhongKham;
   khoaPhongs: PhongKham;
@@ -72,18 +73,23 @@ export class NewdvktComponent implements OnInit {
   initForm() {
     this.createForm = this.fb.group({
       type: ['1', Validators.required],
-      madv: [''],
-      name: [''],
+      madv: [null, Validators.required],
+      name: [null, Validators.required],
       // donvi: ['Lần', Validators.required],
       giabh: [''],
-      giadv: [''],
-      buongthuchien: [''],
-      khoathuchien: [''],
+      giadv: ['', Validators.required],
+      buongthuchien: [null],
+      khoathuchien: [null],
       active: [true]
     });
   }
 
+  get f() {
+    return this.createForm.controls;
+  }
+
   onSubmit() {
+    this.submited = true;
     if (this.createForm.invalid) {
       return;
     }
@@ -91,10 +97,17 @@ export class NewdvktComponent implements OnInit {
       console.log(data);
       this.toastrService.success('Tạo mới DVKT thành công', 'Thành công');
       this.router.navigate(['/danhmuc/dvkt']);
+      this.submited = false;
     }, (error) => {
+      this.toastrService.warning('Có lỗi xảy ra', 'Thất bại');
+      this.submited = false;
       console.log(error);
     });
     // console.log(this.createForm.value);
+  }
+
+  returnPage() {
+    this.router.navigate(['/danhmuc/dvkt']);
   }
 
 }
