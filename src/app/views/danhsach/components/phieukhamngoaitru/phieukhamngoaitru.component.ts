@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { DSChoKhamService } from '../../service/dschokham.service';
 import { FormGroup } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { DvktService } from '../../../danhmuc/services/dvkt.service';
 
 
 @Component({
@@ -12,13 +13,18 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./phieukhamngoaitru.component.scss']
 })
 export class PhieukhamngoaitruComponent implements OnInit {
+  type: number = 0; // lấy tất cả dịch vụ kỹ thuật ra
+  pageSize: number = 20;
+  pageIndex: number = 1;
+  listDVKT: any[] = [];
   phieukham: any;
   khamBenhForm: FormGroup;
   closeResult = '';
   constructor(
     private activatedRoute: ActivatedRoute,
     private dschokhamService: DSChoKhamService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private dvktService: DvktService
   ) { }
 
   ngOnInit(): void {
@@ -33,10 +39,20 @@ export class PhieukhamngoaitruComponent implements OnInit {
         });
       }
     });
+    this.getdvkt(this.type, this.pageSize, this.pageIndex);
+  }
+
+  getdvkt(type: number, pageSize: number, pageIndex: number) {
+    this.dvktService.getAllDVKT(type, pageSize, pageIndex).subscribe((data: any) => {
+      console.log(data);
+      this.listDVKT = data.dvkt;
+    }, error => {
+      console.log(error);
+    });
   }
 
   open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    this.modalService.open(content, { size: 'lg' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;

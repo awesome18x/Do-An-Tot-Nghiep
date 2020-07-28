@@ -15,6 +15,7 @@ export class DvktService {
   ) { }
 
   getAllDVKT(type: number, pageSize: number, pageIndex: number): Observable<DVKT[]> {
+    // type= 0 lay tat ca
     const queryString = `?pageSize=${pageSize}&pageIndex=${pageIndex}&type=${type}`;
     return this.http.get<DVKT[]>(this.API_URL + 'api/dmDVKT' + queryString);
   }
