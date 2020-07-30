@@ -58,7 +58,11 @@
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label" for="tt">Tỉnh thành</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="tt" formControlName="tinhthanh">
+                                <!-- <input type="text" class="form-control" id="dcsn" formControlName="tinhthanh"> -->
+
+                                <select class="form-control" id="tt" formControlName="tinhthanh">
+                                    <option [value]="item.code" *ngFor="let item of tinhthanh;">{{item.name}}</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -78,6 +82,7 @@
                             <div class="col-md-8">
                                 <!-- <input type="text" class="form-control" id="lk" formControlName="idloaikham"> -->
                                 <select class="form-control" id="mkv" formControlName="idloaikham">
+                                    <option [ngValue]="null" >----</option>
                                     <option [value]="item._id" *ngFor="let item of loaiKhams;">{{item.name}}</option>
                                 </select>
                             </div>
@@ -144,10 +149,15 @@
                             <div class="col-md-8">
                                 <div class="input-group">
 
-                                    <input type="text" class="form-control" id="qh" formControlName="quanhuyen" placeholder="First Name">
-                                    <input type="text" class="form-control" placeholder="Last Name">
+                                    <!-- <input type="text" class="form-control" id="qh" formControlName="quanhuyen" placeholder="Quận huyện"> -->
+                                    <select class="form-control" id="tt" formControlName="quanhuyen">
+                                        <option [value]="item.code" *ngFor="let item of quanhuyen;">{{item.name}}</option>
+                                    </select>
+                                    <!-- <input type="text" class="form-control" formControlName="xaphuong" placeholder="Xã phường"> -->
+                                    <select class="form-control" id="tt" formControlName="phuongxa">
+                                        <option [value]="item.code" *ngFor="let item of phuongxa;">{{item.name}}</option>
+                                    </select>
                                 </div>
-                                <!-- <input type="text" class="form-control" id="qh" formControlName="quanhuyen"> -->
                             </div>
                         </div>
                         <div class="form-group row">

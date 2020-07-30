@@ -15,6 +15,7 @@ import { HsphieukhamService } from '../../services/hsphieukham.service';
 import { AppAsideComponent } from '@coreui/angular';
 import { DMBenhNhanService } from '../../services/dmbenhnhan.service';
 import { ToastrService } from 'ngx-toastr';
+import { TinhthanhService } from '../../services/tinhthanh.service';
 
 @Component({
   selector: 'app-dontiep',
@@ -25,8 +26,12 @@ export class DontiepComponent implements OnInit {
   dangKyKhamBenhForm: FormGroup;
   phongKhams: PhongKham[] = [];
   loaiKhams: LoaiKham[] = [];
+  tinhthanh = [];
+  quanhuyen = [];
+  phuongxa = [];
   loaiKhamSelected: LoaiKham;
   phongKhamSelected: PhongKham;
+  tinhthanhSelected: any;
   handau = moment().startOf('year').format('DD/MM/YYYY');
   hancuoi = moment().endOf('year').format('DD/MM/YYYY');
 
@@ -37,25 +42,34 @@ export class DontiepComponent implements OnInit {
     private hsPhieuKhamService: HsphieukhamService,
     private theBHYTService: TheBHYTService,
     private dmBenhNhanService: DMBenhNhanService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private tinhthanhService: TinhthanhService
   ) { }
 
   ngOnInit() {
     this.initForm();
-    zip(this.loaikhamService.getAllLoaiKham(), this.khoaPhongService.getAllPhongKham())
+    zip(this.loaikhamService.getAllLoaiKham(), this.khoaPhongService.getAllPhongKham(), this.tinhthanhService.getAllTinhThanh())
     .pipe(
-      tap(([loaiKham, phongKham]: any[]) => {
+      tap(([loaiKham, phongKham, tinhThanh]: any[]) => {
         this.loaiKhams = loaiKham.loaikham;
         this.loaiKhamSelected = loaiKham.loaikham[0]._id;
         this.phongKhams = phongKham.dmKhoaPhong;
         this.phongKhamSelected = phongKham.dmKhoaPhong[0]._id;
+        this.tinhthanh = tinhThanh.tinhthanh;
+        console.log(this.tinhthanh);
+        this.tinhthanhSelected = this.tinhthanh[0].code;
       })
     )
     .subscribe(() => {
       this.initForm();
+      this.getQuanHuyen();
     }, (error) => {
       console.log(error);
     });
+    this.dangKyKhamBenhForm.get('tinhthanh').valueChanges.subscribe(data => {
+      console.log(data);
+    });
+    // this.getQuanHuyen();
   }
 
   initForm() {
@@ -67,7 +81,7 @@ export class DontiepComponent implements OnInit {
       hoten: [null, Validators.required],
       socmnd: [null],
       quoctich: ['Việt Nam'],
-      tinhthanh: [null],
+      tinhthanh: [this.tinhthanhSelected],
       diachinha: [null],
       noidungkham: [null],
       idloaikham: [this.loaiKhamSelected],
@@ -79,10 +93,21 @@ export class DontiepComponent implements OnInit {
       gioitinh: [null],
       dantoc: ['Kinh'],
       quanhuyen: [null],
+      xaphuong: [null],
       dienthoai: [null],
       masothue: [null],
       idbuongkham: [this.phongKhamSelected],
       chandoantuyenduoi: [null]
+    });
+  }
+
+  getQuanHuyen() {
+    this.tinhthanhService.getAllHuyenByCodeTinh(this.tinhthanhSelected).subscribe((data: any) => {
+      // console.log(data);
+      this.quanhuyen = data.quanhuyen;
+      console.log(data);
+    }, (error) => {
+      console.log(error);
     });
   }
 
