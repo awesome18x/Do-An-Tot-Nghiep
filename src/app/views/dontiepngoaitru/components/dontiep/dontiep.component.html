@@ -61,7 +61,7 @@
                                 <!-- <input type="text" class="form-control" id="dcsn" formControlName="tinhthanh"> -->
 
                                 <select class="form-control" id="tt" formControlName="tinhthanh">
-                                    <option [value]="item.code" *ngFor="let item of tinhthanh;">{{item.name}}</option>
+                                    <option [value]="item.code" *ngFor="let item of tinhthanh;">{{item.name_with_type}}</option>
                                 </select>
                             </div>
                         </div>
@@ -148,14 +148,13 @@
                             <label class="col-md-4 col-form-label" for="qh">Quận huyện</label>
                             <div class="col-md-8">
                                 <div class="input-group">
-
-                                    <!-- <input type="text" class="form-control" id="qh" formControlName="quanhuyen" placeholder="Quận huyện"> -->
                                     <select class="form-control" id="tt" formControlName="quanhuyen">
-                                        <option [value]="item.code" *ngFor="let item of quanhuyen;">{{item.name}}</option>
+                                        <option [ngValue]="null">Chọn quận huyện</option>
+                                        <option [value]="item.code" *ngFor="let item of quanhuyen;">{{item.name_with_type}}</option>
                                     </select>
-                                    <!-- <input type="text" class="form-control" formControlName="xaphuong" placeholder="Xã phường"> -->
                                     <select class="form-control" id="tt" formControlName="phuongxa">
-                                        <option [value]="item.code" *ngFor="let item of phuongxa;">{{item.name}}</option>
+                                        <option [ngValue]="null">Chọn xã phường</option>
+                                        <option [value]="item.path_with_type" *ngFor="let item of phuongxa;">{{item.name_with_type}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -191,10 +190,10 @@
                 <hr class="new2">
                 <div class="row align-items-center">
                     <div class="col-4 col-sm-4 col-md mb-3 mb-xl-0 text-center">
-                        <button type="submit" class="btn btn-primary">Đón tiếp</button>
+                        <button type="submit" class="btn btn-primary" [disabled]="dangKyKhamBenhForm.invalid">Đón tiếp</button>
                     </div>
                     <div class="col-4 col-sm-4 col-md mb-3 mb-xl-0 text-center">
-                        <button type="button" class="btn btn-success">Lưu và tạo mới</button>
+                        <button type="button" class="btn btn-success" [disabled]="dangKyKhamBenhForm.invalid">Lưu và tạo mới</button>
                     </div>
                     <div class="col-4 col-sm-4 col-md mb-3 mb-xl-0 text-center">
                         <button type="button" class="btn btn-secondary" (click)="resetForm()">Làm lại</button>

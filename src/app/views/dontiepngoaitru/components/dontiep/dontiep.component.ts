@@ -56,47 +56,59 @@ export class DontiepComponent implements OnInit {
         this.phongKhams = phongKham.dmKhoaPhong;
         this.phongKhamSelected = phongKham.dmKhoaPhong[0]._id;
         this.tinhthanh = tinhThanh.tinhthanh;
-        console.log(this.tinhthanh);
         this.tinhthanhSelected = this.tinhthanh[0].code;
       })
     )
     .subscribe(() => {
-      this.initForm();
+      // this.initForm();
+      this.dangKyKhamBenhForm.patchValue({
+        idloaikham: this.loaiKhamSelected,
+        idbuongkham: this.phongKhamSelected,
+        tinhthanh: this.tinhthanhSelected
+      });
       this.getQuanHuyen();
+      this.getXaPhuong();
     }, (error) => {
       console.log(error);
     });
     this.dangKyKhamBenhForm.get('tinhthanh').valueChanges.subscribe(data => {
-      console.log(data);
+      this.tinhthanhService.getAllHuyenByCodeTinh(data).subscribe((huyen: any) => {
+        this.quanhuyen = huyen.quanhuyen;
+        this.dangKyKhamBenhForm.patchValue({
+          quanhuyen: this.quanhuyen
+        });
+      }, error => {
+        console.log(error);
+      });
     });
-    // this.getQuanHuyen();
+    // this.getXaPhuong();
   }
 
   initForm() {
     this.dangKyKhamBenhForm = this.fb.group({
       sothebhyt: ['HS4010123298834985'],
-      noidkthebhyt: [null, Validators.required],
-      diachitheothe: [null, Validators.required],
+      noidkthebhyt: [null],
+      diachitheothe: [null],
       makhuvuc: [null],
       hoten: [null, Validators.required],
       socmnd: [null],
       quoctich: ['Việt Nam'],
-      tinhthanh: [this.tinhthanhSelected],
-      diachinha: [null],
+      tinhthanh: [null],
+      diachinha: [null, Validators.required],
       noidungkham: [null],
-      idloaikham: [this.loaiKhamSelected],
+      idloaikham: [null],
       benhvientruoc: [null],
       sohosobhyt: [null],
       ngaybatdau: [this.handau],
       ngayketthuc: [this.hancuoi],
-      ngaysinh: [null],
-      gioitinh: [null],
+      ngaysinh: [null, Validators.required],
+      gioitinh: [null, Validators.required],
       dantoc: ['Kinh'],
       quanhuyen: [null],
-      xaphuong: [null],
-      dienthoai: [null],
+      phuongxa: [null],
+      dienthoai: [null, Validators.required],
       masothue: [null],
-      idbuongkham: [this.phongKhamSelected],
+      idbuongkham: [null],
       chandoantuyenduoi: [null]
     });
   }
@@ -105,10 +117,37 @@ export class DontiepComponent implements OnInit {
     this.tinhthanhService.getAllHuyenByCodeTinh(this.tinhthanhSelected).subscribe((data: any) => {
       // console.log(data);
       this.quanhuyen = data.quanhuyen;
-      console.log(data);
     }, (error) => {
       console.log(error);
     });
+  }
+
+  getXaPhuong() {
+    this.dangKyKhamBenhForm.get('quanhuyen').valueChanges.subscribe(data => {
+      console.log(data);
+      if (data) {
+        this.tinhthanhService.getAllXaByCodeHuyen(data).subscribe((px: any) => {
+        // console.log(px.length === undefined);
+        // console.log(px);
+        // if (px.length === undefined) {
+        //   this.dangKyKhamBenhForm.patchValue({
+        //     phuongxa: null
+        //   });
+        // } else {
+          this.phuongxa = px.phuongxa;
+          this.dangKyKhamBenhForm.patchValue({
+            phuongxa: this.phuongxa
+          });
+        // }
+      }, error => {
+        console.log(error);
+      });
+      }
+    });
+  }
+
+  get f() {
+    return this.dangKyKhamBenhForm.controls;
   }
 
   onChange() {}

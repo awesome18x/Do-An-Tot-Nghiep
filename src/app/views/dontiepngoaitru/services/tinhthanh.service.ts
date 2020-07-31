@@ -21,6 +21,6 @@ export class TinhthanhService {
     return this.http.get<any[]>(this.API_URL + `api/dmquanhuyen/${code}`);
   }
   getAllXaByCodeHuyen(code: string): Observable<any[]> {
-    return this.http.get<any[]>(this.API_URL + `api/xaphuong?code=${code}`);
+    return this.http.get<any[]>(this.API_URL + `api/dmphuongxa/${code}`);
   }
 }
