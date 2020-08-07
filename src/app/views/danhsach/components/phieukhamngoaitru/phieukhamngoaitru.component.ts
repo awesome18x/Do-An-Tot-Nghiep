@@ -39,9 +39,15 @@ export class PhieukhamngoaitruComponent implements OnInit {
       if (param.get('id')) {
         const id = param.get('id');
         this.dschokhamService.getPhieuKhamById(id).pipe(
+          // dựa theo id này sẽ biết được phiếu khám này là của bệnh nhân nào, đang khám ở phòng khám nào
           mergeMap((data: any) => {
+            // data là kết quả của this.dschokhamService.getPhieuKhamById(id)
+            // result là dựa vào kết quả data trả về có idphongkham,
+            // từ idphongkham đó gọi  this.congkhamService.getCongKhamTheoPhong để lấy được công khám
             return combineLatest({ data:  of(data), result: this.congkhamService.getCongKhamTheoPhong(data.PhongKham)});
           }
+
+          // em muốn trả về 2 data đồng thời
         ).subscribe((result: any) => {
           console.log(result);
         }, (error) => {
