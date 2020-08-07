@@ -9,7 +9,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { DvktService } from '../../../danhmuc/services/dvkt.service';
 import { DVKT } from '../../../../models/dvkt';
 import { CongkhamService } from '../../service/congkham.service';
-import { combineLatest } from 'rxjs';
+import { combineLatest, of } from 'rxjs';
 
 
 @Component({
@@ -44,12 +44,13 @@ export class PhieukhamngoaitruComponent implements OnInit {
             // data là kết quả của this.dschokhamService.getPhieuKhamById(id)
             // result là dựa vào kết quả data trả về có idphongkham,
             // từ idphongkham đó gọi  this.congkhamService.getCongKhamTheoPhong để lấy được công khám
-            return combineLatest({ data:  of(data), result: this.congkhamService.getCongKhamTheoPhong(data.PhongKham)});
+            return combineLatest([of(data), this.congkhamService.getCongKhamTheoPhong(data.PhongKham)]);
           }
 
           // em muốn trả về 2 data đồng thời
-        ).subscribe((result: any) => {
-          console.log(result);
+        )).subscribe(result => {
+          console.log(result[0]);
+          console.log(result[1]);
         }, (error) => {
           console.log(error);
         });
