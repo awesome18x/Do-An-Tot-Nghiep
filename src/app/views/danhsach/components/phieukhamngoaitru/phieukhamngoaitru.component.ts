@@ -1,3 +1,5 @@
+import { mergeMap } from 'rxjs/operators';
+import { PhongKham } from './../../../../models/phongkham';
 import { HSPhieuKham } from './../../../../models/hsphieukham';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -5,6 +7,9 @@ import { DSChoKhamService } from '../../service/dschokham.service';
 import { FormGroup } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { DvktService } from '../../../danhmuc/services/dvkt.service';
+import { DVKT } from '../../../../models/dvkt';
+import { CongkhamService } from '../../service/congkham.service';
+import { combineLatest } from 'rxjs';
 
 
 @Component({
@@ -13,6 +18,7 @@ import { DvktService } from '../../../danhmuc/services/dvkt.service';
   styleUrls: ['./phieukhamngoaitru.component.scss']
 })
 export class PhieukhamngoaitruComponent implements OnInit {
+  congkhamInBuongKham: DVKT[] = [];
   type: number = 0; // lấy tất cả dịch vụ kỹ thuật ra
   pageSize: number = 20;
   pageIndex: number = 1;
@@ -24,22 +30,31 @@ export class PhieukhamngoaitruComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private dschokhamService: DSChoKhamService,
     private modalService: NgbModal,
-    private dvktService: DvktService
+    private dvktService: DvktService,
+    private congkhamService: CongkhamService
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.activatedRoute.paramMap.subscribe((param: ParamMap) => {
       if (param.get('id')) {
         const id = param.get('id');
-        this.dschokhamService.getPhieuKhamById(id).subscribe(data => {
-          this.phieukham = data;
-          console.log(this.phieukham);
+        this.dschokhamService.getPhieuKhamById(id).pipe(
+          mergeMap((data: any) => {
+            return combineLatest({ data:  of(data), result: this.congkhamService.getCongKhamTheoPhong(data.PhongKham)});
+          }
+        ).subscribe((result: any) => {
+          console.log(result);
         }, (error) => {
           console.log(error);
         });
       }
     });
     this.getdvkt(this.type, this.pageSize, this.pageIndex);
+    // await this.congkhamService.getCongKhamTheoPhong(this.phieukham.PhongKham).subscribe(data => {
+    //   console.log(data);
+    // }, (error) => {
+    //   console.log(error);
+    // });
   }
 
   getdvkt(type: number, pageSize: number, pageIndex: number) {

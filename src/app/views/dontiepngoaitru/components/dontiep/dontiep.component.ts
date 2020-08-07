@@ -124,7 +124,7 @@ export class DontiepComponent implements OnInit {
 
   getXaPhuong() {
     this.dangKyKhamBenhForm.get('quanhuyen').valueChanges.subscribe(data => {
-      console.log(data);
+      // console.log(data);
       if (data) {
         this.tinhthanhService.getAllXaByCodeHuyen(data).subscribe((px: any) => {
         // console.log(px.length === undefined);
@@ -167,7 +167,7 @@ export class DontiepComponent implements OnInit {
     benhnhan.dantoc = this.dangKyKhamBenhForm.value.dantoc;
     benhnhan.sdt = this.dangKyKhamBenhForm.value.dienthoai;
     benhnhan.masothue = this.dangKyKhamBenhForm.value.masothue;
-    benhnhan.diachi = this.dangKyKhamBenhForm.value.diachinha;
+    benhnhan.diachi = this.dangKyKhamBenhForm.value.diachinha.toUpperCase() + '-' + this.dangKyKhamBenhForm.value.phuongxa;
     // console.log(benhnhan);
 
     // create DMTheBHYT
