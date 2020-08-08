@@ -38,20 +38,20 @@ export class PhieukhamngoaitruComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.paramMap.pipe(switchMap((params: ParamMap) => {
-        if (params.get('id')) {
-          const id = params.get('id');
-          this.dschokhamService.getPhieuKhamById(id).pipe(
-            mergeMap((data: any) => {
-              return combineLatest([of(data), this.congkhamService.getCongKhamTheoPhong(data.PhongKham._id)]);
-            }
-          ));
-        }
-        return of(null);
+      if (params.get('id')) {
+        const id = params.get('id');
+        return this.dschokhamService.getPhieuKhamById(id).pipe(
+          mergeMap((data: any) => {
+            return combineLatest([of(data), this.congkhamService.getCongKhamTheoPhong(data.PhongKham._id)]);
+          })
+        );
+      }
+      return of(null);
     })).subscribe(result => {
       if (result) {
         this.phieukham = result[0];
         console.log(result[0]);
-        this.nameCongkham = result[1];
+        this.nameCongkham = result[1][0];
       }
     }, (error) => {
       console.log(error);
@@ -64,7 +64,6 @@ export class PhieukhamngoaitruComponent implements OnInit {
 
   getdvkt(type: number, pageSize: number, pageIndex: number) {
     this.dvktService.getAllDVKT(type, pageSize, pageIndex).subscribe((data: any) => {
-      console.log(data);
       this.listDVKT = data.dvkt;
     }, error => {
       console.log(error);

@@ -68,10 +68,10 @@
                                 <label class="col-form-label">Lê Thị Lan</label>
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-6">
-                                <label class="col-form-label onwer-bn">Ngày khám:</label>
+                                <label class="col-form-label onwer-bn">Ngày đón tiếp:</label>
                             </div>
                             <div class="col-md-8 col-md-6 col-sm-6">
-                                <label class="col-form-label">05/01/1950</label>
+                                <label class="col-form-label">{{ phieukham?.NgayDonTiep | date:'dd/MM/yyyy' }}</label>
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <label class="col-form-label onwer-bn">Số điện thoại:</label>
@@ -251,7 +251,7 @@
                                         <tr>
                                             <td>1</td>
                                             <td><i class="fa fa-clock-o" aria-hidden="true" style="color: green;"></i></td>
-                                            <td>{{ nameCongkham[0]?.Name }}</td>
+                                            <td>{{ nameCongkham?.Name }}</td>
                                             <td>{{ phieukham?.PhongKham?.name }}</td>
                                             <td>
                                                 {{ nameBSKham }}
