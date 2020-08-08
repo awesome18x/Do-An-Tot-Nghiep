@@ -1,4 +1,4 @@
-import { mergeMap } from 'rxjs/operators';
+import { mergeMap, switchMap } from 'rxjs/operators';
 import { PhongKham } from './../../../../models/phongkham';
 import { HSPhieuKham } from './../../../../models/hsphieukham';
 import { ActivatedRoute, ParamMap } from '@angular/router';
@@ -18,6 +18,8 @@ import { combineLatest, of } from 'rxjs';
   styleUrls: ['./phieukhamngoaitru.component.scss']
 })
 export class PhieukhamngoaitruComponent implements OnInit {
+  nameBSKham: string;
+  nameCongkham: any;
   congkhamInBuongKham: DVKT[] = [];
   type: number = 0; // lấy tất cả dịch vụ kỹ thuật ra
   pageSize: number = 20;
@@ -35,33 +37,29 @@ export class PhieukhamngoaitruComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.activatedRoute.paramMap.subscribe((param: ParamMap) => {
-      if (param.get('id')) {
-        const id = param.get('id');
-        this.dschokhamService.getPhieuKhamById(id).pipe(
-          // dựa theo id này sẽ biết được phiếu khám này là của bệnh nhân nào, đang khám ở phòng khám nào
-          mergeMap((data: any) => {
-            // data là kết quả của this.dschokhamService.getPhieuKhamById(id)
-            // result là dựa vào kết quả data trả về có idphongkham,
-            // từ idphongkham đó gọi  this.congkhamService.getCongKhamTheoPhong để lấy được công khám
-            return combineLatest([of(data), this.congkhamService.getCongKhamTheoPhong(data.PhongKham)]);
-          }
-
-          // em muốn trả về 2 data đồng thời
-        )).subscribe(result => {
-          console.log(result[0]);
-          console.log(result[1]);
-        }, (error) => {
-          console.log(error);
-        });
+    this.activatedRoute.paramMap.pipe(switchMap((params: ParamMap) => {
+        if (params.get('id')) {
+          const id = params.get('id');
+          this.dschokhamService.getPhieuKhamById(id).pipe(
+            mergeMap((data: any) => {
+              return combineLatest([of(data), this.congkhamService.getCongKhamTheoPhong(data.PhongKham._id)]);
+            }
+          ));
+        }
+        return of(null);
+    })).subscribe(result => {
+      if (result) {
+        this.phieukham = result[0];
+        console.log(result[0]);
+        this.nameCongkham = result[1];
       }
+    }, (error) => {
+      console.log(error);
     });
+
+    this.nameBSKham = localStorage.getItem('hoten');
     this.getdvkt(this.type, this.pageSize, this.pageIndex);
-    // await this.congkhamService.getCongKhamTheoPhong(this.phieukham.PhongKham).subscribe(data => {
-    //   console.log(data);
-    // }, (error) => {
-    //   console.log(error);
-    // });
+
   }
 
   getdvkt(type: number, pageSize: number, pageIndex: number) {

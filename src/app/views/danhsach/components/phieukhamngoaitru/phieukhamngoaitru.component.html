@@ -50,7 +50,7 @@
                                 <label class="col-form-label onwer-bn">Địa chỉ:</label>
                             </div>
                             <div class="col-md-8 col-md-6 col-sm-6">
-                                <label class="col-form-label">{{ phieukham?.BenhNhan?.DiaChi }}</label>
+                                <label class="col-form-label">{{ phieukham?.BenhNhan?.DiaChi | titlecase}}</label>
                             </div>
                         </div>
 
@@ -83,7 +83,7 @@
                                 <label class="col-form-label onwer-bn">Bác sỹ khám:</label>
                             </div>
                             <div class="col-md-8 col-md-6 col-sm-6">
-                                <label class="col-form-label">2000022175</label>
+                                <label class="col-form-label">{{ nameBSKham }}</label>
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <label class="col-form-label onwer-bn">&nbsp;</label>
@@ -132,7 +132,7 @@
                         <div class="col-lg-12 col-md-12">
                             <div class="hr-line-dashed"></div>
                         </div>
-                        <form [formGroup]="khamBenhForm">
+                        <form [formGroup]>
                             <div class="col-lg-12 col-md-12" style="top: .5rem;">
                                 <label class="col-form-label title-pk"><h5>II. Hỏi Bệnh</h5></label>
                                 <div class="row">
@@ -251,10 +251,10 @@
                                         <tr>
                                             <td>1</td>
                                             <td><i class="fa fa-clock-o" aria-hidden="true" style="color: green;"></i></td>
-                                            <td>Công khám sản</td>
-                                            <td>Phòng Khám Sản</td>
+                                            <td>{{ nameCongkham[0]?.Name }}</td>
+                                            <td>{{ phieukham?.PhongKham?.name }}</td>
                                             <td>
-                                                Nguyễn Văn Duy
+                                                {{ nameBSKham }}
                                             </td>
                                             <td>
                                                 22:13 25/07/2020
