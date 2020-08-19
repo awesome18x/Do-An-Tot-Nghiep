@@ -10,6 +10,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PhieukhamngoaitruComponent } from './components/phieukhamngoaitru/phieukhamngoaitru.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TextMaskModule } from 'angular2-text-mask';
+
 
 
 @NgModule({
@@ -26,7 +28,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     HttpClientModule,
     DanhsachRoutingModule,
-    NgbModule
+    NgbModule,
+    TextMaskModule
   ],
   exports: [
     PhieukhamngoaitruComponent

@@ -4,7 +4,6 @@ import { DMTheBHYT } from './../../../../models/dmthebhyt';
 import { HSPhieuKham } from './../../../../models/hsphieukham';
 import { Component, OnInit } from '@angular/core';
 import { PhongKham } from '../../../../models/phongkham';
-import { KhoaphongService } from '../../services/khoaphong.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoaikhamService } from '../../services/loaikham.service';
 import { LoaiKham } from '../../../../models/loaikham';
@@ -16,6 +15,9 @@ import { AppAsideComponent } from '@coreui/angular';
 import { DMBenhNhanService } from '../../services/dmbenhnhan.service';
 import { ToastrService } from 'ngx-toastr';
 import { TinhthanhService } from '../../services/tinhthanh.service';
+import { DmkhoaphongService } from '../../../../shared/services/dmkhoaphong.service';
+import { LoaiKhoaPhong } from '../../../../constants/constants';
+
 
 @Component({
   selector: 'app-dontiep',
@@ -32,12 +34,13 @@ export class DontiepComponent implements OnInit {
   loaiKhamSelected: LoaiKham;
   phongKhamSelected: PhongKham;
   tinhthanhSelected: any;
-  handau = moment().startOf('year').format('DD/MM/YYYY');
-  hancuoi = moment().endOf('year').format('DD/MM/YYYY');
+  handau = moment().startOf('year').format('MM/DD/YYYY');
+  hancuoi = moment().endOf('year').format('MM/DD/YYYY');
+  public maskPhone = [/[0-9]/, /[1-9]/, /[1-9]/, /[1-9]/, ' ', /[1-9]/, /[1-9]/, /[1-9]/, /[1-9]/, /[1-9]/, /[1-9]/];
 
   constructor(
     private fb: FormBuilder,
-    private khoaPhongService: KhoaphongService,
+    private khoaPhongService: DmkhoaphongService,
     private loaikhamService: LoaikhamService,
     private hsPhieuKhamService: HsphieukhamService,
     private theBHYTService: TheBHYTService,
@@ -48,7 +51,9 @@ export class DontiepComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    zip(this.loaikhamService.getAllLoaiKham(), this.khoaPhongService.getAllPhongKham(), this.tinhthanhService.getAllTinhThanh())
+    zip(
+      this.loaikhamService.getAllLoaiKham(),
+      this.khoaPhongService.getAllPhongKham(LoaiKhoaPhong.PhongKham), this.tinhthanhService.getAllTinhThanh())
     .pipe(
       tap(([loaiKham, phongKham, tinhThanh]: any[]) => {
         this.loaiKhams = loaiKham.loaikham;
@@ -165,10 +170,10 @@ export class DontiepComponent implements OnInit {
     benhnhan.socmnd = this.dangKyKhamBenhForm.value.socmnd;
     benhnhan.quoctich = this.dangKyKhamBenhForm.value.quoctich;
     benhnhan.dantoc = this.dangKyKhamBenhForm.value.dantoc;
-    benhnhan.sdt = this.dangKyKhamBenhForm.value.dienthoai;
+    benhnhan.sdt = this.dangKyKhamBenhForm.value.dienthoai.replace(/ /g, '');
     benhnhan.masothue = this.dangKyKhamBenhForm.value.masothue;
-    benhnhan.diachi = this.dangKyKhamBenhForm.value.diachinha.toUpperCase() + '-' + this.dangKyKhamBenhForm.value.phuongxa;
-    // console.log(benhnhan);
+    benhnhan.diachi = this.dangKyKhamBenhForm.value.diachinha.toUpperCase() + '- ' + this.dangKyKhamBenhForm.value.phuongxa;
+    console.log(benhnhan);
 
     // create DMTheBHYT
     thebhyt.sothebhyt = this.dangKyKhamBenhForm.value.sothebhyt;
@@ -198,7 +203,7 @@ export class DontiepComponent implements OnInit {
     // giả sử ko có BHYT:
     //   - Chỉ có 2 bảng được insert dữ liệu là HSPhieuKham và DMBenhNhan
     //   - Cách giải quyết ntn:
-    //     + Lấy được id bệnh nhân trước rồi mới insert dữ liệ vào HSPhieuKham
+    //     + Lấy được id bệnh nhân trước rồi mới insert dữ liệu vào HSPhieuKham
     if (!phieukham.isbhyt) {
       this.dmBenhNhanService.createDMBenhNhan(benhnhan).pipe(
         map(result => {

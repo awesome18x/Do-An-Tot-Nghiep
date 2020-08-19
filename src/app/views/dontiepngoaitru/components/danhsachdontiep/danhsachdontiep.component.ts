@@ -1,7 +1,8 @@
+import { LoaiKhoaPhong } from './../../../../constants/constants';
 import { Component, OnInit } from '@angular/core';
 import { PhongKham } from '../../../../models/phongkham';
-import { KhoaphongService } from '../../services/khoaphong.service';
 import { FormGroup } from '@angular/forms';
+import { DmkhoaphongService } from '../../../../shared/services/dmkhoaphong.service';
 
 @Component({
   selector: 'app-danhsachdontiep',
@@ -13,11 +14,11 @@ export class DanhsachdontiepComponent implements OnInit {
   phongKhams: PhongKham[] = [];
   selectedPK: PhongKham;
   constructor(
-    private khoaPhongService: KhoaphongService
+    private khoaPhongService: DmkhoaphongService
   ) { }
 
   ngOnInit(): void {
-    this.khoaPhongService.getAllPhongKham().subscribe((data: any) => {
+    this.khoaPhongService.getAllPhongKham(LoaiKhoaPhong.PhongKham).subscribe((data: any) => {
       console.log(data);
       this.phongKhams = data.dmKhoaPhong;
       // this.selectedPK = data.dmKhoaPhong[0];

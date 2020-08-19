@@ -1,13 +1,14 @@
-import { environment } from './../../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PhongKham } from '../../../models/phongkham';
+import { PhongKham } from '../../models/phongkham';
 
 @Injectable({
   providedIn: 'root'
 })
-export class KhoaphongService {
+export class DmkhoaphongService {
+
   API_URL = environment.API_URL;
   constructor(
     private http: HttpClient
@@ -37,4 +38,5 @@ export class KhoaphongService {
   deleteKhoaphong(id: string): Observable<PhongKham> {
     return this.http.delete<PhongKham>(this.API_URL + `api/dmkhoaphong/${id}`);
   }
+
 }

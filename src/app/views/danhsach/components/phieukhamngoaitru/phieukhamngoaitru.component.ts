@@ -50,7 +50,7 @@ export class PhieukhamngoaitruComponent implements OnInit {
     })).subscribe(result => {
       if (result) {
         this.phieukham = result[0];
-        console.log(result[0]);
+        // console.log(result[0]);
         this.nameCongkham = result[1][0];
       }
     }, (error) => {
