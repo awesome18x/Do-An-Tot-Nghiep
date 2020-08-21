@@ -1,4 +1,4 @@
 export enum LoaiKhoaPhong {
-    PhongKham = 1,
-    Khoa = 2
+    PhongKham = 2,
+    Khoa = 1
 }

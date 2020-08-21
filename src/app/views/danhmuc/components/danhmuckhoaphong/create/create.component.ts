@@ -2,8 +2,8 @@ import { PhongKham } from './../../../../../models/phongkham';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { KhoaphongService } from '../../../services/khoaphong.service';
 import { ToastrService } from 'ngx-toastr';
+import { DmkhoaphongService } from '../../../../../shared/services/dmkhoaphong.service';
 
 @Component({
   selector: 'app-create',
@@ -20,7 +20,7 @@ export class CreateComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
-    private khoaPhongService: KhoaphongService,
+    private dmKhoaPhongService: DmkhoaphongService,
     private toastrService: ToastrService
   ) { }
 
@@ -30,7 +30,7 @@ export class CreateComponent implements OnInit {
       if (paramMap.get('id')) {
         this.mode = 'update';
         this.khoaPhongId = paramMap.get('id');
-        this.khoaPhongService.getKhoaPhongById(this.khoaPhongId).subscribe((data: any) => {
+        this.dmKhoaPhongService.getKhoaPhongById(this.khoaPhongId).subscribe((data: any) => {
           // console.log(data.DMKhoaPhong);
           this.getKhoaPhong = {
             _id: data.DMKhoaPhong._id,
@@ -78,7 +78,7 @@ export class CreateComponent implements OnInit {
       return;
     }
     if (this.mode === 'update') {
-      this.khoaPhongService.updatekhoaPhong(this.getKhoaPhong._id, this.createForm.value).subscribe(data => {
+      this.dmKhoaPhongService.updatekhoaPhong(this.getKhoaPhong._id, this.createForm.value).subscribe(data => {
         this.toastrService.success('Cập nhật thay đổi thành công', 'Thành công');
         this.router.navigate(['danhmuc/khoa-phong/list']);
       }, (error) => {
@@ -90,7 +90,7 @@ export class CreateComponent implements OnInit {
       khoaPhong.name = this.createForm.value.name;
       khoaPhong.diaChi = this.createForm.value.diaChi;
       khoaPhong.ma = this.createForm.value.ma;
-      this.khoaPhongService.createKhoaPhong(khoaPhong).subscribe(data => {
+      this.dmKhoaPhongService.createKhoaPhong(khoaPhong).subscribe(data => {
         console.log(data);
         this.toastrService.success('Tạo mới khoa phòng thành công', 'Thành công');
         this.router.navigate(['danhmuc/khoa-phong/list']);

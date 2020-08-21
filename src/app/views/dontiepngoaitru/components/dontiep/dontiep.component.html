@@ -123,9 +123,9 @@
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label" for="ns">Ngày sinh <span class="red">(*)</span></label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" id="ns" formControlName="ngaysinh">
+                                <input type="text" class="form-control" id="ns" placeholder="__/__/____" [textMask]="{mask: maskNgaySinh}" formControlName="ngaysinh" (keyup)="onKey($event)">
                             </div>
-                            <label class="col-md-4 col-form-label text-left">Tuổi: </label>
+                            <label class="col-md-4 col-form-label text-left">Tuổi: {{ tuoi ? tuoi: null }}</label>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label" for="gt">Giới tính <span class="red">(*)</span></label>
@@ -162,7 +162,7 @@
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label" for="dienthoai">Điện thoại <span class="red">(*)</span></label>
                             <div class="col-md-8">
-                                <input type="text" [textMask]="{mask: maskPhone}" class="form-control" id="dienthoai" formControlName="dienthoai">
+                                <input type="text" [textMask]="{mask: maskPhone}" placeholder="0000 000000" class="form-control" id="dienthoai" formControlName="dienthoai">
                             </div>
                         </div>
                         <div class="form-group row">

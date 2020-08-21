@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PhongKham } from '../../../../../models/phongkham';
-import { KhoaphongService } from '../../../services/khoaphong.service';
 import { ToastrService } from 'ngx-toastr';
-import { ConfirmDialogService } from '../../../confirm-dialog/confirm-dialog.service';
 import { Router } from '@angular/router';
+import { DmkhoaphongService } from '../../../../../shared/services/dmkhoaphong.service';
+import { ConfirmDialogService } from '../../../../../shared/services/confirm-dialog.service';
 
 @Component({
   selector: 'app-list',
@@ -19,7 +19,7 @@ export class ListComponent implements OnInit {
   totalItems: number;
   khoaPhongs: PhongKham[] = [];
   constructor(
-    private khoaPhongService: KhoaphongService,
+    private dmKhoaPhongService: DmkhoaphongService,
     private confirmationDialogService: ConfirmDialogService,
     private toatsService: ToastrService,
     private router: Router
@@ -30,7 +30,7 @@ export class ListComponent implements OnInit {
   }
 
   getKhoaPhong(type: number, pageSize: number, pageIndex: number) {
-    this.khoaPhongService.getAllKhoaPhong(this.type, this.pageSize, this.pageIndex).subscribe((data: any) => {
+    this.dmKhoaPhongService.getAllKhoaPhong(this.type, this.pageSize, this.pageIndex).subscribe((data: any) => {
       this.totalItems = data.count;
       this.khoaPhongs = data.dmKhoaPhong;
       /*
@@ -50,7 +50,7 @@ export class ListComponent implements OnInit {
     this.confirmationDialogService.confirm('Xác nhận', 'Bạn thực sự muốn xoá?')
     .then(confirmed => {
       if (confirmed) {
-        this.khoaPhongService.deleteKhoaphong(id).subscribe(data => {
+        this.dmKhoaPhongService.deleteKhoaphong(id).subscribe(data => {
           this.toatsService.success('Đã xoá thành công', 'Thành công');
           this.getKhoaPhong(this.type, this.pageSize, this.pageIndex);
         }, (error) => {

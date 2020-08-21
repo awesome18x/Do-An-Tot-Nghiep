@@ -10,4 +10,5 @@ export class DMBenhNhan {
     dantoc: string;
     masothue: string;
     quoctich: string;
+    tuoi: number;
 }

@@ -10,6 +10,12 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
   imports: [
     CommonModule,
     HttpClientModule
+  ],
+  exports: [
+    ConfirmDialogComponent
+  ],
+  entryComponents: [
+    ConfirmDialogComponent
   ]
 })
 export class SharedModule { }

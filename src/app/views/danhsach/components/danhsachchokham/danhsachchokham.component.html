@@ -128,14 +128,14 @@
                         </thead>
                         <tbody *ngFor="let item of listChoKhams; let i = index;">
                             <tr>
-                                <td>{{ i+1 }}</td>
+                                <td class="text-center">{{ i+1 }}</td>
                                 <td>{{ item.BenhNhan?.HoTen }}</td>
-                                <td>24</td>
-                                <td>1</td>
+                                <td class="text-center">24</td>
+                                <td class="text-center">1</td>
                                 <td>{{ item.NgayDonTiep | date:'dd/MM hh:mm'}}</td>
-                                <td>
-                                    <button type="button" class="btn btn-block btn-success" (click)="getPhieuKham(item._id)">Khám</button>
-                                    <button type="button" class="btn btn-block btn-warning"> <i class="fa fa-volume-up"></i>Gọi</button>
+                                <td class="action_user">
+                                    <button type="button" class="btn btn-pill btn-success" (click)="getPhieuKham(item._id)">Khám</button>
+                                    <button type="button" class="btn btn-pill btn-warning ml-1" (click)="callBenhNhan(item)"> <i class="fa fa-volume-up"></i>&nbsp;Gọi</button>
                                 </td>
                             </tr>
                             <tr *ngIf="tongChoKhams <=0">

@@ -36,7 +36,9 @@ export class DontiepComponent implements OnInit {
   tinhthanhSelected: any;
   handau = moment().startOf('year').format('MM/DD/YYYY');
   hancuoi = moment().endOf('year').format('MM/DD/YYYY');
-  public maskPhone = [/[0-9]/, /[1-9]/, /[1-9]/, /[1-9]/, ' ', /[1-9]/, /[1-9]/, /[1-9]/, /[1-9]/, /[1-9]/, /[1-9]/];
+  public maskPhone = [/[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, ' ', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/];
+  maskNgaySinh = [/[0-3]/, /[0-9]/, '/', /[0-1]/, /[0-9]/, '/', /[1-2]/, /[0-9]/, /[0-9]/, /[0-9]/];
+  tuoi: number;
 
   constructor(
     private fb: FormBuilder,
@@ -157,6 +159,12 @@ export class DontiepComponent implements OnInit {
 
   onChange() {}
 
+  onKey(event) {
+    // const showAge = this.maskNgaySinh.test(event.target.value);
+    // console.log(showAge);
+    this.tuoi = moment().diff(event.target.value, 'years', false);
+  }
+
   onSubmit() {
     // từ đón tiếp => tạo ra 3 bảng 1 lúc
     const thebhyt = new DMTheBHYT();
@@ -172,8 +180,9 @@ export class DontiepComponent implements OnInit {
     benhnhan.dantoc = this.dangKyKhamBenhForm.value.dantoc;
     benhnhan.sdt = this.dangKyKhamBenhForm.value.dienthoai.replace(/ /g, '');
     benhnhan.masothue = this.dangKyKhamBenhForm.value.masothue;
-    benhnhan.diachi = this.dangKyKhamBenhForm.value.diachinha.toUpperCase() + '- ' + this.dangKyKhamBenhForm.value.phuongxa;
-    console.log(benhnhan);
+    benhnhan.diachi = this.dangKyKhamBenhForm.value.diachinha.toUpperCase() + ' - ' + this.dangKyKhamBenhForm.value.phuongxa;
+    benhnhan.tuoi = +this.tuoi;
+    // console.log(benhnhan);
 
     // create DMTheBHYT
     thebhyt.sothebhyt = this.dangKyKhamBenhForm.value.sothebhyt;

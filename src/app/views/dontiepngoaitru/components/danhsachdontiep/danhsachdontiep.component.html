@@ -12,14 +12,14 @@
                             <option [value]="item" *ngFor="let item of phongKhams;">{{item.name}}</option>
                         </select>
                     </div>
-                    <div class="col-2">
+                    <div class="col-3">
                         <select class="form-control" name="select">
                             <option [ngValue]="null" disabled>Tất cả loại khám</option>
                             <option [value]="item" *ngFor="let item of phongKhams;">{{item.name}}</option>
                         </select>
                     </div>
-                    <div class="col-4">
-                        <input class="form-control" id="date-input" for="date-input" type="date">
+                    <div class="col-3">
+                        <input type="text" placeholder="" class="form-control" bsDaterangepicker [bsConfig]="{ isAnimated: true }" style="text-align: center; justify-content: center;">
                     </div>
                     <div class="col-3">
                         <input class="form-control" type="text" placeholder="Tìm kiếm theo tên BN">

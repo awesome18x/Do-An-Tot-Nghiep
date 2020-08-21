@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DanToc } from '../../../../../models/dantoc';
 import { DantocService } from '../../../services/dantoc.service';
-import { ConfirmDialogService } from '../../../confirm-dialog/confirm-dialog.service';
 import { ToastrService } from 'ngx-toastr';
+import { ConfirmDialogService } from '../../../../../shared/services/confirm-dialog.service';
 
 @Component({
   selector: 'app-dsdt',

@@ -1,5 +1,4 @@
 import { zip } from 'rxjs';
-import { KhoaphongService } from '../../../services/khoaphong.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { PhongKham } from '../../../../../models/phongkham';
@@ -7,6 +6,7 @@ import { DvktService } from '../../../services/dvkt.service';
 import { ToastrService } from 'ngx-toastr';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { DmkhoaphongService } from '../../../../../shared/services/dmkhoaphong.service';
 
 @Component({
   selector: 'app-newdvkt',
@@ -20,7 +20,7 @@ export class NewdvktComponent implements OnInit {
   khoaPhongs: PhongKham;
   constructor(
     private fb: FormBuilder,
-    private khoaphongService: KhoaphongService,
+    private dmKhoaPhongService: DmkhoaphongService,
     private dvktService: DvktService,
     private toastrService: ToastrService,
     private router: Router
@@ -28,8 +28,8 @@ export class NewdvktComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    const call1 = this.khoaphongService.getAllPhongKham(2);
-    const call2 = this.khoaphongService.getAllPhongKham(1);
+    const call1 = this.dmKhoaPhongService.getAllPhongKham(2);
+    const call2 = this.dmKhoaPhongService.getAllPhongKham(1);
     zip(call1, call2)
       .pipe(
         tap(([phongkham, khoakham]: any[]) => {

@@ -3,6 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { PhongKham } from '../../../../models/phongkham';
 import { FormGroup } from '@angular/forms';
 import { DmkhoaphongService } from '../../../../shared/services/dmkhoaphong.service';
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { listLocales } from 'ngx-bootstrap/chronos';
+
+
 
 @Component({
   selector: 'app-danhsachdontiep',
@@ -10,12 +14,17 @@ import { DmkhoaphongService } from '../../../../shared/services/dmkhoaphong.serv
   styleUrls: ['./danhsachdontiep.component.css']
 })
 export class DanhsachdontiepComponent implements OnInit {
+  locale = 'vi';
+  locales = listLocales();
   hello: FormGroup;
   phongKhams: PhongKham[] = [];
   selectedPK: PhongKham;
   constructor(
-    private khoaPhongService: DmkhoaphongService
-  ) { }
+    private khoaPhongService: DmkhoaphongService,
+    private localeService: BsLocaleService
+  ) {
+    this.localeService.use(this.locale);
+   }
 
   ngOnInit(): void {
     this.khoaPhongService.getAllPhongKham(LoaiKhoaPhong.PhongKham).subscribe((data: any) => {
@@ -25,8 +34,15 @@ export class DanhsachdontiepComponent implements OnInit {
     }, (error) => {
       console.log(error);
     });
+    // this.localeService.use(this.locale);
 
   }
+
+  // applyLocale(pop: any) {
+  //   this.localeService.use(this.locale);
+  //   pop.hide();
+  //   pop.show();
+  // }
 
   onChange() {}
 

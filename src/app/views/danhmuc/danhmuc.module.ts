@@ -1,4 +1,3 @@
-import { ConfirmDialogService } from './confirm-dialog/confirm-dialog.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -10,7 +9,6 @@ import { DanhmucbenhvienComponent } from './components/danhmucbenhvien/danhmucbe
 import { DanhmucicdComponent } from './components/danhmucicd/danhmucicd.component';
 import { DanhmucdvktComponent } from './components/danhmucdvkt/danhmucdvkt.component';
 import { DanhmucdantocComponent } from './components/danhmucdantoc/danhmucdantoc.component';
-import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { CreateComponent } from './components/danhmuckhoaphong/create/create.component';
@@ -20,6 +18,7 @@ import { NewdtComponent } from './components/danhmucdantoc/newdt/newdt.component
 import { NewdvktComponent } from './components/danhmucdvkt/newdvkt/newdvkt.component';
 import { ListdvktComponent } from './components/danhmucdvkt/listdvkt/listdvkt.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { SharedModule } from '../../shared/shared.module';
 
 
 @NgModule({
@@ -29,7 +28,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
     DanhmucicdComponent,
     DanhmucdvktComponent,
     DanhmucdantocComponent,
-    ConfirmDialogComponent,
     CreateComponent,
     ListComponent,
     DsdtComponent,
@@ -45,17 +43,14 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ReactiveFormsModule,
     NgbModalModule,
     NgbPaginationModule,
-    NgSelectModule
-
+    NgSelectModule,
+    SharedModule
   ],
   exports: [
-    ConfirmDialogComponent
   ],
   providers: [
-    ConfirmDialogService
   ],
   entryComponents: [
-    ConfirmDialogComponent
   ]
 })
 export class DanhmucModule { }

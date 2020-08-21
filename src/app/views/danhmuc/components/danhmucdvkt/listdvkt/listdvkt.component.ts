@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { KhoaphongService } from '../../../services/khoaphong.service';
 import { DvktService } from '../../../services/dvkt.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { DVKT } from '../../../../../models/dvkt';
+import { DmkhoaphongService } from '../../../../../shared/services/dmkhoaphong.service';
 
 @Component({
   selector: 'app-listdvkt',
@@ -17,7 +17,7 @@ export class ListdvktComponent implements OnInit {
   total: number;
   dvkts: any[] = [];
   constructor(
-    private khoaphongService: KhoaphongService,
+    private dmKhoaPhongService: DmkhoaphongService,
     private dvktService: DvktService,
     private toastrService: ToastrService,
     private router: Router

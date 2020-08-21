@@ -6,6 +6,7 @@ import { PhongKham } from '../../../../models/phongkham';
 import { DSChoKhamService } from '../../service/dschokham.service';
 import { HSPhieuKham } from '../../../../models/hsphieukham';
 import { DmkhoaphongService } from '../../../../shared/services/dmkhoaphong.service';
+import { SpeechService } from '../../../../shared/services/speech.service';
 
 @Component({
   selector: 'app-danhsachchokham',
@@ -23,7 +24,8 @@ export class DanhsachchokhamComponent implements OnInit {
   constructor(
     private dmkhoaPhongService: DmkhoaphongService,
     private dsChoKhamService: DSChoKhamService,
-    private router: Router
+    private router: Router,
+    private speechService: SpeechService
   ) { }
 
   ngOnInit(): void {
@@ -57,6 +59,11 @@ export class DanhsachchokhamComponent implements OnInit {
   getPhieuKham(id) {
     // console.log(id);
     this.router.navigate([`/danhsach/phieu-kham-ngoai-tru/${id}`]);
+  }
+
+  callBenhNhan(bn) {
+    const template = `Mời bệnh nhân ${bn.BenhNhan.HoTen}`;
+    this.speechService.speakTemplate(template, bn);
   }
 
 }
