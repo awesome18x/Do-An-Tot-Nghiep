@@ -10,7 +10,11 @@ export enum TrangThaiKhamBenh {
     HuyKham = 'Huy_Kham',
     ChuyenVien = 'Chuyen_Vien',
     LapBenhAnNoiTru = 'Lap_Benh_An_Noi_Tru',
-    LapBenhAnNgoaiTru = 'Lap_Benh_An_Ngoai_Tru'
+    DieuTriNoiTru = 'Dieu_Tri_Noi_Tru',
+    DieuTriNgoaiTru = 'Dieu_Tri_Ngoai_Tru',
+    LapBenhAnNgoaiTru = 'Lap_Benh_An_Ngoai_Tru',
+    RaVien = 'Ra_Vien',
+    DaThanhToan = 'Da_Thanh_Toan'
 }
 
 export enum TrangThaiDVKT {
