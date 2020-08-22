@@ -12,3 +12,9 @@ export enum TrangThaiKhamBenh {
     LapBenhAnNoiTru = 'Lap_Benh_An_Noi_Tru',
     LapBenhAnNgoaiTru = 'Lap_Benh_An_Ngoai_Tru'
 }
+
+export enum TrangThaiDVKT {
+    DaChiDinh = 'Da_Chi_Dinh',
+    DaChiDinhNhungChuaDongTien = 'Da_Chi_Dinh_Nhung_Chua_Dong_Tien',
+    DaCoKetQua = 'Da_Co_Ket_Qua'
+}
