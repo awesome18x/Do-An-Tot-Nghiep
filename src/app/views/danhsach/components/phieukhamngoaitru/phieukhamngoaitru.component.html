@@ -274,6 +274,58 @@
                                         <i class="fa fa-plus-square fa-lg"></i> Chỉ định Cận lâm sàng
                                     </a>
                                 </div>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Mã</th>
+                                                <th scope="col">Tên</th>
+                                                <th scope="col">Số lượng</th>
+                                                <th scope="col">Tiền(VNĐ)</th>
+                                                <th scope="col">Ghi chú</th>
+                                                <th scope="col">Kết quả</th>
+                                                <th scope="col">BH</th>
+                                                <th scope="col">Xoá</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td>Mark</td>
+                                                <td>Otto</td>
+                                                <td>@mdo</td>
+                                                <td>Mark</td>
+                                                <td>Otto</td>
+                                                <td>@mdo</td>
+                                                <td>Otto</td>
+                                                <td><i class="fa fa-trash icon"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">2</th>
+                                                <td>Jacob</td>
+                                                <td>Thornton</td>
+                                                <td>@fat</td>
+                                                <td>Mark</td>
+                                                <td>Otto</td>
+                                                <td>@mdo</td>
+                                                <td>Otto</td>
+                                                <td><i class="fa fa-trash icon"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">3</th>
+                                                <td>Larry</td>
+                                                <td>the Bird</td>
+                                                <td>@twitter</td>
+                                                <td>Mark</td>
+                                                <td>Otto</td>
+                                                <td>@mdo</td>
+                                                <td>Otto</td>
+                                                <td><i class="fa fa-trash icon"></i></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                                 <ng-template #content let-modal>
 
                                     <div class="modal-header">
@@ -307,7 +359,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody *ngFor="let item of listDVKT; let i = index;">
-                                                        <tr>
+                                                        <tr (click)="show(item)">
                                                             <td>
                                                                 {{item.MaDV}}
                                                             </td>
@@ -325,23 +377,32 @@
                                                     </tbody>
                                                 </table>
                                                 <table class="col-sm-5 table table-striped table-hover table-responsive-lg">
-                                                    <thead>
+                                                    <thead style="height:47px;">
                                                         <tr>
-
                                                             <th>Mã DV</th>
                                                             <th style="width: 75%;">Tên DV</th>
-
+                                                            <th></th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
-
+                                                    <tbody *ngFor="let item of selectedListDVKT; let i = index;">
+                                                        <tr>
+                                                            <td>
+                                                                {{item.MaDV}}
+                                                            </td>
+                                                            <td>
+                                                                {{item.Name}}
+                                                            </td>
+                                                            <td (click)="removeCLS(i)" title="Xoá">
+                                                                <i class="fa fa-trash icon"></i>
+                                                            </td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </form>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-outline-dark text-center" (click)="modal.close('Save click')">Lưu Lại</button>
+                                        <button type="button" class="btn btn-success text-center" (click)="modal.close('Save click')">Lưu Lại</button>
                                     </div>
 
                                 </ng-template>

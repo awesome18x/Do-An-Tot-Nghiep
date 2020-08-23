@@ -61,3 +61,17 @@ th {
 .tb {
     border-right: 1px solid #ddd;
 }
+
+.icon {
+    cursor: pointer;
+    color: red;
+}
+
+.modal-footer {
+    justify-content: center;
+}
+
+.table-responsive {
+    padding-bottom: 0;
+    padding: 1rem;
+}
