@@ -18,4 +18,6 @@ export class HSChiDinhDVKT {
     GhiChu: string;
     IsBHYT: boolean;
     IsThanhToan: boolean;
+    DonGiaBH: number;
+    DonGiaDV: number;
 }

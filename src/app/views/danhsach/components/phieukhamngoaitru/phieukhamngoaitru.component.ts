@@ -13,7 +13,7 @@ import { CongkhamService } from '../../service/congkham.service';
 import { combineLatest, of } from 'rxjs';
 import { HsphieuchidinhdvktService } from '../../service/hsphieuchidinhdvkt.service';
 import { ToastrService } from 'ngx-toastr';
-
+import { TrangThaiDVKT } from '../../../../constants/constants';
 
 @Component({
   selector: 'app-phieukhamngoaitru',
@@ -82,17 +82,28 @@ export class PhieukhamngoaitruComponent implements OnInit {
       this.closeResult = `Closed with: ${result}`;
       console.log('ddong');
       const hsChiDinhDVKT = new HSChiDinhDVKT();
-      hsChiDinhDVKT.NguoiTao = localStorage.getItem('userID');
-      hsChiDinhDVKT.NgayTao = new Date();
-      hsChiDinhDVKT.NgayYLenh = new Date();
-      hsChiDinhDVKT.idPhieuKham = this.phieukham._id;
-      this.hsPhieuChiDinhDVKT.createHSChiDinhDVKT(hsChiDinhDVKT).subscribe((data: HSChiDinhDVKT[]) => {
-        console.log(data);
-        this.listDVKTCreated = data;
-        this.toastrService.success('Chỉ định cận lâm sàng thành công', 'Thành công');
-      }, (error) => {
-        this.toastrService.error('Chỉ định cận lâm sàng thất bại');
-        console.log(error);
+      this.selectedListDVKT.map(item => {
+        hsChiDinhDVKT.NguoiTao = localStorage.getItem('userID');
+        hsChiDinhDVKT.NgayTao = new Date();
+        hsChiDinhDVKT.NgayYLenh = new Date();
+        hsChiDinhDVKT.idPhieuKham = this.phieukham._id;
+        hsChiDinhDVKT.KetQua = 'Chưa có kết quả';
+        hsChiDinhDVKT.SoLuong = 1;
+        hsChiDinhDVKT.IsThanhToan = false;
+        hsChiDinhDVKT.TrangThai = TrangThaiDVKT.DaChiDinh;
+        hsChiDinhDVKT.IsBHYT = true;
+        hsChiDinhDVKT.MaDVKT = item.MaDVKT;
+        hsChiDinhDVKT.TenDVKT = item.Name.trim();
+        hsChiDinhDVKT.DonGiaBH = item.GiaBH;
+        hsChiDinhDVKT.DonGiaDV = item.GiaDV;
+        this.hsPhieuChiDinhDVKT.createHSChiDinhDVKT(hsChiDinhDVKT).subscribe((data: HSChiDinhDVKT[]) => {
+          console.log(data);
+          this.listDVKTCreated = data;
+          this.toastrService.success('Chỉ định cận lâm sàng thành công', 'Thành công');
+        }, (error) => {
+          this.toastrService.error('Chỉ định cận lâm sàng thất bại');
+          console.log(error);
+        });
       });
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -112,6 +123,7 @@ export class PhieukhamngoaitruComponent implements OnInit {
 
   show(item: any) {
     this.selectedListDVKT.push(item);
+    console.log(this.selectedListDVKT);
   }
 
   removeCLS(index: number) {
