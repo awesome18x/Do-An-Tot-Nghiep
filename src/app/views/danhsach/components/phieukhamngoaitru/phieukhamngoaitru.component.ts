@@ -10,7 +10,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { DvktService } from '../../../danhmuc/services/dvkt.service';
 import { DVKT } from '../../../../models/dvkt';
 import { CongkhamService } from '../../service/congkham.service';
-import { combineLatest, of } from 'rxjs';
+import { combineLatest, of, forkJoin } from 'rxjs';
 import { HsphieuchidinhdvktService } from '../../service/hsphieuchidinhdvkt.service';
 import { ToastrService } from 'ngx-toastr';
 import { TrangThaiDVKT } from '../../../../constants/constants';
@@ -82,6 +82,7 @@ export class PhieukhamngoaitruComponent implements OnInit {
       this.closeResult = `Closed with: ${result}`;
       console.log('ddong');
       const hsChiDinhDVKT = new HSChiDinhDVKT();
+      const array_created = [];
       this.selectedListDVKT.map(item => {
         hsChiDinhDVKT.NguoiTao = localStorage.getItem('userID');
         hsChiDinhDVKT.NgayTao = new Date();
@@ -96,14 +97,15 @@ export class PhieukhamngoaitruComponent implements OnInit {
         hsChiDinhDVKT.TenDVKT = item.Name.trim();
         hsChiDinhDVKT.DonGiaBH = item.GiaBH;
         hsChiDinhDVKT.DonGiaDV = item.GiaDV;
-        this.hsPhieuChiDinhDVKT.createHSChiDinhDVKT(hsChiDinhDVKT).subscribe((data: HSChiDinhDVKT[]) => {
-          console.log(data);
-          this.listDVKTCreated = data;
-          this.toastrService.success('Chỉ định cận lâm sàng thành công', 'Thành công');
-        }, (error) => {
-          this.toastrService.error('Chỉ định cận lâm sàng thất bại');
-          console.log(error);
-        });
+        array_created.push(this.hsPhieuChiDinhDVKT.createHSChiDinhDVKT(hsChiDinhDVKT));
+      });
+      forkJoin(array_created).subscribe((data: HSChiDinhDVKT[]) => {
+        console.log(data);
+        this.listDVKTCreated = data;
+        this.toastrService.success('Chỉ định cận lâm sàng thành công', 'Thành công');
+      }, (error) => {
+        this.toastrService.error('Chỉ định cận lâm sàng thất bại');
+        console.log(error);
       });
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
