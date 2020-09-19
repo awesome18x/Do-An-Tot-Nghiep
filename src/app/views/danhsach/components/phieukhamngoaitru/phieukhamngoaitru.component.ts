@@ -21,6 +21,7 @@ import { TrangThaiDVKT } from '../../../../constants/constants';
   styleUrls: ['./phieukhamngoaitru.component.scss']
 })
 export class PhieukhamngoaitruComponent implements OnInit {
+  idPhieuKham: string;
   nameBSKham: string;
   nameCongkham: any;
   congkhamInBuongKham: DVKT[] = [];
@@ -46,10 +47,14 @@ export class PhieukhamngoaitruComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.paramMap.pipe(switchMap((params: ParamMap) => {
       if (params.get('id')) {
-        const id = params.get('id');
-        return this.dschokhamService.getPhieuKhamById(id).pipe(
+        this.idPhieuKham = params.get('id');
+        return this.dschokhamService.getPhieuKhamById(this.idPhieuKham).pipe(
           mergeMap((data: any) => {
-            return combineLatest([of(data), this.congkhamService.getCongKhamTheoPhong(data.PhongKham._id)]);
+            return forkJoin([
+              of(data),
+              this.congkhamService.getCongKhamTheoPhong(data.PhongKham._id),
+              this.getListDVKT()
+            ]);
           })
         );
       }
@@ -80,14 +85,12 @@ export class PhieukhamngoaitruComponent implements OnInit {
   open(content) {
     this.modalService.open(content, { size: 'lg' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
-      console.log('ddong');
-      const hsChiDinhDVKT = new HSChiDinhDVKT();
-      const array_created = [];
-      this.selectedListDVKT.map(item => {
+      const queries$ = this.selectedListDVKT.map((item) => {
+        const hsChiDinhDVKT = new HSChiDinhDVKT();
         hsChiDinhDVKT.NguoiTao = localStorage.getItem('userID');
         hsChiDinhDVKT.NgayTao = new Date();
         hsChiDinhDVKT.NgayYLenh = new Date();
-        hsChiDinhDVKT.idPhieuKham = this.phieukham._id;
+        hsChiDinhDVKT.idPhieuKham = this.idPhieuKham;
         hsChiDinhDVKT.KetQua = 'Chưa có kết quả';
         hsChiDinhDVKT.SoLuong = 1;
         hsChiDinhDVKT.IsThanhToan = false;
@@ -97,19 +100,28 @@ export class PhieukhamngoaitruComponent implements OnInit {
         hsChiDinhDVKT.TenDVKT = item.Name.trim();
         hsChiDinhDVKT.DonGiaBH = item.GiaBH;
         hsChiDinhDVKT.DonGiaDV = item.GiaDV;
-        array_created.push(this.hsPhieuChiDinhDVKT.createHSChiDinhDVKT(hsChiDinhDVKT));
+        hsChiDinhDVKT.idDVKT = item._id;
+        return this.hsPhieuChiDinhDVKT.createHSChiDinhDVKT(hsChiDinhDVKT);
       });
-      forkJoin(array_created).subscribe((data: HSChiDinhDVKT[]) => {
-        console.log(data);
-        this.listDVKTCreated = data;
-        this.toastrService.success('Chỉ định cận lâm sàng thành công', 'Thành công');
+      forkJoin(queries$).subscribe((data: HSChiDinhDVKT[]) => {
+          this.listDVKTCreated = data;
+          this.toastrService.success('Chỉ định cận lâm sàng thành công');
+          this.getListDVKT();
       }, (error) => {
-        this.toastrService.error('Chỉ định cận lâm sàng thất bại');
-        console.log(error);
-      });
+          this.toastrService.error('Chỉ định cận lâm sàng thất bại');
+          console.log(error);
+        });
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       console.log('jhkl');
+    });
+  }
+
+  getListDVKT() {
+    this.hsPhieuChiDinhDVKT.getHSChiDinhDVKTByPhieuKham(this.idPhieuKham).subscribe(data => {
+      console.log(data);
+    }, (error) => {
+      console.log(error);
     });
   }
 
