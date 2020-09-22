@@ -1,4 +1,4 @@
-import { HSChiDinhDVKT } from './../../../models/hschidinhdvkt';
+import { HSChiDinhDVKT, DSChiDinhDVKT } from './../../../models/hschidinhdvkt';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
@@ -17,8 +17,8 @@ export class HsphieuchidinhdvktService {
     return this.http.post<HSChiDinhDVKT>(this.API_URL + `api/hschidinhdvkt/create`, body);
   }
 
-  getHSChiDinhDVKTByPhieuKham(id: string): Observable<HSChiDinhDVKT[]> {
-    return this.http.get<HSChiDinhDVKT[]>(this.API_URL + `api/hschidinhdvkt/${id}`);
+  getHSChiDinhDVKTByPhieuKham(id: string): Observable<DSChiDinhDVKT[]> {
+    return this.http.get<DSChiDinhDVKT[]>(this.API_URL + `api/hschidinhdvkt/${id}`);
   }
 
 

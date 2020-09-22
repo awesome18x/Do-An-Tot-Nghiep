@@ -50,6 +50,7 @@ import { DanhmucModule } from './views/danhmuc/danhmuc.module';
 import { OptionModule } from './views/option/option.module';
 import { SharedModule } from './shared/shared.module';
 
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -72,7 +73,7 @@ import { SharedModule } from './shared/shared.module';
     DanhsachModule,
     DanhmucModule,
     OptionModule,
-    SharedModule
+    SharedModule,
   ],
   declarations: [
     AppComponent,

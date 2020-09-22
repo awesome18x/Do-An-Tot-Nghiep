@@ -13,7 +13,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TextMaskModule } from 'angular2-text-mask';
 
 
-
 @NgModule({
   declarations: [
     DanhsachchokhamComponent,
@@ -29,7 +28,7 @@ import { TextMaskModule } from 'angular2-text-mask';
     HttpClientModule,
     DanhsachRoutingModule,
     NgbModule,
-    TextMaskModule
+    TextMaskModule,
   ],
   exports: [
     PhieukhamngoaitruComponent

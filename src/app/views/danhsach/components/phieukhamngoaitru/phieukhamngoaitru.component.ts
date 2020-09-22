@@ -1,4 +1,4 @@
-import { HSChiDinhDVKT } from './../../../../models/hschidinhdvkt';
+import { HSChiDinhDVKT, DSChiDinhDVKT } from './../../../../models/hschidinhdvkt';
 import { mergeMap, switchMap } from 'rxjs/operators';
 import { PhongKham } from './../../../../models/phongkham';
 import { HSPhieuKham } from './../../../../models/hsphieukham';
@@ -34,6 +34,7 @@ export class PhieukhamngoaitruComponent implements OnInit {
   closeResult = '';
   selectedListDVKT: any[] = [];
   listDVKTCreated: HSChiDinhDVKT[] = [];
+  listDVKTByIdPhieuKham: DSChiDinhDVKT[] = [];
   constructor(
     private activatedRoute: ActivatedRoute,
     private dschokhamService: DSChoKhamService,
@@ -45,6 +46,14 @@ export class PhieukhamngoaitruComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.ininData();
+
+    this.nameBSKham = localStorage.getItem('hoten');
+    this.getdvkt(this.type, this.pageSize, this.pageIndex);
+
+  }
+
+  ininData() {
     this.activatedRoute.paramMap.pipe(switchMap((params: ParamMap) => {
       if (params.get('id')) {
         this.idPhieuKham = params.get('id');
@@ -53,7 +62,7 @@ export class PhieukhamngoaitruComponent implements OnInit {
             return forkJoin([
               of(data),
               this.congkhamService.getCongKhamTheoPhong(data.PhongKham._id),
-              this.getListDVKT()
+              this.hsPhieuChiDinhDVKT.getHSChiDinhDVKTByPhieuKham(this.idPhieuKham)
             ]);
           })
         );
@@ -64,14 +73,12 @@ export class PhieukhamngoaitruComponent implements OnInit {
         this.phieukham = result[0];
         console.log(this.phieukham);
         this.nameCongkham = result[1][0];
+        this.listDVKTByIdPhieuKham = result[2];
+        console.log(this.listDVKTByIdPhieuKham);
       }
     }, (error) => {
       console.log(error);
     });
-
-    this.nameBSKham = localStorage.getItem('hoten');
-    this.getdvkt(this.type, this.pageSize, this.pageIndex);
-
   }
 
   getdvkt(type: number, pageSize: number, pageIndex: number) {
@@ -106,7 +113,7 @@ export class PhieukhamngoaitruComponent implements OnInit {
       forkJoin(queries$).subscribe((data: HSChiDinhDVKT[]) => {
           this.listDVKTCreated = data;
           this.toastrService.success('Chỉ định cận lâm sàng thành công');
-          this.getListDVKT();
+          this.getListDVKTDaChiDinh();
       }, (error) => {
           this.toastrService.error('Chỉ định cận lâm sàng thất bại');
           console.log(error);
@@ -117,7 +124,7 @@ export class PhieukhamngoaitruComponent implements OnInit {
     });
   }
 
-  getListDVKT() {
+  getListDVKTDaChiDinh() {
     this.hsPhieuChiDinhDVKT.getHSChiDinhDVKTByPhieuKham(this.idPhieuKham).subscribe(data => {
       console.log(data);
     }, (error) => {

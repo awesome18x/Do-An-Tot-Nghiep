@@ -1,3 +1,6 @@
+// @import url('https://fonts.googleapis.com/css?family=Quicksand:400,700&display=swap');
+
+
 .hr-line-dashed {
     border-top: 1px dashed #5cb85c;
     color: #ffffff;
@@ -84,4 +87,10 @@ a.ma{
 }
 .item-ma{
     text-align: center;
+}
+.square{
+  width: 1rem;
+  height: 1rem;
+  background-color: red;
+  border: none;
 }
