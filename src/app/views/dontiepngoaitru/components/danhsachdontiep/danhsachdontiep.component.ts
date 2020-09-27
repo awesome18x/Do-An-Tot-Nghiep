@@ -5,6 +5,10 @@ import { FormGroup } from '@angular/forms';
 import { DmkhoaphongService } from '../../../../shared/services/dmkhoaphong.service';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { listLocales } from 'ngx-bootstrap/chronos';
+import { LoaikhamService } from '../../services/loaikham.service';
+import { forkJoin } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { LoaiKham } from '../../../../models/loaikham';
 
 
 
@@ -19,9 +23,11 @@ export class DanhsachdontiepComponent implements OnInit, DoCheck {
   hello: FormGroup;
   phongKhams: PhongKham[] = [];
   selectedPK: PhongKham;
+  loaiKhams: LoaiKham[] = [];
   constructor(
     private khoaPhongService: DmkhoaphongService,
-    private localeService: BsLocaleService
+    private localeService: BsLocaleService,
+    private loaiKhamService: LoaikhamService
   ) {
     // this.localeService.use(this.locale);
   }
@@ -31,14 +37,26 @@ export class DanhsachdontiepComponent implements OnInit, DoCheck {
   }
 
   ngOnInit(): void {
-    this.khoaPhongService.getAllPhongKham(LoaiKhoaPhong.PhongKham).subscribe((data: any) => {
-      console.log(data);
-      this.phongKhams = data.dmKhoaPhong;
-      // this.selectedPK = data.dmKhoaPhong[0];
+    // this.khoaPhongService.getAllPhongKham(LoaiKhoaPhong.PhongKham).subscribe((data: any) => {
+    //   console.log(data);
+    //   this.phongKhams = data.dmKhoaPhong;
+    //   // this.selectedPK = data.dmKhoaPhong[0];
+    // }, (error) => {
+    //   console.log(error);
+    // });
+    forkJoin([
+      this.khoaPhongService.getAllPhongKham(LoaiKhoaPhong.PhongKham),
+      this.loaiKhamService.getAllLoaiKham()
+    ]).pipe(
+      tap(([phongkham, loaikham]: any[]) => {
+        this.phongKhams = phongkham.dmKhoaPhong;
+        // console.log(loaikham);
+        this.loaiKhams = loaikham.loaikham;
+      }
+    )).subscribe(() => {
     }, (error) => {
       console.log(error);
     });
-
   }
 
   applyLocale(pop: any) {

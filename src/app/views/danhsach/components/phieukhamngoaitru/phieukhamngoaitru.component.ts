@@ -112,8 +112,13 @@ export class PhieukhamngoaitruComponent implements OnInit {
       });
       forkJoin(queries$).subscribe((data: HSChiDinhDVKT[]) => {
           this.listDVKTCreated = data;
-          this.toastrService.success('Chỉ định cận lâm sàng thành công');
-          this.getListDVKTDaChiDinh();
+          // this.toastrService.success('Chỉ định cận lâm sàng thành công');
+          if (this.listDVKTByIdPhieuKham.length > 0) {
+            this.toastrService.success('Cập nhật cận lâm sàng thành công');
+          } else {
+            this.toastrService.success('Chỉ định cận lâm sàng thành công');
+          }
+          this.ininData();
       }, (error) => {
           this.toastrService.error('Chỉ định cận lâm sàng thất bại');
           console.log(error);
