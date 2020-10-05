@@ -21,5 +21,9 @@ export class HsphieuchidinhdvktService {
     return this.http.get<DSChiDinhDVKT[]>(this.API_URL + `api/hschidinhdvkt/${id}`);
   }
 
+  deleteOneOfDSCDDVKT(id: string): Observable<DSChiDinhDVKT> {
+    return this.http.delete<DSChiDinhDVKT>(this.API_URL + `api/hschidinhdvkt/${id}`);
+  }
+
 
 }

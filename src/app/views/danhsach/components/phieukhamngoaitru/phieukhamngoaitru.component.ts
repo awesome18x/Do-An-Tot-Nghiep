@@ -14,6 +14,7 @@ import { combineLatest, of, forkJoin } from 'rxjs';
 import { HsphieuchidinhdvktService } from '../../service/hsphieuchidinhdvkt.service';
 import { ToastrService } from 'ngx-toastr';
 import { TrangThaiDVKT } from '../../../../constants/constants';
+import { ConfirmDialogService } from '../../../../shared/services/confirm-dialog.service';
 
 @Component({
   selector: 'app-phieukhamngoaitru',
@@ -42,18 +43,20 @@ export class PhieukhamngoaitruComponent implements OnInit {
     private dvktService: DvktService,
     private congkhamService: CongkhamService,
     private hsPhieuChiDinhDVKT: HsphieuchidinhdvktService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private confirmationDialogService: ConfirmDialogService,
+
   ) { }
 
   ngOnInit() {
-    this.ininData();
+    this.initData();
 
     this.nameBSKham = localStorage.getItem('hoten');
     this.getdvkt(this.type, this.pageSize, this.pageIndex);
 
   }
 
-  ininData() {
+  initData() {
     this.activatedRoute.paramMap.pipe(switchMap((params: ParamMap) => {
       if (params.get('id')) {
         this.idPhieuKham = params.get('id');
@@ -71,10 +74,10 @@ export class PhieukhamngoaitruComponent implements OnInit {
     })).subscribe(result => {
       if (result) {
         this.phieukham = result[0];
-        console.log(this.phieukham);
+        // console.log(this.phieukham);
         this.nameCongkham = result[1][0];
         this.listDVKTByIdPhieuKham = result[2];
-        console.log(this.listDVKTByIdPhieuKham);
+        // console.log(this.listDVKTByIdPhieuKham);
       }
     }, (error) => {
       console.log(error);
@@ -118,7 +121,7 @@ export class PhieukhamngoaitruComponent implements OnInit {
           } else {
             this.toastrService.success('Chỉ định cận lâm sàng thành công');
           }
-          this.ininData();
+          this.initData();
       }, (error) => {
           this.toastrService.error('Chỉ định cận lâm sàng thất bại');
           console.log(error);
@@ -154,6 +157,22 @@ export class PhieukhamngoaitruComponent implements OnInit {
 
   removeCLS(index: number) {
     this.selectedListDVKT.splice(index, 1);
+  }
+
+  deleteDVKT(item: DSChiDinhDVKT) {
+    this.confirmationDialogService.confirm('Xác nhận', 'Bạn thực sự muốn xoá chỉ định này?')
+    .then(confirmed => {
+      if (confirmed) {
+        this.hsPhieuChiDinhDVKT.deleteOneOfDSCDDVKT(item._id).subscribe(data => {
+          this.toastrService.success('Đã xoá thành công', 'Thành công');
+          this.initData();
+        }, (error) => {
+          this.toastrService.warning('Có lỗi xảy ra', 'Thất bại');
+        });
+      }
+      // console.log('User confirmed:', confirmed);
+    })
+    .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
   }
 
 }

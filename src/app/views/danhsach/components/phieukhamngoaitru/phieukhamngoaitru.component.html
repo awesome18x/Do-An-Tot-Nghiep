@@ -287,7 +287,7 @@
                                                 <th scope="col" style="width: 10%; text-align: center;">Kết quả</th>
                                                 <th scope="col" style="width: 5%; text-align: center;">BH</th>
                                                 <th scope="col" style="width: 5%; text-align: center;">
-                                                    <i class="fa fa-trash icon"></i>
+                                                    #
                                                 </th>
                                             </tr>
                                         </thead>
@@ -308,9 +308,10 @@
                                                 </td>
                                                 <td>{{ item.KetQua }}</td>
                                                 <td>
-                                                  <input type="checkbox" style="width: 1.5rem;height: 1.5rem;">
+                                                  <!-- <input type="checkbox" style="width: 1.5rem;height: 1.5rem;"> -->
+                                                  <div [ngClass]="{'custom-bh': item.IsBHYT}"></div>
                                                 </td>
-                                                <td style="text-align: center;"><i class="fa fa-trash icon"></i></td>
+                                                <td style="text-align: center;"><i class="fa fa-trash icon" (click)="deleteDVKT(item)"></i></td>
                                             </tr>
 
                                         </tbody>
