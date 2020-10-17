@@ -6,7 +6,9 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 
 
 @NgModule({
-  declarations: [ConfirmDialogComponent],
+  declarations: [
+    ConfirmDialogComponent
+  ],
   imports: [
     CommonModule,
     HttpClientModule

@@ -5,6 +5,13 @@
 .nho {
     font-size: 10px;
 }
+.kiemtra {
+  background: red;
+  padding: 5px 10px;
+  color: white;
+  cursor: pointer;
+  justify-content: center;
+}
 
 
 /* .row {

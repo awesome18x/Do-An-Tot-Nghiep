@@ -36,6 +36,7 @@ export class PhieukhamngoaitruComponent implements OnInit {
   selectedListDVKT: any[] = [];
   listDVKTCreated: HSChiDinhDVKT[] = [];
   listDVKTByIdPhieuKham: DSChiDinhDVKT[] = [];
+  tien: number;
   constructor(
     private activatedRoute: ActivatedRoute,
     private dschokhamService: DSChoKhamService,
@@ -49,6 +50,7 @@ export class PhieukhamngoaitruComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.tien = 50000;
     this.initData();
 
     this.nameBSKham = localStorage.getItem('hoten');

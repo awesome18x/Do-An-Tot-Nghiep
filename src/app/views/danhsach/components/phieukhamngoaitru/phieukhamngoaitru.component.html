@@ -293,7 +293,7 @@
                                         </thead>
                                         <tbody *ngFor="let item of listDVKTByIdPhieuKham; let id = index">
                                             <tr>
-                                                <th scope="row">{{ id + 1}}</th>
+                                                <th scope="row"> <span class="squared"></span></th>
                                                 <td class="item-ma">
                                                     <b><a class="ma">{{ item.idDVKT.MaDV }}</a></b><br/>
                                                     {{ item.NguoiTao.hoten }}
@@ -302,7 +302,7 @@
                                                 <td style="text-align: center; justify-content: center;">
                                                     <input type="text" class="form-control text-center" name="mount" [ngModel]="item.SoLuong" [ngModelOptions]="{standalone: true}"style="width: 44px;">
                                                 </td>
-                                                <td>{{ item.IsBHYT? item.idDVKT.GiaBH : item.idDVKT.GiaDV }}</td>
+                                                <td class="text-center">{{ item.IsBHYT? item.idDVKT.GiaBH : item.idDVKT.GiaDV | currency: 'VND': 'symbol': '4.2-2'}}</td>
                                                 <td>
                                                     <input type="text" class="form-control text-center" name="note" >
                                                 </td>
@@ -370,8 +370,8 @@
                                                 <table class="col-sm-5 table table-striped table-hover table-responsive-lg">
                                                     <thead style="height:47px;">
                                                         <tr>
-                                                            <th>Mã DV</th>
-                                                            <th style="width: 75%;">Tên DV</th>
+                                                            <th style="width: 25%;">Mã DV</th>
+                                                            <th style="width: 70%;">Tên DV</th>
                                                             <th></th>
                                                         </tr>
                                                     </thead>
@@ -488,8 +488,8 @@
                                           <option>1. Về</option>
                                           <option>2. Chuyển phòng khám</option>
                                           <option>3. Chuyển viện</option>
-                                          <option>4</option>
-                                          <option>5</option>
+                                          <option>4. Lập bệnh án ngoại trú</option>
+                                          <option>5. Lập bệnh án nội trú</option>
                                         </select>
                                         </div>
                                     </div>
@@ -500,13 +500,13 @@
                                         <div class="row">
                                             <div class="col-md-2 col-sm-6">
                                                 <div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input" id="accept" type="checkbox">
+                                                    <input class="form-check-input" id="accept" type="checkbox" name="hxt">
                                                     <label class="custom-control-label" for="accept">Đã khám</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 col-sm-6">
                                                 <div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input" id="cancel" type="checkbox">
+                                                    <input class="form-check-input" id="cancel" type="checkbox" name="hxt">
                                                     <label class="custom-control-label" for="cancel">Huỷ khám</label>
                                                 </div>
                                             </div>

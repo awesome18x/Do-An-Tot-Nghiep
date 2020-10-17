@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PhieukhamngoaitruComponent } from './components/phieukhamngoaitru/phieukhamngoaitru.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TextMaskModule } from 'angular2-text-mask';
+import { SharedModule } from '../../shared/shared.module';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { TextMaskModule } from 'angular2-text-mask';
     DanhsachRoutingModule,
     NgbModule,
     TextMaskModule,
+    SharedModule
   ],
   exports: [
     PhieukhamngoaitruComponent

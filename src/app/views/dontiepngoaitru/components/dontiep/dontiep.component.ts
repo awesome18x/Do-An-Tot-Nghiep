@@ -7,8 +7,8 @@ import { PhongKham } from '../../../../models/phongkham';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoaikhamService } from '../../services/loaikham.service';
 import { LoaiKham } from '../../../../models/loaikham';
-import { zip, asapScheduler, of, forkJoin } from 'rxjs';
-import { tap, flatMap, mergeMap, retry, map } from 'rxjs/operators';
+import { zip, asapScheduler, of, forkJoin, from } from 'rxjs';
+import { tap, flatMap, mergeMap, retry, map, concatMap } from 'rxjs/operators';
 import * as moment from 'moment';
 import { HsphieukhamService } from '../../services/hsphieukham.service';
 import { AppAsideComponent } from '@coreui/angular';
@@ -17,6 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 import { TinhthanhService } from '../../services/tinhthanh.service';
 import { DmkhoaphongService } from '../../../../shared/services/dmkhoaphong.service';
 import { LoaiKhoaPhong } from '../../../../constants/constants';
+import { LaythongtintheService } from '../../services/laythongtinthe.service';
 
 
 @Component({
@@ -48,7 +49,8 @@ export class DontiepComponent implements OnInit {
     private theBHYTService: TheBHYTService,
     private dmBenhNhanService: DMBenhNhanService,
     private toastrService: ToastrService,
-    private tinhthanhService: TinhthanhService
+    private tinhthanhService: TinhthanhService,
+    private layThongTinTheService: LaythongtintheService
   ) { }
 
   ngOnInit() {
@@ -247,6 +249,31 @@ export class DontiepComponent implements OnInit {
 
   resetForm() {
     this.dangKyKhamBenhForm.reset(this.dangKyKhamBenhForm.value);
+  }
+
+
+  // layThongTinTuCongBHXH() {
+  //   this.layThongTinTheService.layPhienDangNhap().subscribe((data: string) => {
+  //     console.log(data);
+  //   }, (error) => {
+  //     console.log(error);
+  //   });
+  // }
+
+
+  layThongTinBenhNhanTuCongBHXH() {
+    this.layThongTinTheService.layPhienDangNhap().pipe(
+      concatMap((data: any) => {
+        /// data dưới đây của em đang bị undefined
+        return this.layThongTinTheService.layThongTinTheCuaNguoiBenh(
+          this.dangKyKhamBenhForm.value.sothebhyt, this.dangKyKhamBenhForm.value.hoten, this.dangKyKhamBenhForm.value.ngaysinh,
+          '2', '01004', '2019-12-31T17:00:00.000Z', '2020-12-30T17:00:00.000Z', data.token, data.id_token);
+      })
+    ).subscribe(data => {
+      console.log(data);
+    }, (error) => {
+      console.log(error);
+    });
   }
 
 }
