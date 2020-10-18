@@ -8,13 +8,13 @@
             </div>
         </div>
         <div class="card-body">
-            <form [formGroup]="dangKyKhamBenhForm" class="form-horizontal" (ngSubmit)="onSubmit()">
+            <form autocomplete="off" [formGroup]="dangKyKhamBenhForm" class="form-horizontal" (ngSubmit)="onSubmit()">
                 <div class="row text-right location-text">
                     <div class="col-lg-6 col-md-12">
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label" for="mhs">Mã hồ sơ</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="mhs" formControlName="sothebhyt">
+                                <input type="text" class="form-control" id="mhs" formControlName="sothebhyt" placeholder="__-_-__-__-___-_____">
                             </div>
                         </div>
                         <div class="form-group row">

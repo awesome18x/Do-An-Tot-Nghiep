@@ -48,7 +48,7 @@ export class LaythongtintheService {
 
 
   layThongTinTheCuaNguoiBenh(maThe: string, hoTen: string, ngaySinh: string,
-    gioiTinh: string, maCSKCB: string, ngayBD: string, ngayKT: string, token: string, id_token: string): Observable<any> {
+    gioiTinh: string, maCSKCB: string, ngayBD: string, ngayKT: string, access_token: string, id_token: string): Observable<any> {
     const theBHYT = {
       maThe: maThe,
       hoTen: hoTen,
@@ -59,7 +59,7 @@ export class LaythongtintheService {
       ngayKT: ngayKT ? ngayKT : null
     };
 
-    return this.http.post<any>(this.APIURL + `egw/nhanLichSuKCB?token=${token}&id_token=${id_token}&username=${this.username}&password=${this.password}`, theBHYT, httpOptions).pipe(
+    return this.http.post<any>(this.APIURL + `egw/NhanLichSuKCB2018?token=${access_token}&id_token=${id_token}&username=${this.username}&password=${this.password}`, theBHYT, httpOptions).pipe(
       catchError(this.handleError)
     );
   }

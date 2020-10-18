@@ -267,10 +267,36 @@ export class DontiepComponent implements OnInit {
         /// data dưới đây của em đang bị undefined
         return this.layThongTinTheService.layThongTinTheCuaNguoiBenh(
           this.dangKyKhamBenhForm.value.sothebhyt, this.dangKyKhamBenhForm.value.hoten, this.dangKyKhamBenhForm.value.ngaysinh,
-          '2', '01004', '2019-12-31T17:00:00.000Z', '2020-12-30T17:00:00.000Z', data.token, data.id_token);
+          '2', '01004', '2019-12-31T17:00:00.000Z', '2020-12-30T17:00:00.000Z', data.APIKey.access_token, data.APIKey.id_token);
       })
     ).subscribe(data => {
-      console.log(data);
+      if (data && data.maKetQua === '070') {
+        this.toastrService.warning('Ngày sinh của bệnh nhân không đúng, đã cập nhật lại ngày sinh', 'Cảnh báo');
+      }
+      if (data && data.maKetQua === '000') {
+        this.toastrService.success('Thông tin thẻ chính xác');
+      }
+      if (data && data.maKetQua === '010') {
+        this.toastrService.warning('Thẻ bảo hiểm đã hết giá trị sử dụng', 'Cảnh báo');
+      }
+      if (data && data.maKetQua === '050') {
+        this.toastrService.warning('Thông tin thẻ không đúng, vui lòng kiểm tra lại', 'Cảnh báo');
+      }
+      if (data && data.maKetQua === '080') {
+        this.toastrService.warning('Thẻ sai giới tính, đã cập nhật lại giới tính', 'Cảnh báo');
+      }
+      if (data && data.maKetQua === '090') {
+        this.toastrService.warning('Thẻ sai nơi đăng ký KCBBD, đã cập nhật lại nơi đăng ký KCBBD', 'Cảnh báo');
+      }
+
+      this.dangKyKhamBenhForm.patchValue({
+        hoten: data.hoTen,
+        diachitheothe: data.diaChi,
+        ngaybatdau: data.gtTheTu,
+        ngayketthuc: data.gtTheDen,
+        ngaysinh: data.ngaySinh,
+        gioitinh: data.gioiTinh === 'Nam' ? '1' : '2',
+      });
     }, (error) => {
       console.log(error);
     });
