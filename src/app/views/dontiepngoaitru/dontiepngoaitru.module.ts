@@ -6,7 +6,7 @@ import { DontiepComponent } from './components/dontiep/dontiep.component';
 import { DanhsachdontiepComponent } from './components/danhsachdontiep/danhsachdontiep.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -17,7 +17,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     DontiepngoaitruRoutingModule,
     ReactiveFormsModule,
     TextMaskModule,
-    BsDatepickerModule.forRoot()
+    // NgbDate,
+    NgbModule
   ]
 })
 export class DontiepngoaitruModule { }

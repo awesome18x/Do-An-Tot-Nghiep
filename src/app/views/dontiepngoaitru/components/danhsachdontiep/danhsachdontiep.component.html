@@ -4,45 +4,47 @@
             <strong>Bệnh Nhân Đang Đón Tiếp (Tổng: Bệnh Nhân)</strong>
         </div>
         <div class="card-body">
-            <form [formGroup] class="form-horizontal">
-                <div class="form-group row">
-                    <div class="col-3">
-                        <select class="form-control" name="select">
-                            <option [ngValue]="null">Tất cả phòng khám</option>
-                            <option [value]="item" *ngFor="let item of phongKhams;">{{item.name}}</option>
-                        </select>
-                    </div>
-                    <div class="col-3">
-                        <select class="form-control" name="select">
-                            <option [ngValue]="null" >Tất cả loại khám</option>
-                            <option [value]="item" *ngFor="let item of loaiKhams;">{{item.name}}</option>
-                        </select>
-                    </div>
-                    <div class="col-3">
-                        <!-- <input type="text"
-                               class="form-control"
-                               bsDaterangepicker
-                               [bsConfig]="{ isAnimated: true }"
-                               style="text-align: center; justify-content: center;"
-                        > -->
-                        <select
-                          class="custom-select form-control "
-                          [(ngModel)]="locale" (ngModelChange)="applyLocale(locale);" name="locale" [ngModelOptions]="{standalone: true}">
-                          <option *ngFor="let loc of locales" [value]="loc">{{ loc }}</option>
-                        </select>
-                        <input placeholder="Chọn ngày tìm kiếm"
-                               type="text"
-                               class="form-control"
-                               bsDaterangepicker
-                               #dpr="bsDaterangepicker"
-                        >
 
-                    </div>
-                    <div class="col-3">
-                        <input class="form-control" type="text" placeholder="Tìm kiếm theo tên BN">
-                    </div>
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label>Phòng khám</label>
+                  <select class="form-control" name="select">
+                    <option [ngValue]="null">Tất cả phòng khám</option>
+                    <option [value]="item" *ngFor="let item of phongKhams;">{{item.name}}</option>
+                  </select>
+              </div>
+              <div class="form-group col-md-2">
+                <label>Loại khám</label>
+                  <select class="form-control" name="select">
+                    <option [ngValue]="null" >Tất cả loại khám</option>
+                    <option [value]="item" *ngFor="let item of loaiKhams;">{{item.name}}</option>
+                  </select>
+              </div>
+              <div class="form-group col-md-2">
+                <label for="inputPassword4">Ngày bắt đầu</label>
+                <div class="input-group">
+                  <input class="form-control" placeholder="__-__-____"
+                          name="dp" [(ngModel)]="ngayBatDau" ngbDatepicker #d1="ngbDatepicker">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button"></button>
+                  </div>
                 </div>
-            </form>
+              </div>
+              <div class="form-group col-md-2">
+                <label for="inputPassword4">Ngày kết thúc</label>
+                <div class="input-group">
+                  <input type='text' class="form-control" placeholder="__-__-____"
+                          name="dp" [ngModel]="ngayKetThuc | date: 'dd-mm-yyyy'" ngbDatepicker #d2="ngbDatepicker">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"></button>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-4">
+                <label>Tìm kiếm theo tên bệnh nhân</label>
+                <input class="form-control" type="text" placeholder="Nhập tên BN">
+              </div>
+            </div>
             <table class="table table-striped table-hover table-responsive-lg">
                 <thead>
                     <tr>

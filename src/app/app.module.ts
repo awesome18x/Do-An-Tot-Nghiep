@@ -49,6 +49,7 @@ import { DanhsachModule } from './views/danhsach/danhsach.module';
 import { DanhmucModule } from './views/danhmuc/danhmuc.module';
 import { OptionModule } from './views/option/option.module';
 import { SharedModule } from './shared/shared.module';
+// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -74,6 +75,7 @@ import { SharedModule } from './shared/shared.module';
     DanhmucModule,
     OptionModule,
     SharedModule,
+    // NgbModule,
   ],
   declarations: [
     AppComponent,
