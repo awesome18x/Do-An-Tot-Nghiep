@@ -15,6 +15,7 @@ import { HsphieuchidinhdvktService } from '../../service/hsphieuchidinhdvkt.serv
 import { ToastrService } from 'ngx-toastr';
 import { TrangThaiDVKT } from '../../../../constants/constants';
 import { ConfirmDialogService } from '../../../../shared/services/confirm-dialog.service';
+import { HsphieukhamService } from '../../../dontiepngoaitru/services/hsphieukham.service';
 
 @Component({
   selector: 'app-phieukhamngoaitru',
@@ -46,6 +47,7 @@ export class PhieukhamngoaitruComponent implements OnInit {
     private hsPhieuChiDinhDVKT: HsphieuchidinhdvktService,
     private toastrService: ToastrService,
     private confirmationDialogService: ConfirmDialogService,
+    private hsPhieuKhamService: HsphieukhamService
 
   ) { }
 
@@ -55,7 +57,7 @@ export class PhieukhamngoaitruComponent implements OnInit {
 
     this.nameBSKham = localStorage.getItem('hoten');
     this.getdvkt(this.type, this.pageSize, this.pageIndex);
-
+    // this.hsPhieuKhamService.
   }
 
   initData() {
@@ -81,6 +83,14 @@ export class PhieukhamngoaitruComponent implements OnInit {
         this.listDVKTByIdPhieuKham = result[2];
         // console.log(this.listDVKTByIdPhieuKham);
       }
+    }, (error) => {
+      console.log(error);
+    });
+  }
+
+  updateHSPhieuKham() {
+    this.hsPhieuKhamService.updatePhieuKham().subscribe(data => {
+      console.log(data);
     }, (error) => {
       console.log(error);
     });

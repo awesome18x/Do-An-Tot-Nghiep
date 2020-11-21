@@ -17,4 +17,18 @@ export class DMBenhNhanService {
   createDMBenhNhan(body: DMBenhNhan): Observable<DMBenhNhan> {
     return this.http.post<DMBenhNhan>(this.API_URL + 'api/dmbenhnhan/create', body);
   }
+
+  getDSBenhNhanDenKham(idPhongKham: string, idLoaiKham: string, from: Date, to: Date): Observable<DMBenhNhan[]> {
+    return this.http.get<DMBenhNhan[]>(this.API_URL + `api/hsphieukham/danhsach/dstiepdon?phongKham=${idPhongKham}&loaiKham=${idLoaiKham}&from=${from}&to=${to}`);
+  }
+
+  // getDSBenhNhanDenKham(idPhongKham: string, idLoaiKham: string, from: Date, to: Date): Observable<DMBenhNhan[]> {
+  //   let body = {
+  //     idPhongKham: idPhongKham,
+  //     idLoaiKham: idLoaiKham,
+  //     from: from,
+  //     to: to
+  //   };
+  //   return this.http.post<DMBenhNhan[]>(this.API_URL + `api/hsphieukham/danhsach/dstiepdon`, body);
+  // }
 }

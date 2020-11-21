@@ -200,11 +200,13 @@ export class DontiepComponent implements OnInit {
     phieukham.idbuongkham = this.dangKyKhamBenhForm.value.idbuongkham;
     phieukham.idloaikham = this.dangKyKhamBenhForm.value.idloaikham;
     phieukham.sothebhyt = this.dangKyKhamBenhForm.value.sothebhyt;
-    phieukham.ngaydontiep = new Date();
+    phieukham.ngaydontiep = moment(new Date()).format('YYYY-MM-DD[T00:00:00.000Z]');
     phieukham.benhvientruoc = this.dangKyKhamBenhForm.value.benhvientruoc;
     phieukham.chandoantuyenduoi = this.dangKyKhamBenhForm.value.chandoantuyenduoi;
     phieukham.isbhyt = true;
     phieukham.trangthai = 1;
+    phieukham.idbacsykham = null;
+    phieukham.createdAt = moment(new Date()).format();
     // console.log(phieukham);
 
 
@@ -240,6 +242,7 @@ export class DontiepComponent implements OnInit {
           })
         ).subscribe(data => {
           this.toastrService.success('Đón tiếp bệnh nhân mới thành công', 'Thành công');
+          this.resetForm();
           console.log(data);
         }, (error) => {
           console.log(error);
@@ -266,8 +269,15 @@ export class DontiepComponent implements OnInit {
       concatMap((data: any) => {
         /// data dưới đây của em đang bị undefined
         return this.layThongTinTheService.layThongTinTheCuaNguoiBenh(
-          this.dangKyKhamBenhForm.value.sothebhyt, this.dangKyKhamBenhForm.value.hoten, this.dangKyKhamBenhForm.value.ngaysinh,
-          '2', '01004', '2019-12-31T17:00:00.000Z', '2020-12-30T17:00:00.000Z', data.APIKey.access_token, data.APIKey.id_token);
+          this.dangKyKhamBenhForm.value.sothebhyt,
+          this.dangKyKhamBenhForm.value.hoten,
+          this.dangKyKhamBenhForm.value.ngaysinh,
+          '2', '01004',
+          moment(this.dangKyKhamBenhForm.value.ngaybatdau).format('YYYY-MM-DD[T00:00:00.000Z]'),
+          moment(this.dangKyKhamBenhForm.value.ngayketthuc).format('YYYY-MM-DD[T00:00:00.000Z]'),
+          data.APIKey.access_token,
+          data.APIKey.id_token
+        );
       })
     ).subscribe(data => {
       if (data && data.maKetQua === '070') {

@@ -5,7 +5,7 @@ export class HSPhieuKham {
     benhvientruoc: string;
     idbenhnhan: string;
     idthebhyt: string;
-    ngaydontiep: Date;
+    ngaydontiep: any;
     idnguoidontiep: string;
     idbacsykham: string;
     chandoantuyenduoi: string;
@@ -36,5 +36,6 @@ export class HSPhieuKham {
     nhiptho: string;
     spo2: string;
     trangthai: number;
+    createdAt: any;
 
 }

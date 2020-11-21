@@ -293,7 +293,10 @@
                                         </thead>
                                         <tbody *ngFor="let item of listDVKTByIdPhieuKham; let id = index">
                                             <tr>
-                                                <th scope="row"> <span class="squared"></span></th>
+                                                <th scope="row">
+                                                  <span class="squared"></span>
+                                                  {{ id + 1}}
+                                                </th>
                                                 <td class="item-ma">
                                                     <b><a class="ma">{{ item.idDVKT.MaDV }}</a></b><br/>
                                                     {{ item.NguoiTao.hoten }}

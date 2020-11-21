@@ -1,3 +1,5 @@
+import { HsphieukhamService } from './../../services/hsphieukham.service';
+import { DMBenhNhanService } from './../../services/dmbenhnhan.service';
 import { LoaiKhoaPhong } from './../../../../constants/constants';
 import { Component, OnInit, DoCheck, Injectable, AfterViewInit } from '@angular/core';
 import { PhongKham } from '../../../../models/phongkham';
@@ -11,6 +13,7 @@ import { tap } from 'rxjs/operators';
 import { LoaiKham } from '../../../../models/loaikham';
 import { NgbCalendar, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct, NgbDate, NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
 import * as dateFns from 'date-fns';
+import * as moment from 'moment';
 
 const I18N_VALUES = {
   'vi': {
@@ -103,25 +106,29 @@ export class CustomDateParserFormatter extends NgbDateParserFormatter {
 
 })
 export class DanhsachdontiepComponent implements OnInit, AfterViewInit {
-  ngayBatDau = new Date();
-  ngayKetThuc;
+  ngayBatDau: Date;
+  ngayKetThuc: Date;
   hello: FormGroup;
   phongKhams: PhongKham[] = [];
   selectedPK: PhongKham;
   loaiKhams: LoaiKham[] = [];
+  dsBenhNhanDaDonTiep: [];
+  totalResult: number;
 
   constructor(
     private khoaPhongService: DmkhoaphongService,
     private loaiKhamService: LoaikhamService,
-    private ngbCalendar: NgbCalendar, private dateAdapter: NgbDateAdapter<string>
+    private ngbCalendar: NgbCalendar, private dateAdapter: NgbDateAdapter<string>,
+    private dmBenhNhanService: DMBenhNhanService,
+    private hsPhieuKhamService: HsphieukhamService
   ) {
-    // console.log(this.ngayBatDau);
+    this.ngayBatDau = new Date(Date.now()) ;
+    this.ngayKetThuc = new Date(Date.now());
   }
 
 
   ngOnInit(): void {
-    // this.ngayBatDau = new Date().toISOString().split('T')[0];
-    // console.log(this.ngayBatDau);
+
     forkJoin([
       this.khoaPhongService.getAllPhongKham(LoaiKhoaPhong.PhongKham),
       this.loaiKhamService.getAllLoaiKham()
@@ -135,10 +142,30 @@ export class DanhsachdontiepComponent implements OnInit, AfterViewInit {
     }, (error) => {
       console.log(error);
     });
+
+    this.dsBenhNhanDenKhamTrongNgay();
   }
 
   ngAfterViewInit() {
     // this.ngayBatDau  = new Date().toLocaleDateString('vi-VN');
+  }
+
+
+  dsBenhNhanDenKhamTrongNgay() {
+    this.hsPhieuKhamService
+      .getDSPhieuKham(
+        null,
+        null,
+        moment(this.ngayBatDau).startOf('day').format('YYYY-MM-DD[T00:00:00.000Z]'),
+        moment(this.ngayKetThuc).add(1, 'days').endOf('day').format('YYYY-MM-DD[T00:00:00.000Z]')
+      )
+      .subscribe((data: any) => {
+        this.totalResult = data.soLuong;
+        this.dsBenhNhanDaDonTiep = data.data;
+        console.log(this.dsBenhNhanDaDonTiep);
+      }, (error) => {
+        console.log(error);
+      });
   }
 
   onChange() {}
