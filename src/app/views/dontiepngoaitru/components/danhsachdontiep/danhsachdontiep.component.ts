@@ -117,6 +117,8 @@ export class DanhsachdontiepComponent implements OnInit, AfterViewInit {
   loaiKhams: LoaiKham[] = [];
   dsBenhNhanDaDonTiep: [];
   totalResult: number;
+  idPhongKham: string = '';
+  idLoaiKham: string;
 
   constructor(
     private khoaPhongService: DmkhoaphongService,
@@ -157,8 +159,8 @@ export class DanhsachdontiepComponent implements OnInit, AfterViewInit {
   dsBenhNhanDenKhamTrongNgay() {
     this.hsPhieuKhamService
       .getDSPhieuKham(
-        null,
-        null,
+        this.idPhongKham,
+        this.idLoaiKham,
         moment(this.ngayBatDau).subtract(3, 'days').startOf('day').format('YYYY-MM-DD[T00:00:00.000Z]'),
         moment(this.ngayKetThuc).add(1, 'days').endOf('day').format('YYYY-MM-DD[T00:00:00.000Z]'),
         this.pageSize,
@@ -177,6 +179,13 @@ export class DanhsachdontiepComponent implements OnInit, AfterViewInit {
 
   loadPage(pageCurrent: number) {
     this.pageIndex = pageCurrent;
+    this.dsBenhNhanDenKhamTrongNgay();
+  }
+
+  loadPageByPK(idPhongKham: string) {
+    this.pageIndex = 1;
+    console.log(idPhongKham);
+    this.idPhongKham = idPhongKham;
     this.dsBenhNhanDenKhamTrongNgay();
   }
 

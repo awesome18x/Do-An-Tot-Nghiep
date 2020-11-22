@@ -8,9 +8,9 @@
             <div class="form-row">
               <div class="form-group col-md-2">
                 <label>Phòng khám</label>
-                  <select class="form-control" name="select">
-                    <option [ngValue]="null">Tất cả phòng khám</option>
-                    <option [value]="item" *ngFor="let item of phongKhams;">{{item.name}}</option>
+                  <select class="form-control" name="select" (change)="loadPageByPK($event.target.value)">
+                    <option [value]="''">Tất cả phòng khám</option>
+                    <option [value]="item._id" *ngFor="let item of phongKhams;">{{item.name}}</option>
                   </select>
               </div>
               <div class="form-group col-md-2">
