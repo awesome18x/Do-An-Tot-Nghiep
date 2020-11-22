@@ -1,7 +1,7 @@
 <div class="animated fadeIn">
     <div class="card">
         <div class="card-header">
-            <strong>Bệnh Nhân Đang Đón Tiếp</strong> (Tổng: <strong>{{totalResult}}</strong> Bệnh Nhân)
+            <strong>Bệnh Nhân Đang Đón Tiếp</strong> (Tổng: <strong>{{ totalItems }}</strong> Bệnh Nhân)
         </div>
         <div class="card-body">
 
@@ -82,6 +82,12 @@
                   </tr>
                 </tbody>
             </table>
+            <div class="col-md-12 text-right" *ngIf="totalItems > pageSize">
+              <ngb-pagination [collectionSize]="totalItems" [pageSize]="pageSize" [(page)]="pageIndex" [maxSize]="5" [rotate]="true" (pageChange)="loadPage($event)" style="float: right;">
+              </ngb-pagination>
+          </div>
         </div>
+
     </div>
+
 </div>

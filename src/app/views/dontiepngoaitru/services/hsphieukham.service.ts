@@ -18,8 +18,10 @@ export class HsphieukhamService {
     return this.http.post<HSPhieuKham>(this.API_URL + 'api/hsphieukham/create', body);
   }
 
-  getDSPhieuKham(idPhongKham: string, idLoaiKham: string, from: any, to: any): Observable<HSPhieuKham[]> {
-    return this.http.get<HSPhieuKham[]>(this.API_URL + `api/hsphieukham/danhsach/dstiepdon?phongKham=${idPhongKham}&loaiKham=${idLoaiKham}&from=${from}&to=${to}`);
+  getDSPhieuKham(
+    idPhongKham: string, idLoaiKham: string,
+    from: any, to: any, pageSize: number, pageIndex: number): Observable<HSPhieuKham[]> {
+    return this.http.get<HSPhieuKham[]>(this.API_URL + `api/hsphieukham/danhsach/dstiepdon?phongKham=${idPhongKham}&loaiKham=${idLoaiKham}&from=${from}&to=${to}&pageSize=${pageSize}&pageIndex=${pageIndex}`);
   }
 
 

@@ -106,6 +106,9 @@ export class CustomDateParserFormatter extends NgbDateParserFormatter {
 
 })
 export class DanhsachdontiepComponent implements OnInit, AfterViewInit {
+  totalItems: number;
+  pageSize: number = 10;
+  pageIndex: number = 1;
   ngayBatDau: Date;
   ngayKetThuc: Date;
   hello: FormGroup;
@@ -156,11 +159,13 @@ export class DanhsachdontiepComponent implements OnInit, AfterViewInit {
       .getDSPhieuKham(
         null,
         null,
-        moment(this.ngayBatDau).startOf('day').format('YYYY-MM-DD[T00:00:00.000Z]'),
-        moment(this.ngayKetThuc).add(1, 'days').endOf('day').format('YYYY-MM-DD[T00:00:00.000Z]')
+        moment(this.ngayBatDau).subtract(3, 'days').startOf('day').format('YYYY-MM-DD[T00:00:00.000Z]'),
+        moment(this.ngayKetThuc).add(1, 'days').endOf('day').format('YYYY-MM-DD[T00:00:00.000Z]'),
+        this.pageSize,
+        this.pageIndex
       )
       .subscribe((data: any) => {
-        this.totalResult = data.soLuong;
+        this.totalItems = data.soLuong;
         this.dsBenhNhanDaDonTiep = data.data;
         console.log(this.dsBenhNhanDaDonTiep);
       }, (error) => {
@@ -169,5 +174,10 @@ export class DanhsachdontiepComponent implements OnInit, AfterViewInit {
   }
 
   onChange() {}
+
+  loadPage(pageCurrent: number) {
+    this.pageIndex = pageCurrent;
+    this.dsBenhNhanDenKhamTrongNgay();
+  }
 
 }
