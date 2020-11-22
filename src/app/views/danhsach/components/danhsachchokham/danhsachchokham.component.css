@@ -1,3 +1,7 @@
 .action_user {
     display: flex;
 }
+
+.badge {
+  font-size: 100%;
+}

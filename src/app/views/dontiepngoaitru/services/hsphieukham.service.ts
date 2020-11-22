@@ -25,7 +25,7 @@ export class HsphieukhamService {
   }
 
 
-  updatePhieuKham(body: any, idPhieuKham: string): Observable<HSPhieuKham> {
-    return this.http.put<HSPhieuKham>(this.API_URL + `api/hsphieukham/${idPhieuKham}`, body);
-  }
+  // updatePhieuKham(body: any, idPhieuKham: string): Observable<HSPhieuKham> {
+  //   return this.http.put<HSPhieuKham>(this.API_URL + `api/hsphieukham/${idPhieuKham}`, body);
+  // }
 }

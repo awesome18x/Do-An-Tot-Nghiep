@@ -88,13 +88,13 @@ export class PhieukhamngoaitruComponent implements OnInit {
     });
   }
 
-  updateHSPhieuKham() {
-    this.hsPhieuKhamService.updatePhieuKham().subscribe(data => {
-      console.log(data);
-    }, (error) => {
-      console.log(error);
-    });
-  }
+  // updateHSPhieuKham() {
+  //   this.hsPhieuKhamService.updatePhieuKham().subscribe(data => {
+  //     console.log(data);
+  //   }, (error) => {
+  //     console.log(error);
+  //   });
+  // }
 
   getdvkt(type: number, pageSize: number, pageIndex: number) {
     this.dvktService.getAllDVKT(type, pageSize, pageIndex).subscribe((data: any) => {

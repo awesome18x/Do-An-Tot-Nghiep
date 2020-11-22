@@ -144,7 +144,7 @@
 
                         </tbody>
                     </table>
-                    <ul class="pagination">
+                    <!-- <ul class="pagination">
                         <li class="page-item"><a class="page-link" href="#">Prev</a></li>
                         <li class="page-item active">
                             <a class="page-link" href="#">1</a>
@@ -153,7 +153,13 @@
                         <li class="page-item"><a class="page-link" href="#">3</a></li>
                         <li class="page-item"><a class="page-link" href="#">4</a></li>
                         <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                    </ul>
+                    </ul> -->
+                    <div class="col-md-12 text-right">
+                      <!-- <div class="col-md-10 text-right" *ngIf="totalItems > itemsPerPage"> -->
+                      <ngb-pagination [collectionSize]="tongChoKhams" [pageSize]="pageSize" [(page)]="pageIndex" [maxSize]="5" [rotate]="true" (pageChange)="loadPage($event)" style="float: right;">
+                      </ngb-pagination>
+                      <!-- </div> -->
+                  </div>
                 </div>
             </div>
         </div>

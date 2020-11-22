@@ -14,6 +14,8 @@ import { SpeechService } from '../../../../shared/services/speech.service';
   styleUrls: ['./danhsachchokham.component.css']
 })
 export class DanhsachchokhamComponent implements OnInit {
+  pageSize: number = 10;
+  pageIndex: number = 1;
   status_chokham: number = 1;
   time = new Date();
   timee: any;
@@ -33,19 +35,19 @@ export class DanhsachchokhamComponent implements OnInit {
     this.dmkhoaPhongService.getAllPhongKham(LoaiKhoaPhong.PhongKham).subscribe((data: any) => {
       this.phongKhams = data.dmKhoaPhong;
       this.id_default = data.dmKhoaPhong[0]._id;
-      this.getListBNChoKham(this.status_chokham, this.id_default);
+      this.getListBNChoKham(this.status_chokham, this.id_default, this.pageSize, this.pageIndex);
     }, (error) => {
       console.log(error);
     });
 
   }
 
-  getListBNChoKham(status: number, idbuongkham: string) {
+  getListBNChoKham(status: number, idbuongkham: string, pageSize: number, pageIndex: number) {
     // lấy ds BN chờ khám
-    this.dsChoKhamService.getBNChoKham(status, idbuongkham).subscribe((data: any) => {
+    this.dsChoKhamService.getBNChoKham(status, idbuongkham, pageSize, pageIndex).subscribe((data: any) => {
       // console.log(data);
       this.listChoKhams = data.HSPhieuKham;
-      this.tongChoKhams = this.listChoKhams.length;
+      this.tongChoKhams = data.count;
     }, (error) => {
       console.log(error);
     });
@@ -53,7 +55,8 @@ export class DanhsachchokhamComponent implements OnInit {
 
   onChange(event) {
     this.id_default = event;
-    this.getListBNChoKham(this.status_chokham, this.id_default);
+    this.pageIndex = 1;
+    this.getListBNChoKham(this.status_chokham, this.id_default, this.pageSize, this.pageIndex);
   }
 
   getPhieuKham(id) {
@@ -62,8 +65,13 @@ export class DanhsachchokhamComponent implements OnInit {
   }
 
   callBenhNhan(bn) {
-    const template = `Mời bệnh nhân ${bn.BenhNhan.HoTen}`;
+    const template = `Mời bệnh nhân ${bn.BenhNhan.HoTen} vào ${bn.PhongKham.name}`;
     this.speechService.speakTemplate(template, bn);
+  }
+
+  loadPage(pageCurrent: number) {
+    this.pageIndex = pageCurrent;
+    this.getListBNChoKham(this.status_chokham, this.id_default, this.pageSize, this.pageIndex);
   }
 
 }

@@ -14,8 +14,8 @@ export class DSChoKhamService {
     private http: HttpClient
   ) { }
 
-  getBNChoKham(status: number, idbuongkham: string): Observable<HSPhieuKham[]> {
-    return this.http.get<HSPhieuKham[]>(this.API_URL + `api/hsphieukham?status=${status}&idbuongkham=${idbuongkham}`);
+  getBNChoKham(status: number, idbuongkham: string, pageSize: number, pageIndex: number): Observable<HSPhieuKham[]> {
+    return this.http.get<HSPhieuKham[]>(this.API_URL + `api/hsphieukham?status=${status}&idbuongkham=${idbuongkham}&pageSize=${pageSize}&pageIndex=${pageIndex}`);
   }
   getPhieuKhamById(id: string): Observable<HSPhieuKham> {
     return this.http.get<HSPhieuKham>(this.API_URL + `api/hsphieukham/${id}`);
