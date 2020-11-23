@@ -14,6 +14,7 @@ import { LoaiKham } from '../../../../models/loaikham';
 import { NgbCalendar, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct, NgbDate, NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
 import * as dateFns from 'date-fns';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
 
 const I18N_VALUES = {
   'vi': {
@@ -125,7 +126,8 @@ export class DanhsachdontiepComponent implements OnInit, AfterViewInit {
     private loaiKhamService: LoaikhamService,
     private ngbCalendar: NgbCalendar, private dateAdapter: NgbDateAdapter<string>,
     private dmBenhNhanService: DMBenhNhanService,
-    private hsPhieuKhamService: HsphieukhamService
+    private hsPhieuKhamService: HsphieukhamService,
+    private router: Router
   ) {
     this.ngayBatDau = new Date(Date.now()) ;
     this.ngayKetThuc = new Date(Date.now());
@@ -161,7 +163,7 @@ export class DanhsachdontiepComponent implements OnInit, AfterViewInit {
       .getDSPhieuKham(
         this.idPhongKham,
         this.idLoaiKham,
-        moment(this.ngayBatDau).subtract(3, 'days').startOf('day').format('YYYY-MM-DD[T00:00:00.000Z]'),
+        moment(this.ngayBatDau).startOf('day').format('YYYY-MM-DD[T00:00:00.000Z]'),
         moment(this.ngayKetThuc).add(1, 'days').endOf('day').format('YYYY-MM-DD[T00:00:00.000Z]'),
         this.pageSize,
         this.pageIndex
@@ -187,6 +189,19 @@ export class DanhsachdontiepComponent implements OnInit, AfterViewInit {
     console.log(idPhongKham);
     this.idPhongKham = idPhongKham;
     this.dsBenhNhanDenKhamTrongNgay();
+  }
+
+  loadPageByStartDate(date) {
+    console.log(date);
+  }
+
+  goToDonTiep(item) {
+    this.router.navigate(
+      ['dontiep/don-tiep-benh-nhan'], {
+        queryParams: {
+          id_benh_nhan: item._id
+        }
+      });
   }
 
 }

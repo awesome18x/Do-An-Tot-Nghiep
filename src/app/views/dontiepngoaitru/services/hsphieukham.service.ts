@@ -24,6 +24,10 @@ export class HsphieukhamService {
     return this.http.get<HSPhieuKham[]>(this.API_URL + `api/hsphieukham/danhsach/dstiepdon?phongKham=${idPhongKham}&loaiKham=${idLoaiKham}&from=${from}&to=${to}&pageSize=${pageSize}&pageIndex=${pageIndex}`);
   }
 
+  getThongTinPhieuKham(idPhieuKham: string): Observable<HSPhieuKham> {
+    return this.http.get<HSPhieuKham>(this.API_URL + `api/hsphieukham/${idPhieuKham}`);
+  }
+
 
   // updatePhieuKham(body: any, idPhieuKham: string): Observable<HSPhieuKham> {
   //   return this.http.put<HSPhieuKham>(this.API_URL + `api/hsphieukham/${idPhieuKham}`, body);

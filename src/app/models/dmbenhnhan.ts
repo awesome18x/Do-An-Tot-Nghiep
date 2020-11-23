@@ -2,7 +2,7 @@ export class DMBenhNhan {
     _id: string;
     hoten: string;
     gioitinh: number;
-    ngaysinh: Date;
+    ngaysinh: string;
     sdt: number;
     diachi: string;
     socmnd: string;

@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { TheBHYTService } from './../../services/thebhyt.service';
 import { DMBenhNhan } from './../../../../models/dmbenhnhan';
 import { DMTheBHYT } from './../../../../models/dmthebhyt';
@@ -8,7 +9,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoaikhamService } from '../../services/loaikham.service';
 import { LoaiKham } from '../../../../models/loaikham';
 import { zip, asapScheduler, of, forkJoin, from } from 'rxjs';
-import { tap, flatMap, mergeMap, retry, map, concatMap } from 'rxjs/operators';
+import { tap, flatMap, mergeMap, retry, map, concatMap, switchMap } from 'rxjs/operators';
 import * as moment from 'moment';
 import { HsphieukhamService } from '../../services/hsphieukham.service';
 import { AppAsideComponent } from '@coreui/angular';
@@ -26,6 +27,7 @@ import { LaythongtintheService } from '../../services/laythongtinthe.service';
   styleUrls: ['./dontiep.component.css']
 })
 export class DontiepComponent implements OnInit {
+  idBenhNhanDangTiepDon: string;
   dangKyKhamBenhForm: FormGroup;
   phongKhams: PhongKham[] = [];
   loaiKhams: LoaiKham[] = [];
@@ -50,10 +52,37 @@ export class DontiepComponent implements OnInit {
     private dmBenhNhanService: DMBenhNhanService,
     private toastrService: ToastrService,
     private tinhthanhService: TinhthanhService,
-    private layThongTinTheService: LaythongtintheService
-  ) { }
+    private layThongTinTheService: LaythongtintheService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit() {
+    this.activatedRoute.queryParams.pipe(
+      switchMap(params => {
+        this.idBenhNhanDangTiepDon = params['id_benh_nhan'];
+        if (this.idBenhNhanDangTiepDon !== undefined) {
+          return this.hsPhieuKhamService.getThongTinPhieuKham(this.idBenhNhanDangTiepDon);
+        } else {
+          return of({});
+        }
+      // console.log(this.idBenhNhanDangTiepDon);
+      })).subscribe((data: any) => {
+        if (JSON.stringify(data) !== '{}') {
+          this.dangKyKhamBenhForm.patchValue({
+            sothebhyt: data.SoTheBHYT ? data.SoTheBHYT : '' ,
+            hoten: data.HoTen,
+            gioitinh: data.BenhNhan.GioiTinh,
+            ngaysinh: data.BenhNhan.NgaySinh,
+            dienthoai: data.BenhNhan.SDT ? data.BenhNhan.SDT : '',
+            masothue: data.BenhNhan.MaSoThue ? data.BenhNhan.MaSoThue : '',
+            quoctich: data.BenhNhan.QuocTich ? data.BenhNhan.QuocTich : '',
+          });
+        }
+      }, (error) => {
+        console.log(error);
+      }
+    );
+
     this.initForm();
     zip(
       this.loaikhamService.getAllLoaiKham(),
@@ -175,7 +204,7 @@ export class DontiepComponent implements OnInit {
 
     // create DMBenhNhan
     benhnhan.hoten = this.dangKyKhamBenhForm.value.hoten;
-    benhnhan.ngaysinh = this.dangKyKhamBenhForm.value.ngaysinh;
+    benhnhan.ngaysinh = moment(this.dangKyKhamBenhForm.value.ngaysinh).format('L');
     benhnhan.gioitinh = +this.dangKyKhamBenhForm.value.gioitinh;
     benhnhan.socmnd = this.dangKyKhamBenhForm.value.socmnd;
     benhnhan.quoctich = this.dangKyKhamBenhForm.value.quoctich;
