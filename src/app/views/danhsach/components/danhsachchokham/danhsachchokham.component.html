@@ -130,8 +130,8 @@
                             <tr>
                                 <td class="text-center">{{ i+1 }}</td>
                                 <td>{{ item.BenhNhan?.HoTen }}</td>
-                                <td class="text-center">24</td>
-                                <td class="text-center">1</td>
+                                <td class="text-center">{{item?.BenhNhan?.Tuoi }}</td>
+                                <td class="text-center">{{item?.LuotKham}}</td>
                                 <td>{{ item.NgayDonTiep | date:'dd/MM hh:mm'}}</td>
                                 <td class="action_user">
                                     <button type="button" class="btn btn-pill btn-success" (click)="getPhieuKham(item._id)">Khám</button>

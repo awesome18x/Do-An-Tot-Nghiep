@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { HsphieukhamService } from './../../services/hsphieukham.service';
 import { DMBenhNhanService } from './../../services/dmbenhnhan.service';
 import { LoaiKhoaPhong } from './../../../../constants/constants';
@@ -127,7 +128,8 @@ export class DanhsachdontiepComponent implements OnInit, AfterViewInit {
     private ngbCalendar: NgbCalendar, private dateAdapter: NgbDateAdapter<string>,
     private dmBenhNhanService: DMBenhNhanService,
     private hsPhieuKhamService: HsphieukhamService,
-    private router: Router
+    private router: Router,
+    private notification: ToastrService
   ) {
     this.ngayBatDau = new Date(Date.now()) ;
     this.ngayKetThuc = new Date(Date.now());
@@ -202,6 +204,24 @@ export class DanhsachdontiepComponent implements OnInit, AfterViewInit {
           id_benh_nhan: item._id
         }
       });
+  }
+
+  cancelDonTiep(item) {
+    const newData = {
+      TrangThai: 4
+    };
+    this.hsPhieuKhamService.huyLuotDonTiep(item._id, newData).subscribe(
+      (data: any) => {
+        if (data.msg === 'Update HSPhieuKham thanh cong') {
+          this.notification.success('Thành công', 'Huỷ lượt khám thành công');
+        }
+        this.dsBenhNhanDenKhamTrongNgay();
+        // console.log(data);
+      }
+    // tslint:disable-next-line:no-unused-expression
+    ), (error) => {
+      this.notification.warning('Có lỗi xảy ra', 'Thất bại');
+    };
   }
 
 }

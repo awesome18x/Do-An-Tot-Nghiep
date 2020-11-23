@@ -59,19 +59,19 @@
                                 <label class="col-form-label onwer-bn">Mã phiếu khám:</label>
                             </div>
                             <div class="col-md-8 col-md-6 col-sm-6">
-                                <label class="col-form-label">2000022175</label>
+                                <label class="col-form-label">{{phieukham?.MaPhieuKham}}</label>
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <label class="col-form-label onwer-bn">Số khám bệnh:</label>
                             </div>
                             <div class="col-md-8 col-md-6 col-sm-6">
-                                <label class="col-form-label">Lê Thị Lan</label>
+                                <label class="col-form-label"></label>
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <label class="col-form-label onwer-bn">Ngày đón tiếp:</label>
                             </div>
                             <div class="col-md-8 col-md-6 col-sm-6">
-                                <label class="col-form-label">{{ phieukham?.NgayDonTiep | date:'dd/MM/yyyy' }}</label>
+                                <label class="col-form-label">{{ phieukham?.NgayDonTiep | date:'HH:mm dd/MM/yyyy' }}</label>
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <label class="col-form-label onwer-bn">Số điện thoại:</label>
@@ -138,11 +138,11 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12 form-group">
                                         <label style="display: inline" for="dienbien">Diễn biến bệnh</label>
-                                        <textarea class="form-control" id="dienbien" rows="4"></textarea>
+                                        <textarea class="form-control" id="dienbien" rows="4" [disabled]="!isDaBatDauKham"></textarea>
                                     </div>
                                     <div class="col-md-6 col-sm-12 form-group">
                                         <label style="display: inline" for="tiensu">Tiền sử bệnh</label>
-                                        <textarea class="form-control" id="tiensu" rows="4"></textarea>
+                                        <textarea class="form-control" id="tiensu" rows="4" [disabled]="!isDaBatDauKham"></textarea>
                                     </div>
                                 </div>
 
@@ -153,33 +153,33 @@
                                     <div class="col-md-8 col-sm-12">
                                         <div class="col-12 form-group">
                                             <label style="display: inline" for="toanthan">Toàn thân</label>
-                                            <textarea class="form-control" id="toanthan" rows="3"></textarea>
+                                            <textarea class="form-control" id="toanthan" rows="3" [disabled]="!isDaBatDauKham"></textarea>
                                         </div>
                                         <div class="col-12 form-group">
                                             <label style="display:inline;" for="cacbophan">Các bộ phận</label>
-                                            <textarea class="form-control" id="cacbophan" rows="3"></textarea>
+                                            <textarea class="form-control" id="cacbophan" rows="3" [disabled]="!isDaBatDauKham"></textarea>
                                         </div>
                                         <div class="col-12 form-group">
                                             <label style="display: inline" for="chandoan">Chẩn đoán <span class="red">(*)</span></label>
-                                            <textarea class="form-control" id="chandoan" rows="3"></textarea>
+                                            <textarea class="form-control" id="chandoan" rows="3" [disabled]="!isDaBatDauKham"></textarea>
                                         </div>
                                         <div class="col-12 form-group">
                                             <label style="display:inline;" for="ppdt">Phương pháp điều trị</label>
-                                            <textarea class="form-control" id="ppdt" rows="3"></textarea>
+                                            <textarea class="form-control" id="ppdt" rows="3" [disabled]="!isDaBatDauKham"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-sm-4 form-horizontal">
                                         <div class="row form-group">
                                             <label class="col-4 control-label">Mạch</label>
                                             <div class="col-4">
-                                                <input class="form-control input-sm" placeholder="Mạch" />
+                                                <input class="form-control input-sm" placeholder="Mạch" [disabled]="!isDaBatDauKham" />
                                             </div>
                                             <label class="col-4">lần/phút</label>
                                         </div>
                                         <div class="row form-group">
                                             <label class="col-4 control-label">Nhiệt độ</label>
                                             <div class="col-4">
-                                                <input tabindex="7" class="form-control input-sm" placeholder="Nhiệt độ" />
+                                                <input tabindex="7" class="form-control input-sm" placeholder="Nhiệt độ" [disabled]="!isDaBatDauKham" />
                                             </div>
                                             <label class="col-4">&deg;C</label>
                                         </div>
@@ -187,8 +187,8 @@
                                             <label class="col-4 control-label">Huyết áp</label>
                                             <div class="col-4">
                                                 <!-- <input tabindex="8" class="form-control input-sm col-sm-2" placeholder="HA Tối đa" /> -->
-                                                <input type="text" class="form-control input-sm" id="hatoida" placeholder="HA Tối đa">
-                                                <input type="text" class="form-control input-sm" id="hatoithieu" placeholder="HA Tối thiểu">
+                                                <input type="text" class="form-control input-sm" id="hatoida" placeholder="HA Tối đa" [disabled]="!isDaBatDauKham">
+                                                <input type="text" class="form-control input-sm" id="hatoithieu" placeholder="HA Tối thiểu" [disabled]="!isDaBatDauKham">
 
                                             </div>
                                             <label class="col-4">mmHg</label>
@@ -196,28 +196,28 @@
                                         <div class="row form-group">
                                             <label class="col-4 control-label">Nhịp thở</label>
                                             <div class="col-4">
-                                                <input tabindex="10" class="form-control input-sm" placeholder="Nhịp thở" />
+                                                <input tabindex="10" class="form-control input-sm" placeholder="Nhịp thở" [disabled]="!isDaBatDauKham"/>
                                             </div>
                                             <label class="col-4">lần/phút</label>
                                         </div>
                                         <div class="row form-group">
                                             <label class="col-4 control-label">SpO2 </label>
                                             <div class="col-4">
-                                                <input tabindex="11" class="form-control input-sm" placeholder="SpO2" />
+                                                <input tabindex="11" class="form-control input-sm" placeholder="SpO2" [disabled]="!isDaBatDauKham" />
                                             </div>
                                             <label class="col-4">%</label>
                                         </div>
                                         <div class="row form-group">
                                             <label class="col-4 control-label">Cân nặng</label>
                                             <div class="col-4">
-                                                <input id="CanNang" tabindex="11" class="form-control input-sm" placeholder="Cân nặng" />
+                                                <input id="CanNang" tabindex="11" class="form-control input-sm" placeholder="Cân nặng" [disabled]="!isDaBatDauKham"/>
                                             </div>
                                             <label class="col-4">kg</label>
                                         </div>
                                         <div class="row form-group">
                                             <label class="col-4 control-label">Chiều cao</label>
                                             <div class="col-4">
-                                                <input class="form-control input-sm" placeholder="Chiều cao" />
+                                                <input class="form-control input-sm" placeholder="Chiều cao" [disabled]="!isDaBatDauKham"/>
                                             </div>
                                             <label class="col-4">cm</label>
                                         </div>
@@ -240,11 +240,11 @@
                                         <tr>
                                             <th style="width: 2%">#</th>
                                             <th style="width: 6%"></th>
-                                            <th style="width: 25%">Công khám</th>
-                                            <th style="width: 20%">Phòng khám</th>
+                                            <th style="width: 20%">Công khám</th>
+                                            <th style="width: 15%">Phòng khám</th>
                                             <th style="width: 15%">Bác sỹ khám</th>
                                             <th style="width: 20%">Thời gian khám</th>
-                                            <th class="text-center" style="width: 12%">Số khám bệnh</th>
+                                            <th class="text-center" style="width: 22%">Số khám bệnh</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -257,10 +257,10 @@
                                                 {{ nameBSKham }}
                                             </td>
                                             <td>
-                                                1111
+                                                <div *ngIf="isDaBatDauKham">{{phieukham?.GioBatDauKham | date: 'HH:mm dd/MM/yyyy'}}</div>
                                             </td>
                                             <td>
-                                                22
+                                              <button *ngIf="!isDaBatDauKham" type="button" class="btn btn-block btn-success" (click)="startKhamBenh()">Bắt đầu khám</button>
                                             </td>
                                         </tr>
 

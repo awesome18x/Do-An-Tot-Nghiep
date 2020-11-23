@@ -65,6 +65,8 @@ export class DanhsachchokhamComponent implements OnInit {
   }
 
   callBenhNhan(bn) {
+    // console.log(bn);
+    // return;
     const template = `Mời bệnh nhân ${bn.BenhNhan.HoTen} vào ${bn.PhongKham.name}`;
     this.speechService.speakTemplate(template, bn);
   }

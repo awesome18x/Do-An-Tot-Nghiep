@@ -27,6 +27,7 @@ import { LaythongtintheService } from '../../services/laythongtinthe.service';
   styleUrls: ['./dontiep.component.css']
 })
 export class DontiepComponent implements OnInit {
+  isXemLai: boolean = false;
   idBenhNhanDangTiepDon: string;
   dangKyKhamBenhForm: FormGroup;
   phongKhams: PhongKham[] = [];
@@ -37,8 +38,8 @@ export class DontiepComponent implements OnInit {
   loaiKhamSelected: LoaiKham;
   phongKhamSelected: PhongKham;
   tinhthanhSelected: any;
-  handau = moment().startOf('year').format('MM/DD/YYYY');
-  hancuoi = moment().endOf('year').format('MM/DD/YYYY');
+  handau = moment().startOf('year').format('DD/MM/YYYY');
+  hancuoi = moment().endOf('year').format('DD/MM/YYYY');
   public maskPhone = [/[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, ' ', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/];
   maskNgaySinh = [/[0-3]/, /[0-9]/, '/', /[0-1]/, /[0-9]/, '/', /[1-2]/, /[0-9]/, /[0-9]/, /[0-9]/];
   tuoi: number;
@@ -54,7 +55,9 @@ export class DontiepComponent implements OnInit {
     private tinhthanhService: TinhthanhService,
     private layThongTinTheService: LaythongtintheService,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) {
+    moment.locale();
+  }
 
   ngOnInit() {
     this.activatedRoute.queryParams.pipe(
@@ -68,14 +71,20 @@ export class DontiepComponent implements OnInit {
       // console.log(this.idBenhNhanDangTiepDon);
       })).subscribe((data: any) => {
         if (JSON.stringify(data) !== '{}') {
+          this.isXemLai = true;
           this.dangKyKhamBenhForm.patchValue({
-            sothebhyt: data.SoTheBHYT ? data.SoTheBHYT : '' ,
+            sothebhyt: data.SoTheBHYT ? data.SoTheBHYT : '',
+            noidkthebhyt: data.TheBHYT.DiaChiTheoThe ? data.TheBHYT.DiaChiTheoThe : '',
+            diachitheothe: data.TheBHYT.NoiDKKCBBD ? data.TheBHYT.NoiDKKCBBD : '',
+            ngaybatdau: data.TheBHYT.HanDau ? data.TheBHYT.HanDau : '',
+            ngayketthuc: data.TheBHYT.HanCuoi ? data.TheBHYT.HanCuoi : '',
             hoten: data.HoTen,
             gioitinh: data.BenhNhan.GioiTinh,
             ngaysinh: data.BenhNhan.NgaySinh,
             dienthoai: data.BenhNhan.SDT ? data.BenhNhan.SDT : '',
             masothue: data.BenhNhan.MaSoThue ? data.BenhNhan.MaSoThue : '',
             quoctich: data.BenhNhan.QuocTich ? data.BenhNhan.QuocTich : '',
+            idbuongkham: data.PhongKham._id,
           });
         }
       }, (error) => {
@@ -197,6 +206,7 @@ export class DontiepComponent implements OnInit {
   }
 
   onSubmit() {
+
     // từ đón tiếp => tạo ra 3 bảng 1 lúc
     const thebhyt = new DMTheBHYT();
     const benhnhan = new DMBenhNhan();
@@ -204,7 +214,7 @@ export class DontiepComponent implements OnInit {
 
     // create DMBenhNhan
     benhnhan.hoten = this.dangKyKhamBenhForm.value.hoten;
-    benhnhan.ngaysinh = moment(this.dangKyKhamBenhForm.value.ngaysinh).format('L');
+    benhnhan.ngaysinh = moment(this.dangKyKhamBenhForm.value.ngaysinh).format('DD/MM/YYYY');
     benhnhan.gioitinh = +this.dangKyKhamBenhForm.value.gioitinh;
     benhnhan.socmnd = this.dangKyKhamBenhForm.value.socmnd;
     benhnhan.quoctich = this.dangKyKhamBenhForm.value.quoctich;
@@ -219,10 +229,11 @@ export class DontiepComponent implements OnInit {
     thebhyt.sothebhyt = this.dangKyKhamBenhForm.value.sothebhyt;
     thebhyt.noidangkythe = this.dangKyKhamBenhForm.value.noidkthebhyt;
     thebhyt.diachitheothe = this.dangKyKhamBenhForm.value.diachitheothe;
-    thebhyt.handau = this.dangKyKhamBenhForm.value.ngaybatdau;
+    thebhyt.handau = moment(this.dangKyKhamBenhForm.value.ngaybatdau).format('DD/MM/YYYY');
     thebhyt.hancuoi = this.dangKyKhamBenhForm.value.ngayketthuc;
     thebhyt.makhuvuc = this.dangKyKhamBenhForm.value.makhuvuc;
     // console.log(thebhyt);
+    // return;
 
     // create HSPhieuKham
     phieukham.hoten = this.dangKyKhamBenhForm.value.hoten;

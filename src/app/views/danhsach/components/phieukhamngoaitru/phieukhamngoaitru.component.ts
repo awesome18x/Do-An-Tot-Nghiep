@@ -16,13 +16,14 @@ import { ToastrService } from 'ngx-toastr';
 import { TrangThaiDVKT } from '../../../../constants/constants';
 import { ConfirmDialogService } from '../../../../shared/services/confirm-dialog.service';
 import { HsphieukhamService } from '../../../dontiepngoaitru/services/hsphieukham.service';
-
+import * as moment from 'moment';
 @Component({
   selector: 'app-phieukhamngoaitru',
   templateUrl: './phieukhamngoaitru.component.html',
   styleUrls: ['./phieukhamngoaitru.component.scss']
 })
 export class PhieukhamngoaitruComponent implements OnInit {
+  isDaBatDauKham: boolean = false;
   idPhieuKham: string;
   nameBSKham: string;
   nameCongkham: any;
@@ -47,7 +48,7 @@ export class PhieukhamngoaitruComponent implements OnInit {
     private hsPhieuChiDinhDVKT: HsphieuchidinhdvktService,
     private toastrService: ToastrService,
     private confirmationDialogService: ConfirmDialogService,
-    private hsPhieuKhamService: HsphieukhamService
+    private hsPhieuKhamService: HsphieukhamService,
 
   ) { }
 
@@ -57,7 +58,6 @@ export class PhieukhamngoaitruComponent implements OnInit {
 
     this.nameBSKham = localStorage.getItem('hoten');
     this.getdvkt(this.type, this.pageSize, this.pageIndex);
-    // this.hsPhieuKhamService.
   }
 
   initData() {
@@ -78,23 +78,17 @@ export class PhieukhamngoaitruComponent implements OnInit {
     })).subscribe(result => {
       if (result) {
         this.phieukham = result[0];
-        // console.log(this.phieukham);
+        if (this.phieukham.GioBatDauKham !== undefined) {
+          this.isDaBatDauKham = true;
+        }
+        console.log(this.phieukham);
         this.nameCongkham = result[1][0];
         this.listDVKTByIdPhieuKham = result[2];
-        // console.log(this.listDVKTByIdPhieuKham);
       }
     }, (error) => {
       console.log(error);
     });
   }
-
-  // updateHSPhieuKham() {
-  //   this.hsPhieuKhamService.updatePhieuKham().subscribe(data => {
-  //     console.log(data);
-  //   }, (error) => {
-  //     console.log(error);
-  //   });
-  // }
 
   getdvkt(type: number, pageSize: number, pageIndex: number) {
     this.dvktService.getAllDVKT(type, pageSize, pageIndex).subscribe((data: any) => {
@@ -185,6 +179,25 @@ export class PhieukhamngoaitruComponent implements OnInit {
       // console.log('User confirmed:', confirmed);
     })
     .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
+  }
+
+
+  startKhamBenh() {
+    this.isDaBatDauKham = true;
+    const data = {
+      GioBatDauKham: moment(new Date()).format()
+    };
+    this.hsPhieuKhamService.updateThongTinPhieuKham(this.idPhieuKham, data).subscribe(
+      (data: any) => {
+        if (data.message === 'Update HSPhieuKham thanh cong') {
+          this.toastrService.success('Bắt đầu khám bệnh thành công', 'Thành công');
+          this.initData();
+        }
+      }, (error) => {
+        console.log(error);
+        this.toastrService.warning('Có lỗi xảy ra', 'Thất bại');
+      }
+    );
   }
 
 }

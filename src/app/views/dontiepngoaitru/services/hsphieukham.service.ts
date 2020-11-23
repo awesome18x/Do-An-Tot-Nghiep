@@ -29,6 +29,15 @@ export class HsphieukhamService {
   }
 
 
+  huyLuotDonTiep(id: string, data: any): Observable<HSPhieuKham> {
+    return this.http.put<HSPhieuKham>(this.API_URL + `api/hsphieukham/${id}`, data);
+  }
+
+  updateThongTinPhieuKham(id: string, data: any): Observable<HSPhieuKham> {
+    return this.http.put<HSPhieuKham>(this.API_URL + `api/hsphieukham/${id}`, data);
+  }
+
+
   // updatePhieuKham(body: any, idPhieuKham: string): Observable<HSPhieuKham> {
   //   return this.http.put<HSPhieuKham>(this.API_URL + `api/hsphieukham/${idPhieuKham}`, body);
   // }
