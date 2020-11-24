@@ -37,6 +37,10 @@ export class HsphieukhamService {
     return this.http.put<HSPhieuKham>(this.API_URL + `api/hsphieukham/${id}`, data);
   }
 
+  dsBenhNhanDangKham(idPhongKham: string, pageSize: number, pageIndex: number):  Observable<HSPhieuKham[]> {
+    return this.http.get<HSPhieuKham[]>(this.API_URL + `api/hsphieukham/danhsach/dsdangkham?phongKham=${idPhongKham}&pageSize=${pageSize}&pageIndex=${pageIndex}`);
+  }
+
 
   // updatePhieuKham(body: any, idPhieuKham: string): Observable<HSPhieuKham> {
   //   return this.http.put<HSPhieuKham>(this.API_URL + `api/hsphieukham/${idPhieuKham}`, body);

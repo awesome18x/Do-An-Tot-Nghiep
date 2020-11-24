@@ -1,3 +1,4 @@
+import { HsphieukhamService } from './../../../dontiepngoaitru/services/hsphieukham.service';
 import { LoaiKhoaPhong } from './../../../../constants/constants';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -14,8 +15,10 @@ import { SpeechService } from '../../../../shared/services/speech.service';
   styleUrls: ['./danhsachchokham.component.css']
 })
 export class DanhsachchokhamComponent implements OnInit {
+  dsDangKham: any[] = [];
   pageSize: number = 10;
   pageIndex: number = 1;
+  pageIndexDangKham: number = 1;
   status_chokham: number = 1;
   time = new Date();
   timee: any;
@@ -23,11 +26,13 @@ export class DanhsachchokhamComponent implements OnInit {
   id_default: string;
   listChoKhams: any[];
   tongChoKhams: number;
+  tongDangKhams: number;
   constructor(
     private dmkhoaPhongService: DmkhoaphongService,
     private dsChoKhamService: DSChoKhamService,
     private router: Router,
-    private speechService: SpeechService
+    private speechService: SpeechService,
+    private hsPhieuKhamService: HsphieukhamService
   ) { }
 
   ngOnInit(): void {
@@ -36,10 +41,21 @@ export class DanhsachchokhamComponent implements OnInit {
       this.phongKhams = data.dmKhoaPhong;
       this.id_default = data.dmKhoaPhong[0]._id;
       this.getListBNChoKham(this.status_chokham, this.id_default, this.pageSize, this.pageIndex);
+      this.getListBNDangKham(this.id_default, this.pageSize, this.pageIndexDangKham);
     }, (error) => {
       console.log(error);
     });
+    // this.getListBNDangKham(this.id_default, this.pageSize, this.pageIndex);
+  }
 
+  getListBNDangKham(idbuongkham: string, pageSize: number, pageIndex: number) {
+    this.hsPhieuKhamService.dsBenhNhanDangKham(idbuongkham, pageSize, pageIndex).subscribe((data: any) => {
+      this.dsDangKham = data.data;
+      this.tongDangKhams = data.totalResult;
+      console.log(data);
+    }, (error) => {
+      console.log(error);
+    });
   }
 
   getListBNChoKham(status: number, idbuongkham: string, pageSize: number, pageIndex: number) {
@@ -57,6 +73,7 @@ export class DanhsachchokhamComponent implements OnInit {
     this.id_default = event;
     this.pageIndex = 1;
     this.getListBNChoKham(this.status_chokham, this.id_default, this.pageSize, this.pageIndex);
+    this.getListBNDangKham(this.id_default, this.pageSize, this.pageIndex);
   }
 
   getPhieuKham(id) {
@@ -74,6 +91,11 @@ export class DanhsachchokhamComponent implements OnInit {
   loadPage(pageCurrent: number) {
     this.pageIndex = pageCurrent;
     this.getListBNChoKham(this.status_chokham, this.id_default, this.pageSize, this.pageIndex);
+  }
+
+  loadPageDangKham(pageCurrent: number) {
+    this.pageIndexDangKham = pageCurrent;
+    this.getListBNChoKham(this.status_chokham, this.id_default, this.pageSize, this.pageIndexDangKham);
   }
 
 }

@@ -185,7 +185,8 @@ export class PhieukhamngoaitruComponent implements OnInit {
   startKhamBenh() {
     this.isDaBatDauKham = true;
     const data = {
-      GioBatDauKham: moment(new Date()).format()
+      GioBatDauKham: moment(new Date()).format(),
+      TrangThai: 2
     };
     this.hsPhieuKhamService.updateThongTinPhieuKham(this.idPhieuKham, data).subscribe(
       (data: any) => {

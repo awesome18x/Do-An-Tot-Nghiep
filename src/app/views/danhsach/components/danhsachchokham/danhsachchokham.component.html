@@ -5,7 +5,7 @@
                 <div class="card-header">
                     <strong>Bệnh Nhân Đang Khám</strong>
                     <div class="card-header-actions">
-                        Tổng:
+                      Tổng: <span class="badge badge-pill badge-success">{{tongDangKhams}}</span>
                     </div>
                 </div>
                 <div class="card-body">
@@ -30,66 +30,37 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th scope="col">STT</th>
+                                <th scope="col" style="width: 5%;">STT</th>
                                 <th scope="col">Họ Tên</th>
-                                <th scope="col">Ngày Khám</th>
+                                <th scope="col" style="width: 5%;">Tuổi</th>
+                                <th scope="col" style="width: 7%;">Ngày Khám</th>
                                 <th scope="col">Bác Sĩ Khám</th>
-                                <th scope="col">#</th>
+                                <th scope="col" style="width: 26%; text-align: center;">#</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Samppa Nori</td>
-                                <td>2012/01/01</td>
-                                <td>Member</td>
+                            <tr *ngFor="let item of dsDangKham; let id = index;">
+                                <td>{{ id + 1 }}</td>
+                                <td>{{ item?.HoTen }}</td>
+                                <td>{{ item?.BenhNhan?.Tuoi }}</td>
                                 <td>
-                                    <span class="badge badge-success">Active</span>
+                                  {{ item.GioBatDauKham | date:'dd/MM hh:mm'}}
+                                </td>
+                                <td></td>
+                                <td>
+                                  <button type="button" class="btn btn-sm btn-pill btn-success" (click)="getPhieuKham()">Khám</button>
+                                  <button type="button" class="btn btn-sm btn-pill btn-warning ml-1" (click)="callBenhNhan()"> <i class="fa fa-volume-up"></i>&nbsp;Gọi</button>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>Estavan Lykos</td>
-                                <td>2012/02/01</td>
-                                <td>Staff</td>
-                                <td>
-                                    <span class="badge badge-danger">Banned</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Chetan Mohamed</td>
-                                <td>2012/02/01</td>
-                                <td>Admin</td>
-                                <td>
-                                    <span class="badge badge-secondary">Inactive</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Derick Maximinus</td>
-                                <td>2012/03/01</td>
-                                <td>Member</td>
-                                <td>
-                                    <span class="badge badge-warning">Pending</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Friderik Dávid</td>
-                                <td>2012/01/21</td>
-                                <td>Staff</td>
-                                <td>
-                                    <span class="badge badge-success">Active</span>
-                                </td>
-                            </tr>
+
                         </tbody>
                     </table>
-                    <ul class="pagination">
-                        <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-                        <li class="page-item active">
-                            <a class="page-link" href="#">1</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                    </ul>
+                    <div class="col-md-12 text-right">
+                      <!-- <div class="col-md-10 text-right" *ngIf="totalItems > itemsPerPage"> -->
+                      <ngb-pagination [collectionSize]="tongDangKhams" [pageSize]="pageSize" [(page)]="pageIndex" [maxSize]="5" [rotate]="true" (pageChange)="loadPageDangKham($event)" style="float: right;">
+                      </ngb-pagination>
+                      <!-- </div> -->
+                  </div>
                 </div>
             </div>
         </div>
