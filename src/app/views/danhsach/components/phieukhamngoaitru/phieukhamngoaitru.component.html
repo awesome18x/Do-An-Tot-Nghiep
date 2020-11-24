@@ -20,7 +20,7 @@
                                 <label class="col-form-label onwer-bn">Mã số bệnh nhân:</label>
                             </div>
                             <div class="col-md-8 col-md-6 col-sm-6">
-                                <label class="col-form-label">{{ phieukham?.MaPhieuKham }}</label>
+                                <label class="col-form-label">{{ phieukham?.MaBenhNhan }}</label>
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <label class="col-form-label onwer-bn">Họ tên:</label>
@@ -138,11 +138,11 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12 form-group">
                                         <label style="display: inline" for="dienbien">Diễn biến bệnh</label>
-                                        <textarea class="form-control" id="dienbien" rows="4" [disabled]="!isDaBatDauKham"></textarea>
+                                        <textarea class="form-control" id="dienbien" rows="4" [disabled]="!isDuocKham"></textarea>
                                     </div>
                                     <div class="col-md-6 col-sm-12 form-group">
                                         <label style="display: inline" for="tiensu">Tiền sử bệnh</label>
-                                        <textarea class="form-control" id="tiensu" rows="4" [disabled]="!isDaBatDauKham"></textarea>
+                                        <textarea class="form-control" id="tiensu" rows="4" [disabled]="!isDuocKham"></textarea>
                                     </div>
                                 </div>
 
@@ -153,33 +153,33 @@
                                     <div class="col-md-8 col-sm-12">
                                         <div class="col-12 form-group">
                                             <label style="display: inline" for="toanthan">Toàn thân</label>
-                                            <textarea class="form-control" id="toanthan" rows="3" [disabled]="!isDaBatDauKham"></textarea>
+                                            <textarea class="form-control" id="toanthan" rows="3" [disabled]="!isDuocKham"></textarea>
                                         </div>
                                         <div class="col-12 form-group">
                                             <label style="display:inline;" for="cacbophan">Các bộ phận</label>
-                                            <textarea class="form-control" id="cacbophan" rows="3" [disabled]="!isDaBatDauKham"></textarea>
+                                            <textarea class="form-control" id="cacbophan" rows="3" [disabled]="!isDuocKham"></textarea>
                                         </div>
                                         <div class="col-12 form-group">
                                             <label style="display: inline" for="chandoan">Chẩn đoán <span class="red">(*)</span></label>
-                                            <textarea class="form-control" id="chandoan" rows="3" [disabled]="!isDaBatDauKham"></textarea>
+                                            <textarea class="form-control" id="chandoan" rows="3" [disabled]="!isDuocKham"></textarea>
                                         </div>
                                         <div class="col-12 form-group">
                                             <label style="display:inline;" for="ppdt">Phương pháp điều trị</label>
-                                            <textarea class="form-control" id="ppdt" rows="3" [disabled]="!isDaBatDauKham"></textarea>
+                                            <textarea class="form-control" id="ppdt" rows="3" [disabled]="!isDuocKham"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-sm-4 form-horizontal">
                                         <div class="row form-group">
                                             <label class="col-4 control-label">Mạch</label>
                                             <div class="col-4">
-                                                <input class="form-control input-sm" placeholder="Mạch" [disabled]="!isDaBatDauKham" />
+                                                <input class="form-control input-sm" placeholder="Mạch" [disabled]="!isDuocKham" />
                                             </div>
                                             <label class="col-4">lần/phút</label>
                                         </div>
                                         <div class="row form-group">
                                             <label class="col-4 control-label">Nhiệt độ</label>
                                             <div class="col-4">
-                                                <input tabindex="7" class="form-control input-sm" placeholder="Nhiệt độ" [disabled]="!isDaBatDauKham" />
+                                                <input tabindex="7" class="form-control input-sm" placeholder="Nhiệt độ" [disabled]="!isDuocKham" />
                                             </div>
                                             <label class="col-4">&deg;C</label>
                                         </div>
@@ -187,8 +187,8 @@
                                             <label class="col-4 control-label">Huyết áp</label>
                                             <div class="col-4">
                                                 <!-- <input tabindex="8" class="form-control input-sm col-sm-2" placeholder="HA Tối đa" /> -->
-                                                <input type="text" class="form-control input-sm" id="hatoida" placeholder="HA Tối đa" [disabled]="!isDaBatDauKham">
-                                                <input type="text" class="form-control input-sm" id="hatoithieu" placeholder="HA Tối thiểu" [disabled]="!isDaBatDauKham">
+                                                <input type="text" class="form-control input-sm" id="hatoida" placeholder="HA Tối đa" [disabled]="!isDuocKham">
+                                                <input type="text" class="form-control input-sm" id="hatoithieu" placeholder="HA Tối thiểu" [disabled]="!isDuocKham">
 
                                             </div>
                                             <label class="col-4">mmHg</label>
@@ -196,28 +196,28 @@
                                         <div class="row form-group">
                                             <label class="col-4 control-label">Nhịp thở</label>
                                             <div class="col-4">
-                                                <input tabindex="10" class="form-control input-sm" placeholder="Nhịp thở" [disabled]="!isDaBatDauKham"/>
+                                                <input tabindex="10" class="form-control input-sm" placeholder="Nhịp thở" [disabled]="!isDuocKham"/>
                                             </div>
                                             <label class="col-4">lần/phút</label>
                                         </div>
                                         <div class="row form-group">
                                             <label class="col-4 control-label">SpO2 </label>
                                             <div class="col-4">
-                                                <input tabindex="11" class="form-control input-sm" placeholder="SpO2" [disabled]="!isDaBatDauKham" />
+                                                <input tabindex="11" class="form-control input-sm" placeholder="SpO2" [disabled]="!isDuocKham" />
                                             </div>
                                             <label class="col-4">%</label>
                                         </div>
                                         <div class="row form-group">
                                             <label class="col-4 control-label">Cân nặng</label>
                                             <div class="col-4">
-                                                <input id="CanNang" tabindex="11" class="form-control input-sm" placeholder="Cân nặng" [disabled]="!isDaBatDauKham"/>
+                                                <input id="CanNang" tabindex="11" class="form-control input-sm" placeholder="Cân nặng" [disabled]="!isDuocKham"/>
                                             </div>
                                             <label class="col-4">kg</label>
                                         </div>
                                         <div class="row form-group">
                                             <label class="col-4 control-label">Chiều cao</label>
                                             <div class="col-4">
-                                                <input class="form-control input-sm" placeholder="Chiều cao" [disabled]="!isDaBatDauKham"/>
+                                                <input class="form-control input-sm" placeholder="Chiều cao" [disabled]="!isDuocKham"/>
                                             </div>
                                             <label class="col-4">cm</label>
                                         </div>
@@ -257,10 +257,10 @@
                                                 {{ nameBSKham }}
                                             </td>
                                             <td>
-                                                <div *ngIf="isDaBatDauKham">{{phieukham?.GioBatDauKham | date: 'HH:mm dd/MM/yyyy'}}</div>
+                                                <div *ngIf="isDuocKham">{{phieukham?.GioBatDauKham | date: 'HH:mm dd/MM/yyyy'}}</div>
                                             </td>
                                             <td>
-                                              <button *ngIf="!isDaBatDauKham" type="button" class="btn btn-block btn-success" (click)="startKhamBenh()">Bắt đầu khám</button>
+                                              <button *ngIf="!isDuocKham" type="button" class="btn btn-block btn-success" (click)="startKhamBenh()">Bắt đầu khám</button>
                                             </td>
                                         </tr>
 

@@ -16,6 +16,7 @@ import { NgbCalendar, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct, Ngb
 import * as dateFns from 'date-fns';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
+import { ConfirmDialogService } from '../../../../shared/services/confirm-dialog.service';
 
 const I18N_VALUES = {
   'vi': {
@@ -129,7 +130,8 @@ export class DanhsachdontiepComponent implements OnInit, AfterViewInit {
     private dmBenhNhanService: DMBenhNhanService,
     private hsPhieuKhamService: HsphieukhamService,
     private router: Router,
-    private notification: ToastrService
+    private notification: ToastrService,
+    private confirmationDialogService: ConfirmDialogService
   ) {
     this.ngayBatDau = new Date(Date.now()) ;
     this.ngayKetThuc = new Date(Date.now());
@@ -188,7 +190,6 @@ export class DanhsachdontiepComponent implements OnInit, AfterViewInit {
 
   loadPageByPK(idPhongKham: string) {
     this.pageIndex = 1;
-    console.log(idPhongKham);
     this.idPhongKham = idPhongKham;
     this.dsBenhNhanDenKhamTrongNgay();
   }
@@ -207,21 +208,29 @@ export class DanhsachdontiepComponent implements OnInit, AfterViewInit {
   }
 
   cancelDonTiep(item) {
-    const newData = {
-      TrangThai: 4
-    };
-    this.hsPhieuKhamService.huyLuotDonTiep(item._id, newData).subscribe(
-      (data: any) => {
-        if (data.msg === 'Update HSPhieuKham thanh cong') {
-          this.notification.success('Thành công', 'Huỷ lượt khám thành công');
-        }
-        this.dsBenhNhanDenKhamTrongNgay();
-        // console.log(data);
+    this.confirmationDialogService.confirm('Xác nhận', 'Bạn muốn huỷ đón tiếp bệnh nhân này?')
+    .then(confirmed => {
+
+      if (confirmed) {
+        const newData = {
+          TrangThai: 4
+        };
+        this.hsPhieuKhamService.huyLuotDonTiep(item._id, newData).subscribe(
+          (data: any) => {
+            if (data.msg === 'Update HSPhieuKham thanh cong') {
+              this.notification.success('Thành công', 'Huỷ lượt khám thành công');
+            }
+            this.dsBenhNhanDenKhamTrongNgay();
+            // console.log(data);
+          }
+        // tslint:disable-next-line:no-unused-expression
+        ), (error) => {
+          this.notification.warning('Có lỗi xảy ra', 'Thất bại');
+        };
       }
-    // tslint:disable-next-line:no-unused-expression
-    ), (error) => {
-      this.notification.warning('Có lỗi xảy ra', 'Thất bại');
-    };
+      // console.log('User confirmed:', confirmed);
+    })
+    .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
   }
 
 }

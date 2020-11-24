@@ -73,7 +73,7 @@
                     </td>
                     <td style="text-align: center;">{{ item?.BenhNhan?.NgaySinh | date: 'yyyy'}}</td>
                     <td>
-                      {{ item?.PhongKham?.name }}
+                      {{ item?.BacSyKham?.hoten ? item?.BacSyKham?.hoten : 'Chưa khám' }}
                     </td>
                     <td style="text-align: center;">{{ item?.NgayDonTiep | date: 'HH:mm dd/MM/yyyy'}}</td>
                     <td style="text-align: center;">

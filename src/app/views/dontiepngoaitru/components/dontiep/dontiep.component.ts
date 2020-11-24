@@ -206,7 +206,10 @@ export class DontiepComponent implements OnInit {
   }
 
   onSubmit() {
+    // Trường hợp cập nhật lại lần đón tiếp
+    if (this.isXemLai) {
 
+    }
     // từ đón tiếp => tạo ra 3 bảng 1 lúc
     const thebhyt = new DMTheBHYT();
     const benhnhan = new DMBenhNhan();
@@ -307,7 +310,6 @@ export class DontiepComponent implements OnInit {
   layThongTinBenhNhanTuCongBHXH() {
     this.layThongTinTheService.layPhienDangNhap().pipe(
       concatMap((data: any) => {
-        /// data dưới đây của em đang bị undefined
         return this.layThongTinTheService.layThongTinTheCuaNguoiBenh(
           this.dangKyKhamBenhForm.value.sothebhyt,
           this.dangKyKhamBenhForm.value.hoten,

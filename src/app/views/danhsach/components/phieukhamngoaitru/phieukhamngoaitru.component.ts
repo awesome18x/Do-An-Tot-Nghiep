@@ -23,7 +23,7 @@ import * as moment from 'moment';
   styleUrls: ['./phieukhamngoaitru.component.scss']
 })
 export class PhieukhamngoaitruComponent implements OnInit {
-  isDaBatDauKham: boolean = false;
+  isDuocKham: boolean = false;
   idPhieuKham: string;
   nameBSKham: string;
   nameCongkham: any;
@@ -79,7 +79,7 @@ export class PhieukhamngoaitruComponent implements OnInit {
       if (result) {
         this.phieukham = result[0];
         if (this.phieukham.GioBatDauKham !== undefined) {
-          this.isDaBatDauKham = true;
+          this.isDuocKham = true;
         }
         console.log(this.phieukham);
         this.nameCongkham = result[1][0];
@@ -183,14 +183,16 @@ export class PhieukhamngoaitruComponent implements OnInit {
 
 
   startKhamBenh() {
-    this.isDaBatDauKham = true;
+    this.isDuocKham = true;
     const data = {
       GioBatDauKham: moment(new Date()).format(),
-      TrangThai: 2
+      TrangThai: 2,
+      BacSyKham: localStorage.getItem('userID')
     };
     this.hsPhieuKhamService.updateThongTinPhieuKham(this.idPhieuKham, data).subscribe(
       (data: any) => {
-        if (data.message === 'Update HSPhieuKham thanh cong') {
+        // console.log(data);
+        if (data.msg === 'Update HSPhieuKham thanh cong') {
           this.toastrService.success('Bắt đầu khám bệnh thành công', 'Thành công');
           this.initData();
         }
