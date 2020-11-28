@@ -95,26 +95,26 @@ export class PhieukhamngoaitruComponent implements OnInit {
   }
 
   initForm() {
-    if (!this.isDuocKham) {
-      this.khamBenhForm = this.fb.group({
-        dienbien: [{value: '', disabled: true}],
-        tiensu: [{value: '', disabled: true}],
-        toanthan: [{value: '', disabled: true}],
-        cacbophan: [{value: '', disabled: true}],
-        chandoan: [{value: '', disabled: true}],
-        ppdt: [{value: '', disabled: true}],
-        mach: [{value: '', disabled: true}],
-        nhietdo: [{value: '', disabled: true}],
-        hatoida: [{value: '', disabled: true}],
-        hatoithieu: [{value: '', disabled: true}],
-        nhiptho: [{value: '', disabled: true}],
-        spo2: [{value: '', disabled: true}],
-        cannang: [{value: '', disabled: true}],
-        chieucao: [{value: '', disabled: true}],
-        loidan: [''],
-        ngaytaikham: ['']
-      });
-    } else {
+    // if (!this.isDuocKham) {
+    //   this.khamBenhForm = this.fb.group({
+    //     dienbien: [{value: '', disabled: true}],
+    //     tiensu: [{value: '', disabled: true}],
+    //     toanthan: [{value: '', disabled: true}],
+    //     cacbophan: [{value: '', disabled: true}],
+    //     chandoan: [{value: '', disabled: true}],
+    //     ppdt: [{value: '', disabled: true}],
+    //     mach: [{value: '', disabled: true}],
+    //     nhietdo: [{value: '', disabled: true}],
+    //     hatoida: [{value: '', disabled: true}],
+    //     hatoithieu: [{value: '', disabled: true}],
+    //     nhiptho: [{value: '', disabled: true}],
+    //     spo2: [{value: '', disabled: true}],
+    //     cannang: [{value: '', disabled: true}],
+    //     chieucao: [{value: '', disabled: true}],
+    //     loidan: [''],
+    //     ngaytaikham: ['']
+    //   });
+    // } else {
       this.khamBenhForm = this.fb.group({
         dienbien: [''],
         tiensu: [''],
@@ -133,7 +133,7 @@ export class PhieukhamngoaitruComponent implements OnInit {
         loidan: [''],
         ngaytaikham: ['']
       });
-    }
+    // }
   }
 
   getdvkt(type: number, pageSize: number, pageIndex: number) {

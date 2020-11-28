@@ -58,7 +58,7 @@
                     <label class="col-md-3 col-form-label" for="buongthuchien">Buồng thực hiện</label>
                     <div class="col-md-9">
                         <ng-select [multiple]="true" id="buongthuchien" formControlName="buongthuchien">
-                            <ng-option *ngFor="let item of buongkhams" [value]="item._id" [disabled]="item.disabled">{{item.name}}</ng-option>
+                            <ng-option *ngFor="let item of buongkhams" [value]="item._id" >{{item.name}}</ng-option>
                         </ng-select>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
                     <label class="col-md-3 col-form-label" for="khoathuchien">Khoa thực hiện</label>
                     <div class="col-md-9">
                         <ng-select [multiple]="true" id="khoathuchien" formControlName="khoathuchien">
-                            <ng-option *ngFor="let item of khoaPhongs" [value]="item._id" [disabled]="item.disabled">{{item.name}}</ng-option>
+                            <ng-option *ngFor="let item of khoaPhongs" [value]="item._id" >{{item.name}}</ng-option>
                         </ng-select>
                     </div>
                 </div>

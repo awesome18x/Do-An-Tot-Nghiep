@@ -17,22 +17,22 @@ export class DvktService {
   getAllDVKT(type: number, pageSize: number, pageIndex: number): Observable<DVKT[]> {
     // type= 0 lay tat ca
     const queryString = `?pageSize=${pageSize}&pageIndex=${pageIndex}&type=${type}`;
-    return this.http.get<DVKT[]>(this.API_URL + 'api/dmDVKT' + queryString);
+    return this.http.get<DVKT[]>(this.API_URL + 'api/dmdvkt' + queryString);
   }
 
   getDVKTById(id: string): Observable<DVKT> {
-    return this.http.get<DVKT>(this.API_URL + `api/dmDVKT/${id}`);
+    return this.http.get<DVKT>(this.API_URL + `api/dmdvkt/chitietdvkt/${id}`);
   }
 
   createDVKT(body: DVKT): Observable<DVKT> {
-    return this.http.post<DVKT>(this.API_URL + 'api/dmDVKT/create',  body);
+    return this.http.post<DVKT>(this.API_URL + 'api/dmdvkt/create',  body);
   }
 
   updateDVKT(id: string,  body: DVKT): Observable<DVKT> {
-    return this.http.put<DVKT>(this.API_URL + `api/dmDVKT/${id}`,  body);
+    return this.http.put<DVKT>(this.API_URL + `api/dmdvkt/${id}`,  body);
   }
 
   deleteDVKTById(id: string): Observable<DVKT> {
-    return this.http.delete<DVKT>(this.API_URL + `api/dmDVKT/${id}`);
+    return this.http.delete<DVKT>(this.API_URL + `api/dmdvkt/${id}`);
   }
 }

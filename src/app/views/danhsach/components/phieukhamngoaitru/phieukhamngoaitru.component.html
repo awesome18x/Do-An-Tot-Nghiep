@@ -153,11 +153,11 @@
                                     <div class="col-md-8 col-sm-12">
                                         <div class="col-12 form-group">
                                             <label style="display: inline" for="toanthan">Toàn thân</label>
-                                            <textarea class="form-control" id="toanthan" rows="3" formControlName="toanthan"  ></textarea>
+                                            <textarea class="form-control" id="toanthan" rows="3" formControlName="toanthan" [disabled]="isDuocKham"></textarea>
                                         </div>
                                         <div class="col-12 form-group">
                                             <label style="display:inline;" for="cacbophan">Các bộ phận</label>
-                                            <textarea class="form-control" id="cacbophan" rows="3" formControlName="cacbophan"  ></textarea>
+                                            <textarea class="form-control" id="cacbophan" rows="3" formControlName="cacbophan" [disabled]="isDuocKham"></textarea>
                                         </div>
                                         <div class="col-12 form-group">
                                             <label style="display: inline" for="chandoan">Chẩn đoán <span class="red">(*)</span></label>

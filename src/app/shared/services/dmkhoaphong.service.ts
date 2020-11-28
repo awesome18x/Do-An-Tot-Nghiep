@@ -39,4 +39,13 @@ export class DmkhoaphongService {
     return this.http.delete<PhongKham>(this.API_URL + `api/dmkhoaphong/${id}`);
   }
 
+
+  getAllPK(): Observable<PhongKham[]> {
+    return this.http.get<PhongKham[]>(this.API_URL + `api/dmkhoaphong/laydsphongkham`);
+  }
+
+  getAllKhoaNT(): Observable<PhongKham[]> {
+    return this.http.get<PhongKham[]>(this.API_URL + `api/dmkhoaphong/laydskhoant`);
+  }
+
 }

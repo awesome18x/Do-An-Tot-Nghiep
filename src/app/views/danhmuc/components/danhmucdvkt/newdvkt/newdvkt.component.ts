@@ -5,7 +5,7 @@ import { PhongKham } from '../../../../../models/phongkham';
 import { DvktService } from '../../../services/dvkt.service';
 import { ToastrService } from 'ngx-toastr';
 import { tap } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { DmkhoaphongService } from '../../../../../shared/services/dmkhoaphong.service';
 
 @Component({
@@ -14,27 +14,58 @@ import { DmkhoaphongService } from '../../../../../shared/services/dmkhoaphong.s
   styleUrls: ['./newdvkt.component.css']
 })
 export class NewdvktComponent implements OnInit {
+  dvktCurrent: any;
+  isLoading = false;
+  idDVKT: string;
   submited: boolean;
   createForm: FormGroup;
   buongkhams: PhongKham;
   khoaPhongs: PhongKham;
+  private mode: string = 'create'; // value: create khi tạo mới, mode khi chỉnh sửa, update
   constructor(
     private fb: FormBuilder,
     private dmKhoaPhongService: DmkhoaphongService,
     private dvktService: DvktService,
     private toastrService: ToastrService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.initForm();
-    const call1 = this.dmKhoaPhongService.getAllPhongKham(2);
-    const call2 = this.dmKhoaPhongService.getAllPhongKham(1);
+    this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.has('id')) {
+        this.idDVKT = paramMap.get('id');
+        this.isLoading = true;
+        this.dvktService.getDVKTById(this.idDVKT).subscribe((data: any) => {
+          console.log(data);
+          this.dvktCurrent = data;
+          this.mode = 'edit';
+          this.createForm.patchValue({
+            type: this.dvktCurrent.Type,
+            madv: this.dvktCurrent.MaDV,
+            name: this.dvktCurrent.Name,
+            giabh: this.dvktCurrent.GiaBH,
+            giadv: this.dvktCurrent.GiaDV,
+            active: this.dvktCurrent.active,
+            buongthuchien: this.dvktCurrent.BuongThucHien.map(i => i.name),
+            khoathuchien: this.dvktCurrent.KhoaThucHien.map(i => i.name)
+          });
+        }, (error) => {
+          console.log(error);
+        });
+      } else {
+        this.mode = 'create';
+        this.idDVKT = null;
+      }
+    });
+    const call1 = this.dmKhoaPhongService.getAllPK();
+    const call2 = this.dmKhoaPhongService.getAllKhoaNT();
     zip(call1, call2)
       .pipe(
-        tap(([phongkham, khoakham]: any[]) => {
-          this.buongkhams = phongkham.dmKhoaPhong;
-          this.khoaPhongs = khoakham.dmKhoaPhong;
+        tap(([data1, data2]: any) => {
+          this.buongkhams = data1;
+          this.khoaPhongs = data2;
         })
       ).subscribe(data => {
 
@@ -93,17 +124,31 @@ export class NewdvktComponent implements OnInit {
     if (this.createForm.invalid) {
       return;
     }
-    this.dvktService.createDVKT(this.createForm.value).subscribe(data => {
-      console.log(data);
-      this.toastrService.success('Tạo mới DVKT thành công', 'Thành công');
-      this.router.navigate(['/danhmuc/dvkt']);
-      this.submited = false;
-    }, (error) => {
-      this.toastrService.warning('Có lỗi xảy ra', 'Thất bại');
-      this.submited = false;
-      console.log(error);
-    });
-    // console.log(this.createForm.value);
+    if (this.mode === 'create' ) {
+      this.dvktService.createDVKT(this.createForm.value).subscribe(data => {
+        // console.log(data);
+        this.toastrService.success('Tạo mới DVKT thành công', 'Thành công');
+        this.router.navigate(['/danhmuc/dvkt']);
+        this.submited = false;
+      }, (error) => {
+        this.toastrService.warning('Có lỗi xảy ra', 'Thất bại');
+        this.submited = false;
+        console.log(error);
+      });
+    } else {
+      // console.log(this.createForm.value);
+      // return;
+      this.dvktService.updateDVKT(this.idDVKT, this.createForm.value).subscribe(data => {
+        // console.log(data);
+        this.toastrService.success('Cập nhật DVKT thành công', 'Thành công');
+        this.router.navigate(['/danhmuc/dvkt']);
+        this.submited = false;
+      }, (error) => {
+        this.toastrService.warning('Có lỗi xảy ra', 'Thất bại');
+        this.submited = false;
+        console.log(error);
+      });
+    }
   }
 
   returnPage() {
