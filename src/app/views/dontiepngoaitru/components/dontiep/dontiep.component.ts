@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TheBHYTService } from './../../services/thebhyt.service';
 import { DMBenhNhan } from './../../../../models/dmbenhnhan';
 import { DMTheBHYT } from './../../../../models/dmthebhyt';
@@ -46,6 +46,8 @@ export class DontiepComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
     private khoaPhongService: DmkhoaphongService,
     private loaikhamService: LoaikhamService,
     private hsPhieuKhamService: HsphieukhamService,
@@ -54,7 +56,6 @@ export class DontiepComponent implements OnInit {
     private toastrService: ToastrService,
     private tinhthanhService: TinhthanhService,
     private layThongTinTheService: LaythongtintheService,
-    private activatedRoute: ActivatedRoute
   ) {
     moment.locale();
   }
@@ -71,6 +72,7 @@ export class DontiepComponent implements OnInit {
       // console.log(this.idBenhNhanDangTiepDon);
       })).subscribe((data: any) => {
         if (JSON.stringify(data) !== '{}') {
+          console.log(data);
           this.isXemLai = true;
           this.dangKyKhamBenhForm.patchValue({
             sothebhyt: data.SoTheBHYT ? data.SoTheBHYT : '',
@@ -85,6 +87,7 @@ export class DontiepComponent implements OnInit {
             masothue: data.BenhNhan.MaSoThue ? data.BenhNhan.MaSoThue : '',
             quoctich: data.BenhNhan.QuocTich ? data.BenhNhan.QuocTich : '',
             idbuongkham: data.PhongKham._id,
+            idloaikham: data.LoaiKham
           });
         }
       }, (error) => {
@@ -149,7 +152,7 @@ export class DontiepComponent implements OnInit {
       ngaybatdau: [this.handau],
       ngayketthuc: [this.hancuoi],
       ngaysinh: [null, Validators.required],
-      gioitinh: [null, Validators.required],
+      gioitinh: [1, Validators.required],
       dantoc: ['Kinh'],
       quanhuyen: [null],
       phuongxa: [null],
@@ -208,7 +211,12 @@ export class DontiepComponent implements OnInit {
   onSubmit() {
     // Trường hợp cập nhật lại lần đón tiếp
     if (this.isXemLai) {
-
+      return this.hsPhieuKhamService.updateThongTinPhieuKham(this.idBenhNhanDangTiepDon, this.dangKyKhamBenhForm.value)
+        .subscribe(data => {
+          console.log(data);
+        }, (error) => {
+          console.log(error);
+        });
     }
     // từ đón tiếp => tạo ra 3 bảng 1 lúc
     const thebhyt = new DMTheBHYT();
@@ -285,7 +293,8 @@ export class DontiepComponent implements OnInit {
           })
         ).subscribe(data => {
           this.toastrService.success('Đón tiếp bệnh nhân mới thành công', 'Thành công');
-          this.resetForm();
+          // this.resetForm();
+          this.router.navigate(['/dontiep/danh-sach-don-tiep']);
           console.log(data);
         }, (error) => {
           console.log(error);
@@ -294,7 +303,32 @@ export class DontiepComponent implements OnInit {
   }
 
   resetForm() {
-    this.dangKyKhamBenhForm.reset(this.dangKyKhamBenhForm.value);
+    this.dangKyKhamBenhForm.patchValue({
+      sothebhyt: ['HS4010123298834985'],
+      noidkthebhyt: [null],
+      diachitheothe: [null],
+      makhuvuc: [null],
+      hoten: [null],
+      socmnd: [null],
+      quoctich: ['Việt Nam'],
+      tinhthanh: [null],
+      diachinha: [null],
+      noidungkham: [null],
+      idloaikham: [null],
+      benhvientruoc: [null],
+      sohosobhyt: [null],
+      ngaybatdau: [this.handau],
+      ngayketthuc: [this.hancuoi],
+      ngaysinh: [null],
+      gioitinh: [1],
+      dantoc: ['Kinh'],
+      quanhuyen: [null],
+      phuongxa: [null],
+      dienthoai: [null],
+      masothue: [null],
+      idbuongkham: [null],
+      chandoantuyenduoi: [null]
+    });
   }
 
 

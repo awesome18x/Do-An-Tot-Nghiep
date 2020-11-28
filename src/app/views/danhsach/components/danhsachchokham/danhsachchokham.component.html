@@ -62,7 +62,7 @@
 
                         </tbody>
                     </table>
-                    <div class="col-md-12 text-right" *ngIf="tongDangKhams > 0">
+                    <div class="col-md-12 text-right" *ngIf="tongDangKhams > pageSize">
                       <!-- <div class="col-md-10 text-right" *ngIf="totalItems > itemsPerPage"> -->
                       <ngb-pagination [collectionSize]="tongDangKhams" [pageSize]="pageSize" [(page)]="pageIndex" [maxSize]="5" [rotate]="true" (pageChange)="loadPageDangKham($event)" style="float: right;">
                       </ngb-pagination>
@@ -132,7 +132,7 @@
                         <li class="page-item"><a class="page-link" href="#">4</a></li>
                         <li class="page-item"><a class="page-link" href="#">Next</a></li>
                     </ul> -->
-                    <div class="col-md-12 text-right">
+                    <div class="col-md-12 text-right" *ngIf="tongChoKhams > pageSize">
                       <!-- <div class="col-md-10 text-right" *ngIf="totalItems > itemsPerPage"> -->
                       <ngb-pagination [collectionSize]="tongChoKhams" [pageSize]="pageSize" [(page)]="pageIndex" [maxSize]="5" [rotate]="true" (pageChange)="loadPage($event)" style="float: right;">
                       </ngb-pagination>

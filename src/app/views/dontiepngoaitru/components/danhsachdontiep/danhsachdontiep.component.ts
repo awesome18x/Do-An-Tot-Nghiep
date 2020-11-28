@@ -199,6 +199,8 @@ export class DanhsachdontiepComponent implements OnInit, AfterViewInit {
   }
 
   goToDonTiep(item) {
+
+    console.log(item);
     this.router.navigate(
       ['dontiep/don-tiep-benh-nhan'], {
         queryParams: {

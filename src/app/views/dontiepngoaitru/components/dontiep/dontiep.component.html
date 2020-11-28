@@ -86,7 +86,6 @@
                             <div class="col-md-8">
                                 <!-- <input type="text" class="form-control" id="lk" formControlName="idloaikham"> -->
                                 <select class="form-control" id="mkv" formControlName="idloaikham">
-                                    <option [ngValue]="null" >----</option>
                                     <option [value]="item._id" *ngFor="let item of loaiKhams;">{{item.name}}</option>
                                 </select>
                             </div>
@@ -166,7 +165,7 @@
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label" for="dienthoai">Điện thoại <span class="red">(*)</span></label>
                             <div class="col-md-8">
-                                <input type="text" [textMask]="{mask: maskPhone}" placeholder="0000 000000" class="form-control" id="dienthoai" formControlName="dienthoai">
+                                <input type="text" [textMask]="{mask: maskPhone}" class="form-control" id="dienthoai" formControlName="dienthoai">
                             </div>
                         </div>
                         <div class="form-group row">

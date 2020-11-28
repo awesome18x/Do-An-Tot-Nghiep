@@ -5,7 +5,7 @@ import { HSPhieuKham } from './../../../../models/hsphieukham';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { DSChoKhamService } from '../../service/dschokham.service';
-import { FormGroup, FormArray } from '@angular/forms';
+import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { DvktService } from '../../../danhmuc/services/dvkt.service';
 import { DVKT } from '../../../../models/dvkt';
@@ -49,13 +49,13 @@ export class PhieukhamngoaitruComponent implements OnInit {
     private toastrService: ToastrService,
     private confirmationDialogService: ConfirmDialogService,
     private hsPhieuKhamService: HsphieukhamService,
-
+    private fb: FormBuilder
   ) { }
 
   ngOnInit() {
     this.tien = 50000;
+    this.initForm();
     this.initData();
-
     this.nameBSKham = localStorage.getItem('hoten');
     this.getdvkt(this.type, this.pageSize, this.pageIndex);
   }
@@ -81,6 +81,10 @@ export class PhieukhamngoaitruComponent implements OnInit {
         if (this.phieukham.GioBatDauKham !== undefined) {
           this.isDuocKham = true;
         }
+
+        // if (this.isDuocKham) {
+        //   this.initForm();
+        // }
         console.log(this.phieukham);
         this.nameCongkham = result[1][0];
         this.listDVKTByIdPhieuKham = result[2];
@@ -88,6 +92,48 @@ export class PhieukhamngoaitruComponent implements OnInit {
     }, (error) => {
       console.log(error);
     });
+  }
+
+  initForm() {
+    if (!this.isDuocKham) {
+      this.khamBenhForm = this.fb.group({
+        dienbien: [{value: '', disabled: true}],
+        tiensu: [{value: '', disabled: true}],
+        toanthan: [{value: '', disabled: true}],
+        cacbophan: [{value: '', disabled: true}],
+        chandoan: [{value: '', disabled: true}],
+        ppdt: [{value: '', disabled: true}],
+        mach: [{value: '', disabled: true}],
+        nhietdo: [{value: '', disabled: true}],
+        hatoida: [{value: '', disabled: true}],
+        hatoithieu: [{value: '', disabled: true}],
+        nhiptho: [{value: '', disabled: true}],
+        spo2: [{value: '', disabled: true}],
+        cannang: [{value: '', disabled: true}],
+        chieucao: [{value: '', disabled: true}],
+        loidan: [''],
+        ngaytaikham: ['']
+      });
+    } else {
+      this.khamBenhForm = this.fb.group({
+        dienbien: [''],
+        tiensu: [''],
+        toanthan: [''],
+        cacbophan: [''],
+        chandoan: [''],
+        ppdt: [''],
+        mach: [''],
+        nhietdo: [''],
+        hatoida: [''],
+        hatoithieu: [''],
+        nhiptho: [''],
+        spo2: [''],
+        cannang: [''],
+        chieucao: [''],
+        loidan: [''],
+        ngaytaikham: ['']
+      });
+    }
   }
 
   getdvkt(type: number, pageSize: number, pageIndex: number) {
