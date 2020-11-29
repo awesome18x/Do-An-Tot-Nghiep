@@ -125,6 +125,7 @@ export class NewdvktComponent implements OnInit {
       return;
     }
     if (this.mode === 'create' ) {
+      console.log(this.createForm.value);
       this.dvktService.createDVKT(this.createForm.value).subscribe(data => {
         // console.log(data);
         this.toastrService.success('Tạo mới DVKT thành công', 'Thành công');
@@ -136,10 +137,10 @@ export class NewdvktComponent implements OnInit {
         console.log(error);
       });
     } else {
-      // console.log(this.createForm.value);
+      console.log(this.createForm.value);
       // return;
       this.dvktService.updateDVKT(this.idDVKT, this.createForm.value).subscribe(data => {
-        // console.log(data);
+        console.log(data);
         this.toastrService.success('Cập nhật DVKT thành công', 'Thành công');
         this.router.navigate(['/danhmuc/dvkt']);
         this.submited = false;

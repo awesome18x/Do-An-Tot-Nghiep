@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { DVKT } from '../../../../../models/dvkt';
 import { DmkhoaphongService } from '../../../../../shared/services/dmkhoaphong.service';
+import { ConfirmDialogService } from '../../../../../shared/services/confirm-dialog.service';
 
 @Component({
   selector: 'app-listdvkt',
@@ -19,8 +20,9 @@ export class ListdvktComponent implements OnInit {
   constructor(
     private dmKhoaPhongService: DmkhoaphongService,
     private dvktService: DvktService,
-    private toastrService: ToastrService,
-    private router: Router
+    private toatsService: ToastrService,
+    private router: Router,
+    private confirmationDialogService: ConfirmDialogService
   ) { }
 
   ngOnInit(): void {
@@ -37,7 +39,22 @@ export class ListdvktComponent implements OnInit {
     });
   }
 
-  openConfirmationDialog() {}
+  openConfirmationDialog(id: string) {
+    console.log(id);
+    this.confirmationDialogService.confirm('Xác nhận', 'Bạn thực sự muốn xoá?')
+    .then(confirmed => {
+      if (confirmed) {
+        this.dvktService.deleteDVKTById(id).subscribe(data => {
+          this.toatsService.success('Đã xoá thành công', 'Thành công');
+          this.getDVKT();
+        }, (error) => {
+          this.toatsService.warning('Có lỗi xảy ra', 'Thất bại');
+        });
+      }
+      // console.log('User confirmed:', confirmed);
+    })
+    .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
+  }
 
   loadPage(page: number) {
     this.pageIndex = page;
