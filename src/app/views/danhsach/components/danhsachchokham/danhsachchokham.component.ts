@@ -52,7 +52,7 @@ export class DanhsachchokhamComponent implements OnInit {
     this.hsPhieuKhamService.dsBenhNhanDangKham(idbuongkham, pageSize, pageIndex).subscribe((data: any) => {
       this.dsDangKham = data.data;
       this.tongDangKhams = data.totalResult;
-      console.log(data);
+      // console.log(data);
     }, (error) => {
       console.log(error);
     });

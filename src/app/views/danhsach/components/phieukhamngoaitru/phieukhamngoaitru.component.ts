@@ -2,7 +2,7 @@ import { HSChiDinhDVKT, DSChiDinhDVKT } from './../../../../models/hschidinhdvkt
 import { mergeMap, switchMap } from 'rxjs/operators';
 import { PhongKham } from './../../../../models/phongkham';
 import { HSPhieuKham } from './../../../../models/hsphieukham';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { DSChoKhamService } from '../../service/dschokham.service';
 import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
@@ -49,7 +49,8 @@ export class PhieukhamngoaitruComponent implements OnInit {
     private toastrService: ToastrService,
     private confirmationDialogService: ConfirmDialogService,
     private hsPhieuKhamService: HsphieukhamService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -77,10 +78,32 @@ export class PhieukhamngoaitruComponent implements OnInit {
       return of(null);
     })).subscribe(result => {
       if (result) {
+        // console.log(result);
         this.phieukham = result[0];
         if (this.phieukham.GioBatDauKham !== undefined) {
           this.isDuocKham = true;
         }
+
+        // if (this.isDuocKham) {
+          this.khamBenhForm.patchValue({
+            DienBienBenh: this.phieukham.DienBienBenh,
+            TienSuBenh: this.phieukham.TienSuBenh,
+            ToanThan: this.phieukham.ToanThan,
+            CacBoPhan: this.phieukham.CacBoPhan,
+            ChanDoan: this.phieukham.ChanDoan,
+            PPDieuTri: this.phieukham.PPDieuTri,
+            Mach: this.phieukham.Mach,
+            NhietDo: this.phieukham.NhietDo,
+            HuyetApTren: this.phieukham.HuyetApTren,
+            HuyetApDuoi: this.phieukham.HuyetApDuoi,
+            NhipTho: this.phieukham.NhipTho,
+            SPO2: this.phieukham.SPO2,
+            CanNang: this.phieukham.CanNang,
+            ChieuCao: this.phieukham.ChieuCao,
+            LoiDan: this.phieukham.LoiDan,
+            NgayTaiKham: this.phieukham.NgayTaiKham
+          });
+        // }
 
         // if (this.isDuocKham) {
         //   this.initForm();
@@ -247,6 +270,36 @@ export class PhieukhamngoaitruComponent implements OnInit {
         this.toastrService.warning('Có lỗi xảy ra', 'Thất bại');
       }
     );
+  }
+
+
+  saveTamThoi() {
+    // console.log(this.khamBenhForm.value);
+    const data = {
+      DienBienBenh: this.khamBenhForm.value.dienbien,
+      TienSuBenh: this.khamBenhForm.value.tiensu,
+      ToanThan: this.khamBenhForm.value.toanthan,
+      CacBoPhan: this.khamBenhForm.value.cacbophan,
+      ChanDoan: this.khamBenhForm.value.chandoan,
+      PPDieuTri: this.khamBenhForm.value.ppdt,
+      Mach: this.khamBenhForm.value.mach,
+      NhietDo: this.khamBenhForm.value.nhietdo,
+      HuyetApTren: this.khamBenhForm.value.hatoida,
+      HuyetApDuoi: this.khamBenhForm.value.hatoithieu,
+      NhipTho: this.khamBenhForm.value.nhiptho,
+      SPO2: this.khamBenhForm.value.spo2,
+      CanNang: this.khamBenhForm.value.cannang,
+      ChieuCao: this.khamBenhForm.value.chieucao,
+      LoiDan: this.khamBenhForm.value.loidan,
+      NgayTaiKham: this.khamBenhForm.value.ngaytaikham
+    };
+
+    this.hsPhieuKhamService.updateThongTinPhieuKham(this.idPhieuKham, data).subscribe(data => {
+      console.log(data);
+    }, (error) => {
+      console.log(error);
+    });
+    this.router.navigate(['/danhsach/danh-sach-cho-kham']);
   }
 
 }

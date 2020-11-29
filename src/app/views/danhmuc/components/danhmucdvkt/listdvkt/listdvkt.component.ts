@@ -40,7 +40,7 @@ export class ListdvktComponent implements OnInit {
   }
 
   openConfirmationDialog(id: string) {
-    console.log(id);
+    // console.log(id);
     this.confirmationDialogService.confirm('Xác nhận', 'Bạn thực sự muốn xoá?')
     .then(confirmed => {
       if (confirmed) {

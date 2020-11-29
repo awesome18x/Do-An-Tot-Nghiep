@@ -140,7 +140,7 @@ export class NewdvktComponent implements OnInit {
       console.log(this.createForm.value);
       // return;
       this.dvktService.updateDVKT(this.idDVKT, this.createForm.value).subscribe(data => {
-        console.log(data);
+        // console.log(data);
         this.toastrService.success('Cập nhật DVKT thành công', 'Thành công');
         this.router.navigate(['/danhmuc/dvkt']);
         this.submited = false;

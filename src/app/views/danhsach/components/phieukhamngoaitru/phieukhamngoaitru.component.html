@@ -407,10 +407,10 @@
                                     </a>
                                 </div>
                                 <div class="panel-footer text-right" style="margin: .5rem 1rem;">
-                                    <button class="btn btn-primary">Lưu và chờ kết luận</button>
-                                    <button class="btn btn-success">In BS chỉ định</button>
-                                    <button class="btn btn-warning">In DVKT đã chọn</button>
-                                    <button class="btn btn-warning">In DVKT</button>
+                                    <button class="btn btn-primary" (click)= "saveTamThoi()" [disabled]="!isDuocKham">Lưu và chờ kết luận</button>
+                                    <button class="btn btn-success" [disabled]="!isDuocKham">In BS chỉ định</button>
+                                    <button class="btn btn-warning" [disabled]="!isDuocKham">In DVKT đã chọn</button>
+                                    <button class="btn btn-warning" [disabled]="!isDuocKham">In DVKT</button>
                                 </div>
                                 <!-- <div class="hr-line-dashed" style="margin: .5rem 1rem;"></div> -->
 
