@@ -130,23 +130,33 @@ export const navItems: INavData[] = [
     name: 'Danh Mục'
   },
   {
-    name: 'Danh mục khoa phòng',
+    name: 'DM khoa phòng',
     url: '/danhmuc/khoa-phong',
     icon: 'icon-list'
   },
   {
-    name: 'Danh mục bệnh viện',
+    name: 'DM bệnh viện',
     url: '/danhmuc/benh-vien',
     icon: 'icon-list'
   },
   {
-    name: 'Danh mục dân tộc',
+    name: 'DM dân tộc',
     url: '/danhmuc/dan-toc',
     icon: 'icon-list'
   },
   {
-    name: 'Danh mục DVKT',
+    name: 'DM DVKT',
     url: '/danhmuc/dvkt',
+    icon: 'icon-list'
+  },
+  {
+    name: 'DM ICD10',
+    url: '/danhmuc/icd',
+    icon: 'icon-list'
+  },
+  {
+    name: 'DM thuốc',
+    url: '/danhmuc/thuoc',
     icon: 'icon-list'
   },
   // {

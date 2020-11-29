@@ -1,3 +1,4 @@
+import { DanhmucthuocComponent } from './components/danhmucthuoc/danhmucthuoc.component';
 import { NewdvktComponent } from './components/danhmucdvkt/newdvkt/newdvkt.component';
 import { ListdvktComponent } from './components/danhmucdvkt/listdvkt/listdvkt.component';
 import { CreateComponent } from './components/danhmuckhoaphong/create/create.component';
@@ -49,6 +50,10 @@ const routes: Routes = [
   {
     path: 'icd',
     component: DanhmucicdComponent
+  },
+  {
+    path: 'thuoc',
+    component: DanhmucthuocComponent
   },
   {
     path: 'khoa-phong',
