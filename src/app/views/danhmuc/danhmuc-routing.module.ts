@@ -1,3 +1,4 @@
+import { CreateIcdComponent } from './components/danhmucicd/create-icd/create-icd.component';
 import { DanhmucloaikhamComponent } from './components/danhmucloaikham/danhmucloaikham.component';
 import { DanhmucthuocComponent } from './components/danhmucthuoc/danhmucthuoc.component';
 import { NewdvktComponent } from './components/danhmucdvkt/newdvkt/newdvkt.component';
@@ -14,6 +15,7 @@ import { ListComponent } from './components/danhmuckhoaphong/list/list.component
 import { DsdtComponent } from './components/danhmucdantoc/dsdt/dsdt.component';
 import { NewdtComponent } from './components/danhmucdantoc/newdt/newdt.component';
 import { DanhmuckhoduocComponent } from './components/danhmuckhoduoc/danhmuckhoduoc.component';
+import { ListIcdComponent } from './components/danhmucicd/list-icd/list-icd.component';
 
 
 const routes: Routes = [
@@ -55,7 +57,21 @@ const routes: Routes = [
   },
   {
     path: 'icd',
-    component: DanhmucicdComponent
+    component: DanhmucicdComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'list',
+        pathMatch: 'full'
+      },
+      {
+        path: 'list',
+        component: ListIcdComponent
+      },
+      {
+        path: 'create',
+        component: CreateIcdComponent
+      }]
   },
   {
     path: 'thuoc',

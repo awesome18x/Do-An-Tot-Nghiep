@@ -22,6 +22,8 @@ import { SharedModule } from '../../shared/shared.module';
 import { DanhmucthuocComponent } from './components/danhmucthuoc/danhmucthuoc.component';
 import { DanhmuckhoduocComponent } from './components/danhmuckhoduoc/danhmuckhoduoc.component';
 import { DanhmucloaikhamComponent } from './components/danhmucloaikham/danhmucloaikham.component';
+import { CreateIcdComponent } from './components/danhmucicd/create-icd/create-icd.component';
+import { ListIcdComponent } from './components/danhmucicd/list-icd/list-icd.component';
 
 
 @NgModule({
@@ -40,6 +42,8 @@ import { DanhmucloaikhamComponent } from './components/danhmucloaikham/danhmuclo
     DanhmucthuocComponent,
     DanhmuckhoduocComponent,
     DanhmucloaikhamComponent,
+    CreateIcdComponent,
+    ListIcdComponent,
   ],
   imports: [
     CommonModule,
