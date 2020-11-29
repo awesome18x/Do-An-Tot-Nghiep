@@ -140,6 +140,11 @@ export const navItems: INavData[] = [
     icon: 'icon-list'
   },
   {
+    name: 'DM loại khám',
+    url: '/danhmuc/loai-kham',
+    icon: 'icon-list'
+  },
+  {
     name: 'DM dân tộc',
     url: '/danhmuc/dan-toc',
     icon: 'icon-list'
@@ -157,6 +162,11 @@ export const navItems: INavData[] = [
   {
     name: 'DM thuốc',
     url: '/danhmuc/thuoc',
+    icon: 'icon-list'
+  },
+  {
+    name: 'DM kho dược',
+    url: '/danhmuc/kho-duoc',
     icon: 'icon-list'
   },
   // {

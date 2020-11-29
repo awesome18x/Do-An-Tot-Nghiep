@@ -1,3 +1,4 @@
+import { DanhmucloaikhamComponent } from './components/danhmucloaikham/danhmucloaikham.component';
 import { DanhmucthuocComponent } from './components/danhmucthuoc/danhmucthuoc.component';
 import { NewdvktComponent } from './components/danhmucdvkt/newdvkt/newdvkt.component';
 import { ListdvktComponent } from './components/danhmucdvkt/listdvkt/listdvkt.component';
@@ -12,6 +13,7 @@ import { DanhmucdvktComponent } from './components/danhmucdvkt/danhmucdvkt.compo
 import { ListComponent } from './components/danhmuckhoaphong/list/list.component';
 import { DsdtComponent } from './components/danhmucdantoc/dsdt/dsdt.component';
 import { NewdtComponent } from './components/danhmucdantoc/newdt/newdt.component';
+import { DanhmuckhoduocComponent } from './components/danhmuckhoduoc/danhmuckhoduoc.component';
 
 
 const routes: Routes = [
@@ -48,12 +50,20 @@ const routes: Routes = [
     component: DanhmucbenhvienComponent
   },
   {
+    path: 'loai-kham',
+    component: DanhmucloaikhamComponent
+  },
+  {
     path: 'icd',
     component: DanhmucicdComponent
   },
   {
     path: 'thuoc',
     component: DanhmucthuocComponent
+  },
+  {
+    path: 'kho-duoc',
+    component: DanhmuckhoduocComponent
   },
   {
     path: 'khoa-phong',

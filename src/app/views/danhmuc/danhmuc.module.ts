@@ -20,6 +20,8 @@ import { ListdvktComponent } from './components/danhmucdvkt/listdvkt/listdvkt.co
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SharedModule } from '../../shared/shared.module';
 import { DanhmucthuocComponent } from './components/danhmucthuoc/danhmucthuoc.component';
+import { DanhmuckhoduocComponent } from './components/danhmuckhoduoc/danhmuckhoduoc.component';
+import { DanhmucloaikhamComponent } from './components/danhmucloaikham/danhmucloaikham.component';
 
 
 @NgModule({
@@ -36,6 +38,8 @@ import { DanhmucthuocComponent } from './components/danhmucthuoc/danhmucthuoc.co
     NewdvktComponent,
     ListdvktComponent,
     DanhmucthuocComponent,
+    DanhmuckhoduocComponent,
+    DanhmucloaikhamComponent,
   ],
   imports: [
     CommonModule,
