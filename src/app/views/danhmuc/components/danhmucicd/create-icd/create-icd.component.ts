@@ -30,6 +30,7 @@ export class CreateIcdComponent implements OnInit {
         this.mode = 'update';
         this.dmicd.getICDById(this.id_icd).subscribe((data: any) => {
           this.icdCurrent = data.data;
+          // console.log(this.icdCurrent);
           this.createForm.patchValue({
             ma: this.icdCurrent.ma,
             name: this.icdCurrent.name,
