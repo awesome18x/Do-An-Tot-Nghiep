@@ -18,8 +18,8 @@ export class DanhmucicdService {
     return this.http.post<ICD>(this.API_URL +  'api/dmicd/create', body);
   }
 
-  getAllICD(): Observable<ICD[]> {
-    return this.http.get<ICD[]>(this.API_URL +  'api/dmicd/');
+  getAllICD(pageSize: number, pageIndex: number): Observable<ICD[]> {
+    return this.http.get<ICD[]>(this.API_URL +  `api/dmicd?pageSize=${pageSize}&pageIndex=${pageIndex}`);
   }
 
   getICDById(id: string): Observable<ICD> {

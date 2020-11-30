@@ -21,17 +21,11 @@ export class ListIcdComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.dmicd.getAllICD().subscribe((data: any) => {
-      this.total = data.count;
-      this.listIcds = data.ICD;
-      // console.log(data);
-    }, (error) => {
-      console.log(error);
-    });
+    this.getAllIcd(this.pageSize, this.pageIndex);
   }
 
-  getAllIcd() {
-    this.dmicd.getAllICD().subscribe((data: any) => {
+  getAllIcd(pageSize: number, pageIndex: number) {
+    this.dmicd.getAllICD(pageSize, pageIndex).subscribe((data: any) => {
       this.total = data.count;
       this.listIcds = data.ICD;
       // console.log(data);
@@ -47,7 +41,7 @@ export class ListIcdComponent implements OnInit {
       if (confirmed) {
         this.dmicd.deleteICD(id).subscribe(data => {
           this.toatsService.success('Đã xoá thành công', 'Thành công');
-          this.getAllIcd();
+          this.getAllIcd(this.pageSize, this.pageIndex);
         }, (error) => {
           this.toatsService.warning('Có lỗi xảy ra', 'Thất bại');
         });
@@ -58,6 +52,9 @@ export class ListIcdComponent implements OnInit {
   }
 
 
-  loadPage() {}
+  loadPage(e: number) {
+    this.pageIndex = e;
+    this.getAllIcd(this.pageSize, this.pageIndex);
+  }
 
 }
