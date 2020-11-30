@@ -12,6 +12,7 @@ import { PhieukhamngoaitruComponent } from './components/phieukhamngoaitru/phieu
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TextMaskModule } from 'angular2-text-mask';
 import { SharedModule } from '../../shared/shared.module';
+import { DisableControlDirective } from './components/phieukhamngoaitru/disabled.directive';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { SharedModule } from '../../shared/shared.module';
     DanhsachdangkhamComponent,
     DanhsachdakhamComponent,
     DanhsachhuykhamComponent,
-    PhieukhamngoaitruComponent
+    PhieukhamngoaitruComponent,
+    DisableControlDirective
   ],
   imports: [
     CommonModule,

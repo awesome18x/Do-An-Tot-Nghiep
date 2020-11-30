@@ -53,10 +53,10 @@ export class PhieukhamngoaitruComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.tien = 50000;
-    this.initForm();
-    this.initData();
+    await this.initForm();
+    await this.initData();
     this.nameBSKham = localStorage.getItem('hoten');
     this.getdvkt(this.type, this.pageSize, this.pageIndex);
   }
@@ -80,30 +80,32 @@ export class PhieukhamngoaitruComponent implements OnInit {
       if (result) {
         // console.log(result);
         this.phieukham = result[0];
-        if (this.phieukham.GioBatDauKham !== undefined) {
+        if (this.phieukham.GioBatDauKham !== undefined && this.phieukham.GioBatDauKham !== null) {
           this.isDuocKham = true;
         }
 
-        // if (this.isDuocKham) {
+        console.log(this.isDuocKham);
+
+        if (this.isDuocKham) {
           this.khamBenhForm.patchValue({
-            DienBienBenh: this.phieukham.DienBienBenh,
-            TienSuBenh: this.phieukham.TienSuBenh,
-            ToanThan: this.phieukham.ToanThan,
-            CacBoPhan: this.phieukham.CacBoPhan,
-            ChanDoan: this.phieukham.ChanDoan,
-            PPDieuTri: this.phieukham.PPDieuTri,
-            Mach: this.phieukham.Mach,
-            NhietDo: this.phieukham.NhietDo,
-            HuyetApTren: this.phieukham.HuyetApTren,
-            HuyetApDuoi: this.phieukham.HuyetApDuoi,
-            NhipTho: this.phieukham.NhipTho,
-            SPO2: this.phieukham.SPO2,
-            CanNang: this.phieukham.CanNang,
-            ChieuCao: this.phieukham.ChieuCao,
-            LoiDan: this.phieukham.LoiDan,
-            NgayTaiKham: this.phieukham.NgayTaiKham
+            dienbien: this.phieukham.DienBienBenh,
+            tiensu: this.phieukham.TienSuBenh,
+            toanthan: this.phieukham.ToanThan,
+            cacbophan: this.phieukham.CacBoPhan,
+            chandoan: this.phieukham.ChanDoan,
+            ppdt: this.phieukham.PPDieuTri,
+            mach: this.phieukham.Mach,
+            nhietdo: this.phieukham.NhietDo,
+            hatoida: this.phieukham.HuyetApTren,
+            hatoithieu: this.phieukham.HuyetApDuoi,
+            nhiptho: this.phieukham.NhipTho,
+            spo2: this.phieukham.SPO2,
+            cannang: this.phieukham.CanNang,
+            chieucao: this.phieukham.ChieuCao,
+            loidan: this.phieukham.LoiDan,
+            ngaitaikham: this.phieukham.NgayTaiKham
           });
-        // }
+        }
 
         // if (this.isDuocKham) {
         //   this.initForm();

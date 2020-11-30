@@ -116,8 +116,10 @@
                                     <button type="button" class="btn btn-pill btn-warning ml-1" (click)="callBenhNhan(item)"> <i class="fa fa-volume-up"></i>&nbsp;Gọi</button>
                                 </td>
                             </tr>
-                            <tr *ngIf="tongChoKhams <=0">
-                                <td class="text-center" colspan="6">Không có dữ liệu</td>
+                            <tr *ngIf="tongChoKhams === 0">
+                              <td style="text-align: center;
+                              font-size: 16px;
+                              font-weight: bold;" colspan="10">[Không có bệnh nhân]</td>
                             </tr>
 
                         </tbody>
