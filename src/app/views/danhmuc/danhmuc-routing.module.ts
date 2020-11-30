@@ -69,7 +69,11 @@ const routes: Routes = [
         component: ListIcdComponent
       },
       {
-        path: 'create',
+        path: 'create-or-update',
+        component: CreateIcdComponent
+      },
+      {
+        path: 'create-or-update/:id',
         component: CreateIcdComponent
       }]
   },

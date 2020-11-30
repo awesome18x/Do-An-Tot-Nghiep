@@ -1,1 +1,62 @@
-<p>list-icd works!</p>
+<div class="animated fadeIn">
+  <div class="card">
+      <div class="card-header">
+          <strong>Danh Mục ICD 10</strong>
+          <div class="card-header-actions">
+              Tổng: {{ total }}
+          </div>
+      </div>
+      <div class="card-body">
+          <div class="row mb-3">
+              <div class="col-md-2">
+                  <button type="button" class="btn btn-primary" routerLink="../create-or-update"> <i class="fa fa-plus icon"></i>Thêm mới</button>
+              </div>
+
+              <div class="col-md-4 offset-6">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">
+                              <i class="fa fa-search"></i>
+                          </span>
+                      </div>
+                      <input type="text" class="form-control" placeholder="Search by name">
+                  </div>
+              </div>
+          </div>
+          <table class="table table-bordered  table-striped  table-responsive-lg text-center">
+              <thead>
+                  <tr>
+                      <th>STT</th>
+                      <th>Mã</th>
+                      <th style="width: 40%;">Tên</th>
+                      <th>Nhóm</th>
+                      <th>Chương</th>
+                      <th>#</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let item of listIcds; let i = index">
+                      <th>{{ i + 1 }}</th>
+                      <td>{{ item?.ma }}</td>
+                      <td>{{ item.name }}</td>
+                      <td>{{ item.nhom }}</td>
+                      <td>{{ item.chuong }}</td>
+                      <td>
+                          <button type="button" class="btn btn-warning" [routerLink]="['../create-or-update', item._id]" routerLinkActive="router-link-active">Sửa</button>
+                          <button type="button" class="btn btn-danger" (click)="openConfirmationDialog(item._id)">Xoá</button>
+                      </td>
+                  </tr>
+              </tbody>
+              <!-- <tfoot> -->
+
+              <!-- </tfoot> -->
+          </table>
+          <div class="col-md-12 text-right">
+              <!-- <div class="col-md-10 text-right" *ngIf="totalItems > itemsPerPage"> -->
+              <ngb-pagination [collectionSize]="total" [pageSize]="pageSize" [(page)]="pageIndex" [maxSize]="5" [rotate]="true" (pageChange)="loadPage($event)" style="float: right;">
+              </ngb-pagination>
+              <!-- </div> -->
+          </div>
+      </div>
+  </div>
+</div>

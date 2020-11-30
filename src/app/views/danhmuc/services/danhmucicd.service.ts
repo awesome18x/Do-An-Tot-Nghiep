@@ -19,7 +19,7 @@ export class DanhmucicdService {
   }
 
   getAllICD(): Observable<ICD[]> {
-    return this.http.get<ICD[]>(this.API_URL +  'api/dmicd/get-all');
+    return this.http.get<ICD[]>(this.API_URL +  'api/dmicd/');
   }
 
   getICDById(id: string): Observable<ICD> {
