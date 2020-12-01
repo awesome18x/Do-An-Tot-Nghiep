@@ -1,0 +1,58 @@
+<div class="animated fadeIn">
+  <div class="card">
+      <div class="card-header">
+          <strong>Danh Mục Loại Khám</strong>
+          <div class="card-header-actions">
+              Tổng: {{ total }}
+          </div>
+      </div>
+      <div class="card-body">
+          <div class="row mb-3">
+              <div class="col-md-2">
+                  <button type="button" class="btn btn-primary" routerLink="../create-or-update"> <i class="fa fa-plus icon"></i>Thêm mới</button>
+              </div>
+
+              <div class="col-md-4 offset-6">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text">
+                              <i class="fa fa-search"></i>
+                          </span>
+                      </div>
+                      <input type="text" class="form-control" placeholder="Search by name">
+                  </div>
+              </div>
+          </div>
+          <table class="table table-bordered  table-striped  table-responsive-lg text-center">
+              <thead>
+                  <tr>
+                      <th>STT</th>
+                      <th>Tên </th>
+                      <th style="width: 30%;">Trạng thái</th>
+                      <th>#</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let item of listLoaiKham; let i = index">
+                      <th>{{ item.STT }}</th>
+                      <td>{{ item?.name }}</td>
+                      <td>{{ item.status ? 'Hoạt động' : 'Off' }}</td>
+                      <td>
+                          <button type="button" class="btn btn-sm btn-warning" [routerLink]="['../create-or-update', item._id]" routerLinkActive="router-link-active">Sửa</button>
+                          <button type="button" class="btn btn-sm btn-danger" (click)="openConfirmationDialog(item._id)">Xoá</button>
+                      </td>
+                  </tr>
+              </tbody>
+              <!-- <tfoot> -->
+
+              <!-- </tfoot> -->
+          </table>
+          <div class="col-md-12 text-right" >
+              <!-- <div class="col-md-10 text-right" *ngIf="totalItems > itemsPerPage"> -->
+              <ngb-pagination [collectionSize]="total" [pageSize]="pageSize" [(page)]="pageIndex" [maxSize]="5" [rotate]="true" (pageChange)="loadPage($event)" style="float: right;">
+              </ngb-pagination>
+              <!-- </div> -->
+          </div>
+      </div>
+  </div>
+</div>

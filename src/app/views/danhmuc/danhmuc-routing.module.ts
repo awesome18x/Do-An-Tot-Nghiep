@@ -16,6 +16,8 @@ import { DsdtComponent } from './components/danhmucdantoc/dsdt/dsdt.component';
 import { NewdtComponent } from './components/danhmucdantoc/newdt/newdt.component';
 import { DanhmuckhoduocComponent } from './components/danhmuckhoduoc/danhmuckhoduoc.component';
 import { ListIcdComponent } from './components/danhmucicd/list-icd/list-icd.component';
+import { ListLoaikhamComponent } from './components/danhmucloaikham/list-loaikham/list-loaikham.component';
+import { CreateLoaikhamComponent } from './components/danhmucloaikham/create-loaikham/create-loaikham.component';
 
 
 const routes: Routes = [
@@ -53,7 +55,25 @@ const routes: Routes = [
   },
   {
     path: 'loai-kham',
-    component: DanhmucloaikhamComponent
+    component: DanhmucloaikhamComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'list',
+        pathMatch: 'full'
+      },
+      {
+        path: 'list',
+        component: ListLoaikhamComponent
+      },
+      {
+        path: 'create-or-update',
+        component: CreateLoaikhamComponent
+      },
+      {
+        path: 'create-or-update/:id',
+        component: CreateLoaikhamComponent
+      }]
   },
   {
     path: 'icd',

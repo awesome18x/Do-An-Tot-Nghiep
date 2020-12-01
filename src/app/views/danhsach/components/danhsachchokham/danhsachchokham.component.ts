@@ -1,5 +1,5 @@
 import { HsphieukhamService } from './../../../dontiepngoaitru/services/hsphieukham.service';
-import { LoaiKhoaPhong } from './../../../../constants/constants';
+import { LoaiKhoaPhong, TrangThaiKhamBenh } from './../../../../constants/constants';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -19,7 +19,7 @@ export class DanhsachchokhamComponent implements OnInit {
   pageSize: number = 10;
   pageIndex: number = 1;
   pageIndexDangKham: number = 1;
-  status_chokham: number = 1;
+  status_chokham = TrangThaiKhamBenh.ChoKham;
   time = new Date();
   timee: any;
   phongKhams: PhongKham[] = [];

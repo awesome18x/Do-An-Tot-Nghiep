@@ -1,3 +1,4 @@
+import { TrangThaiKhamBenh } from './../../../../constants/constants';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TheBHYTService } from './../../services/thebhyt.service';
 import { DMBenhNhan } from './../../../../models/dmbenhnhan';
@@ -19,7 +20,6 @@ import { TinhthanhService } from '../../services/tinhthanh.service';
 import { DmkhoaphongService } from '../../../../shared/services/dmkhoaphong.service';
 import { LoaiKhoaPhong } from '../../../../constants/constants';
 import { LaythongtintheService } from '../../services/laythongtinthe.service';
-
 
 @Component({
   selector: 'app-dontiep',
@@ -255,7 +255,7 @@ export class DontiepComponent implements OnInit {
     phieukham.benhvientruoc = this.dangKyKhamBenhForm.value.benhvientruoc;
     phieukham.chandoantuyenduoi = this.dangKyKhamBenhForm.value.chandoantuyenduoi;
     phieukham.isbhyt = true;
-    phieukham.trangthai = 1;
+    phieukham.trangthai = TrangThaiKhamBenh.ChoKham;
     phieukham.idbacsykham = null;
     phieukham.createdAt = moment(new Date()).format();
     // console.log(phieukham);

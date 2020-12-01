@@ -4,17 +4,17 @@ export enum LoaiKhoaPhong {
 }
 
 export enum TrangThaiKhamBenh {
-    ChoKham = 'Cho_Kham',
-    DangKham = 'Dang_Kham',
-    DaKhamXong = 'Da_Kham_Xong',
-    HuyKham = 'Huy_Kham',
-    ChuyenVien = 'Chuyen_Vien',
-    LapBenhAnNoiTru = 'Lap_Benh_An_Noi_Tru',
-    DieuTriNoiTru = 'Dieu_Tri_Noi_Tru',
-    DieuTriNgoaiTru = 'Dieu_Tri_Ngoai_Tru',
-    LapBenhAnNgoaiTru = 'Lap_Benh_An_Ngoai_Tru',
-    RaVien = 'Ra_Vien',
-    DaThanhToan = 'Da_Thanh_Toan'
+    ChoKham = 1,
+    DangKham = 2,
+    DaKhamXong = 3,
+    HuyKham = 4,
+    ChuyenVien = 5,
+    LapBenhAnNoiTru = 6,
+    DieuTriNoiTru = 7,
+    DieuTriNgoaiTru = 8,
+    LapBenhAnNgoaiTru = 9,
+    RaVien = 10,
+    DaThanhToan = 11
 }
 
 export enum TrangThaiDVKT {

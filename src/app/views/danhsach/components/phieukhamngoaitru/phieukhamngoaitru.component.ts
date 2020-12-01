@@ -13,7 +13,7 @@ import { CongkhamService } from '../../service/congkham.service';
 import { combineLatest, of, forkJoin } from 'rxjs';
 import { HsphieuchidinhdvktService } from '../../service/hsphieuchidinhdvkt.service';
 import { ToastrService } from 'ngx-toastr';
-import { TrangThaiDVKT } from '../../../../constants/constants';
+import { TrangThaiDVKT, TrangThaiKhamBenh } from '../../../../constants/constants';
 import { ConfirmDialogService } from '../../../../shared/services/confirm-dialog.service';
 import { HsphieukhamService } from '../../../dontiepngoaitru/services/hsphieukham.service';
 import * as moment from 'moment';
@@ -84,7 +84,6 @@ export class PhieukhamngoaitruComponent implements OnInit {
           this.isDuocKham = true;
         }
 
-        console.log(this.isDuocKham);
 
         if (this.isDuocKham) {
           this.khamBenhForm.patchValue({
@@ -110,7 +109,6 @@ export class PhieukhamngoaitruComponent implements OnInit {
         // if (this.isDuocKham) {
         //   this.initForm();
         // }
-        console.log(this.phieukham);
         this.nameCongkham = result[1][0];
         this.listDVKTByIdPhieuKham = result[2];
       }
@@ -257,7 +255,7 @@ export class PhieukhamngoaitruComponent implements OnInit {
     this.isDuocKham = true;
     const data = {
       GioBatDauKham: moment(new Date()).format(),
-      TrangThai: 2,
+      TrangThai: TrangThaiKhamBenh.DangKham,
       BacSyKham: localStorage.getItem('userID')
     };
     this.hsPhieuKhamService.updateThongTinPhieuKham(this.idPhieuKham, data).subscribe(
@@ -302,6 +300,10 @@ export class PhieukhamngoaitruComponent implements OnInit {
       console.log(error);
     });
     this.router.navigate(['/danhsach/danh-sach-cho-kham']);
+  }
+
+  openICD() {
+    console.log('hii');
   }
 
 }
