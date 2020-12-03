@@ -110,3 +110,32 @@ label {
 form {
   width: 100%;
 }
+
+.modal-content {
+  height: 35rem;
+}
+
+.form-icd {
+  display: flex;
+  .input-ma {
+    width: 20%;
+    margin-right: 5px;
+  }
+  .input-name {
+    margin-right: 5px;
+    width: 40%;
+  }
+}
+
+.item-icd {
+  display: flex;
+  // background-color: aqua;
+  .item-ma {
+    width: 10rem;
+  }
+}
+
+.item-icd:hover {
+  background-color: aqua;
+  cursor: pointer;
+}

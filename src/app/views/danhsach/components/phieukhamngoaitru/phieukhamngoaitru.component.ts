@@ -17,12 +17,16 @@ import { TrangThaiDVKT, TrangThaiKhamBenh } from '../../../../constants/constant
 import { ConfirmDialogService } from '../../../../shared/services/confirm-dialog.service';
 import { HsphieukhamService } from '../../../dontiepngoaitru/services/hsphieukham.service';
 import * as moment from 'moment';
+import { DanhmucicdService } from '../../../danhmuc/services/danhmucicd.service';
+import { ICD } from '../../../../models/icd';
+
 @Component({
   selector: 'app-phieukhamngoaitru',
   templateUrl: './phieukhamngoaitru.component.html',
   styleUrls: ['./phieukhamngoaitru.component.scss']
 })
 export class PhieukhamngoaitruComponent implements OnInit {
+  selectedIcd: FormGroup;
   isDuocKham: boolean = false;
   idPhieuKham: string;
   nameBSKham: string;
@@ -39,6 +43,7 @@ export class PhieukhamngoaitruComponent implements OnInit {
   listDVKTCreated: HSChiDinhDVKT[] = [];
   listDVKTByIdPhieuKham: DSChiDinhDVKT[] = [];
   tien: number;
+  listICDs: ICD[] = [];
   constructor(
     private activatedRoute: ActivatedRoute,
     private dschokhamService: DSChoKhamService,
@@ -50,7 +55,8 @@ export class PhieukhamngoaitruComponent implements OnInit {
     private confirmationDialogService: ConfirmDialogService,
     private hsPhieuKhamService: HsphieukhamService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private dmicdService: DanhmucicdService
   ) { }
 
   async ngOnInit() {
@@ -59,6 +65,8 @@ export class PhieukhamngoaitruComponent implements OnInit {
     await this.initData();
     this.nameBSKham = localStorage.getItem('hoten');
     this.getdvkt(this.type, this.pageSize, this.pageIndex);
+    this.initFormICD();
+    this.fetchICD();
   }
 
   initData() {
@@ -117,6 +125,13 @@ export class PhieukhamngoaitruComponent implements OnInit {
     });
   }
 
+  initFormICD() {
+    this.selectedIcd = this.fb.group({
+      ma: [''],
+      name: ['']
+    });
+  }
+
   initForm() {
     // if (!this.isDuocKham) {
     //   this.khamBenhForm = this.fb.group({
@@ -157,6 +172,15 @@ export class PhieukhamngoaitruComponent implements OnInit {
         ngaytaikham: ['']
       });
     // }
+  }
+
+  fetchICD() {
+    this.dmicdService.getAllICD(15, 1).subscribe((data: any) => {
+      this.listICDs = data.ICD;
+      console.log(data);
+    }, (error) => {
+      console.log(error);
+    });
   }
 
   getdvkt(type: number, pageSize: number, pageIndex: number) {
@@ -203,7 +227,6 @@ export class PhieukhamngoaitruComponent implements OnInit {
         });
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      console.log('jhkl');
     });
   }
 
@@ -302,8 +325,19 @@ export class PhieukhamngoaitruComponent implements OnInit {
     this.router.navigate(['/danhsach/danh-sach-cho-kham']);
   }
 
-  openICD() {
-    console.log('hii');
+  openICD(contenticd) {
+    // this.modalService.open(contenticd, { size: 'lg' });
+    const modalRef = this.modalService.open(contenticd, {
+      size: 'lg',
+      windowClass: 'config-modal',
+      centered: true
+    });
+    // modalRef.componentInstance.lesson = lesson;
+
+  }
+
+  resetFormIcd() {
+    this.selectedIcd.reset();
   }
 
 }

@@ -26,3 +26,19 @@
 .onwer-bn {
     font-weight: 600;
 }
+.config-modal {
+  .modal-content {
+    height: 35rem;
+  }
+  .modal-body{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+  }
+}
+.wrap-table {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
