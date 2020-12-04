@@ -439,12 +439,12 @@
 
                                     <ng-container *ngIf="listICDs.length > 0">
                                       <div class="wrap-table">
-                                        <table class="table table-striped" style="overflow: scroll;">
+                                        <table class="table" style="overflow: scroll;">
                                           <tbody>
                                             <tr *ngFor="let item of listICDs">
-                                              <td class="item-icd" >
+                                              <td class="item-icd" (click)="pickIcdMain(item)">
                                                 <span class="item-ma">{{ item.ma}}</span>
-                                                <span class="item-name">{{item.name}}</span>
+                                                <span class="item-name">{{item.name | titlecase}}</span>
                                               </td>
                                             </tr>
                                           </tbody>
@@ -520,17 +520,56 @@
                                     </div>
                                     <div class="col-sm-4 my-2">
                                         <div class="form-group">
-                                            <select class="form-control">
-                                          <option>1. Về</option>
-                                          <option>2. Chuyển phòng khám</option>
-                                          <option>3. Chuyển viện</option>
-                                          <option>4. Lập bệnh án ngoại trú</option>
-                                          <option>5. Lập bệnh án nội trú</option>
-                                        </select>
+                                            <select class="form-control" (change)="selectKetLuan($event)">
+                                              <option *ngFor="let item of HuongXuTri; let id = index;" [ngValue]="item.id">{{id+1}}. {{item.name}}</option>
+                                            </select>
                                         </div>
                                     </div>
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-8 my-2" [ngSwitch]="hxtValue">
+                                        <div class="row" *ngSwitchCase="2">
+                                          <div class="col-sm-5">
+                                            <select class="form-control" (change)="chuyenBNDenPhongKhamMoi($event.target.value)" name="select">
+                                              <option [value]="item._id" *ngFor="let item of phongKhams;">{{item.name}}</option>
+                                            </select>
+                                          </div>
+                                          <div class="col-sm-3">
+                                            <button type="button" class="btn btn-success">Chuyển phòng</button>
+                                          </div>
+                                        </div>
+                                        <div class="row" *ngSwitchCase="4">
+                                          <div class="col-sm-5">
+                                            <select class="form-control" (change)="lapBenhAnNoiTru($event.target.value)" name="select">
+                                              <option [value]="item._id" *ngFor="let item of phongKhams;">{{item.name}}</option>
+                                            </select>
+                                          </div>
+                                          <div class="col-sm-4">
+                                            <select class="form-control" (change)="lapBenhAnNoiTru($event.target.value)" name="select">
+                                              <option [value]="item._id" *ngFor="let item of phongKhams;">{{item.name}}</option>
+                                            </select>                                          </div>
+                                          <div class="col-sm-3">
+                                            <button type="button" class="btn btn-success">Chuyển khoa nội trú</button>
+                                          </div>
+                                        </div>
+                                        <div class="row" *ngSwitchCase="5">
+                                          <div class="col-sm-5">
+                                            <select class="form-control" (change)="lapBenhAnNoiTru($event.target.value)" name="select">
+                                              <option [value]="item._id" *ngFor="let item of phongKhams;">{{item.name}}</option>
+                                            </select>
+                                          </div>
+                                          <div class="col-sm-4">
+                                            <select class="form-control" (change)="lapBenhAnNoiTru($event.target.value)" name="select">
+                                              <option [value]="item._id" *ngFor="let item of phongKhams;">{{item.name}}</option>
+                                            </select>                                          </div>
+                                          <div class="col-sm-3">
+                                            <button type="button" class="btn btn-success">Chuyển khoa nội trú</button>
+                                          </div>
+                                        </div>
+                                        <div class="row" *ngSwitchCase="5">
 
+                                          <div class="col-sm-3">
+                                            <button type="button" class="btn btn-success">Chuyển viện</button>
+                                          </div>
+                                        </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="row">
@@ -556,7 +595,7 @@
                                     <button class="btn btn-warning" tabindex="17" id="PrintKetQua" ng-click="printKetQuaKham()" ng-if="Config.InPhieuKhamBenh === 'true'">In phiếu khám bệnh(Ctrl+P)</button>
                                     <button class="btn btn-warning" tabindex="17" id="PrintKetQua" ng-click="PrintPhieuDieuTri()" ng-if="Config.InPrintPhieuDieuTri === 'true'">In phiếu điều trị(Ctrl+T)</button>
                                     <button class="btn btn-success" tabindex="18" id="PrintBangKe" ng-click="printBangKe()" ng-if="isBacSyInBangKe" ng-disabled="!isDaKham && !isInBangKeTruocKhiKeThuc">In bảng kê(Ctrl+I)</button>
-                                    <a class="btn btn-secondary" tabindex="19" ng-click="exitForm()">Quay lại (Esc)</a>
+                                    <a class="btn btn-secondary" tabindex="19" (click)="exitForm()">Quay lại (Esc)</a>
                                 </div>
                             </div>
                         </form>

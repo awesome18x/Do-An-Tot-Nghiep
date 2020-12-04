@@ -13,12 +13,14 @@ import { CongkhamService } from '../../service/congkham.service';
 import { combineLatest, of, forkJoin } from 'rxjs';
 import { HsphieuchidinhdvktService } from '../../service/hsphieuchidinhdvkt.service';
 import { ToastrService } from 'ngx-toastr';
-import { TrangThaiDVKT, TrangThaiKhamBenh } from '../../../../constants/constants';
+import { TrangThaiDVKT, TrangThaiKhamBenh, LoaiKhoaPhong } from '../../../../constants/constants';
 import { ConfirmDialogService } from '../../../../shared/services/confirm-dialog.service';
 import { HsphieukhamService } from '../../../dontiepngoaitru/services/hsphieukham.service';
 import * as moment from 'moment';
 import { DanhmucicdService } from '../../../danhmuc/services/danhmucicd.service';
 import { ICD } from '../../../../models/icd';
+import { DmkhoaphongService } from '../../../../shared/services/dmkhoaphong.service';
+
 
 @Component({
   selector: 'app-phieukhamngoaitru',
@@ -26,6 +28,16 @@ import { ICD } from '../../../../models/icd';
   styleUrls: ['./phieukhamngoaitru.component.scss']
 })
 export class PhieukhamngoaitruComponent implements OnInit {
+  id_default: string; // id phong khám hiện tại
+  phongKhams: PhongKham[] = [];
+  HuongXuTri = [
+    {id: 1, name: 'Về'},
+    {id: 2, name: 'Chuyển Phòng Khám'},
+    {id: 3, name: 'Chuyển Viện'},
+    {id: 4, name: 'Lập Bệnh Án Ngoại Trú'},
+    {id: 5, name: 'Lập Bệnh Án Nội Trú'}
+  ];
+  hxtValue: number;
   selectedIcd: FormGroup;
   isDuocKham: boolean = false;
   idPhieuKham: string;
@@ -44,6 +56,8 @@ export class PhieukhamngoaitruComponent implements OnInit {
   listDVKTByIdPhieuKham: DSChiDinhDVKT[] = [];
   tien: number;
   listICDs: ICD[] = [];
+  icdMainSelected: ICD;
+  icdPhus: ICD[] = [];
   constructor(
     private activatedRoute: ActivatedRoute,
     private dschokhamService: DSChoKhamService,
@@ -56,7 +70,8 @@ export class PhieukhamngoaitruComponent implements OnInit {
     private hsPhieuKhamService: HsphieukhamService,
     private fb: FormBuilder,
     private router: Router,
-    private dmicdService: DanhmucicdService
+    private dmicdService: DanhmucicdService,
+    private dmkhoaPhongService: DmkhoaphongService
   ) { }
 
   async ngOnInit() {
@@ -67,6 +82,14 @@ export class PhieukhamngoaitruComponent implements OnInit {
     this.getdvkt(this.type, this.pageSize, this.pageIndex);
     this.initFormICD();
     this.fetchICD();
+    this.dmkhoaPhongService.getAllPhongKham(LoaiKhoaPhong.PhongKham).subscribe((data: any) => {
+      this.phongKhams = data.dmKhoaPhong;
+      this.id_default = data.dmKhoaPhong[0]._id;
+      // this.getListBNChoKham(this.status_chokham, this.id_default, this.pageSize, this.pageIndex);
+      // this.getListBNDangKham(this.id_default, this.pageSize, this.pageIndexDangKham);
+    }, (error) => {
+      console.log(error);
+    });
   }
 
   initData() {
@@ -338,6 +361,30 @@ export class PhieukhamngoaitruComponent implements OnInit {
 
   resetFormIcd() {
     this.selectedIcd.reset();
+  }
+
+  exitForm() {
+    this.router.navigate(['/danhsach/danh-sach-cho-kham']);
+  }
+
+  pickIcdMain(item: ICD) {
+    this.toastrService.success('Đã chỉ định ICD chính cho bệnh nhân');
+    this.icdMainSelected = item;
+
+    console.log('ok nha', this.icdMainSelected);
+    this.modalService.dismissAll();
+  }
+
+  selectKetLuan(e) {
+    this.hxtValue = +(e.target.value).substring(0, 1);
+  }
+
+  chuyenBNDenPhongKhamMoi() {
+
+  }
+
+  lapBenhAnNoiTru() {
+
   }
 
 }
