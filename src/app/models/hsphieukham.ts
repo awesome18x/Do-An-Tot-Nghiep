@@ -1,3 +1,5 @@
+import { ICD } from './icd';
+
 export class HSPhieuKham {
     _id: string;
     idbuongkham: string;
@@ -37,5 +39,9 @@ export class HSPhieuKham {
     spo2: string;
     trangthai: number;
     createdAt: any;
+    isNoiTru: boolean;
+    IsCapCuu: boolean;
+    idMaBenhChinh: ICD;
+    idMaBenhKemTheo: ICD[];
 
 }

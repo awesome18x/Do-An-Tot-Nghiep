@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DanhsachdakhamComponent } from './components/danhsachdakham/danhsachdakham.component';
 import { DanhsachhuykhamComponent } from './components/danhsachhuykham/danhsachhuykham.component';
 import { DanhsachdangkhamComponent } from './components/danhsachdangkham/danhsachdangkham.component';
+import { PhieuchuyentuyenComponent } from './components/phieuchuyentuyen/phieuchuyentuyen.component';
 
 
 const routes: Routes = [
@@ -34,6 +35,10 @@ const routes: Routes = [
   {
     path: 'phieu-kham-ngoai-tru/:id',
     component: PhieukhamngoaitruComponent
+  },
+  {
+    path: 'phieu-chuyen-tuyen',
+    component: PhieuchuyentuyenComponent
   }
 
 ];

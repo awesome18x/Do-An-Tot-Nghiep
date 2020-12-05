@@ -1,5 +1,5 @@
 import { HSChiDinhDVKT, DSChiDinhDVKT } from './../../../../models/hschidinhdvkt';
-import { mergeMap, switchMap } from 'rxjs/operators';
+import { mergeMap, switchMap, concatMap, delay, tap } from 'rxjs/operators';
 import { PhongKham } from './../../../../models/phongkham';
 import { HSPhieuKham } from './../../../../models/hsphieukham';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
@@ -28,6 +28,7 @@ import { DmkhoaphongService } from '../../../../shared/services/dmkhoaphong.serv
   styleUrls: ['./phieukhamngoaitru.component.scss']
 })
 export class PhieukhamngoaitruComponent implements OnInit {
+  isHaveICDMain: boolean = false;
   id_default: string; // id phong khám hiện tại
   phongKhams: PhongKham[] = [];
   HuongXuTri = [
@@ -35,7 +36,8 @@ export class PhieukhamngoaitruComponent implements OnInit {
     {id: 2, name: 'Chuyển Phòng Khám'},
     {id: 3, name: 'Chuyển Viện'},
     {id: 4, name: 'Lập Bệnh Án Ngoại Trú'},
-    {id: 5, name: 'Lập Bệnh Án Nội Trú'}
+    {id: 5, name: 'Lập Bệnh Án Nội Trú'},
+    {id: 6, name: 'Huỷ Khám'}
   ];
   hxtValue: number;
   selectedIcd: FormGroup;
@@ -111,6 +113,10 @@ export class PhieukhamngoaitruComponent implements OnInit {
       if (result) {
         // console.log(result);
         this.phieukham = result[0];
+        if (this.phieukham.idMaBenhChinh && this.phieukham.idMaBenhChinh.name) {
+          this.isHaveICDMain = true;
+        }
+        console.log(this.phieukham);
         if (this.phieukham.GioBatDauKham !== undefined && this.phieukham.GioBatDauKham !== null) {
           this.isDuocKham = true;
         }
@@ -200,7 +206,7 @@ export class PhieukhamngoaitruComponent implements OnInit {
   fetchICD() {
     this.dmicdService.getAllICD(15, 1).subscribe((data: any) => {
       this.listICDs = data.ICD;
-      console.log(data);
+      // console.log(data);
     }, (error) => {
       console.log(error);
     });
@@ -368,11 +374,32 @@ export class PhieukhamngoaitruComponent implements OnInit {
   }
 
   pickIcdMain(item: ICD) {
-    this.toastrService.success('Đã chỉ định ICD chính cho bệnh nhân');
-    this.icdMainSelected = item;
+    const body = {
+      idMaBenhChinh: item
+    };
 
-    console.log('ok nha', this.icdMainSelected);
-    this.modalService.dismissAll();
+    // this.hsPhieuKhamService.updateThongTinPhieuKham(this.idPhieuKham, body)
+    //   .pipe(
+    //     concatMap(data => {
+    //       return of(data).pipe(delay(200));
+    //     })
+    //   ).subscribe(data => {
+    //     this.toastrService.success('Đã chỉ định ICD chính cho bệnh nhân');
+    //     this.isHaveICDMain = true;
+    //     this.modalService.dismissAll();
+    //   }, (error) => {
+    //     console.log(error);
+    //   });
+
+    this.hsPhieuKhamService.updateThongTinPhieuKham(this.idPhieuKham, body).subscribe(data => {
+      this.toastrService.success('Đã chỉ định ICD chính cho bệnh nhân');
+      setTimeout(() => {
+        this.isHaveICDMain = true;
+        this.modalService.dismissAll();
+      }, 200);
+    }, (error) => {
+      console.log(error);
+    });
   }
 
   selectKetLuan(e) {
@@ -385,6 +412,26 @@ export class PhieukhamngoaitruComponent implements OnInit {
 
   lapBenhAnNoiTru() {
 
+  }
+
+  removeICDChinh() {
+    const body = {
+      idMaBenhChinh: null
+    };
+    this.hsPhieuKhamService.updateThongTinPhieuKham(this.idPhieuKham, body).subscribe(data => {
+      this.isHaveICDMain = false;
+      this.modalService.dismissAll();
+    }, (error) => {
+      console.log(error);
+    });
+  }
+
+
+  ketThucKhamBenh() {
+    if (!this.isHaveICDMain) {
+      this.toastrService.warning('Bạn chưa chỉ định ICD chính cho bệnh nhân');
+      return;
+    }
   }
 
 }

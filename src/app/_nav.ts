@@ -34,6 +34,16 @@ export const navItems: INavData[] = [
     icon: 'icon-calculator'
   },
   {
+    name: 'Danh sách đã khám',
+    url: '/danhsach',
+    icon: 'icon-calculator'
+  },
+  {
+    name: 'Danh sách chuyển tuyến',
+    url: '/danhsach',
+    icon: 'icon-calculator'
+  },
+  {
     title: true,
     name: 'Điều trị ngoại trú'
   },

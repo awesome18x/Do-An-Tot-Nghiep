@@ -422,6 +422,9 @@
                                     <a  (click)="openICD(contenticd)" style="color: #5cb85c; font-weight: bold; cursor: pointer; font-size: 13px;">
                                         <i class="fa fa-plus-square fa-lg"></i> Chọn mã bệnh chính <span class="red">(*)</span>
                                     </a>
+                                  <!-- <span class="text-info" *ngIf="icdMainSelected">{{icdMainSelected?.name | titlecase}} <i (click)="removeICDChinh()" class="fa fa-times" style="color:red; cursor: pointer;"></i></span> -->
+                                  <span class="text-info" *ngIf="isHaveICDMain">{{phieukham.idMaBenhChinh.name | titlecase}} <i (click)="removeICDChinh()" class="fa fa-times" style="color:red; cursor: pointer;"></i></span>
+
                                 </div>
                                 <ng-template #contenticd let-modal >
                                   <div class="modal-header">
@@ -545,7 +548,8 @@
                                           <div class="col-sm-4">
                                             <select class="form-control" (change)="lapBenhAnNoiTru($event.target.value)" name="select">
                                               <option [value]="item._id" *ngFor="let item of phongKhams;">{{item.name}}</option>
-                                            </select>                                          </div>
+                                            </select>
+                                          </div>
                                           <div class="col-sm-3">
                                             <button type="button" class="btn btn-success">Chuyển khoa nội trú</button>
                                           </div>
@@ -559,12 +563,13 @@
                                           <div class="col-sm-4">
                                             <select class="form-control" (change)="lapBenhAnNoiTru($event.target.value)" name="select">
                                               <option [value]="item._id" *ngFor="let item of phongKhams;">{{item.name}}</option>
-                                            </select>                                          </div>
+                                            </select>
+                                          </div>
                                           <div class="col-sm-3">
                                             <button type="button" class="btn btn-success">Chuyển khoa nội trú</button>
                                           </div>
                                         </div>
-                                        <div class="row" *ngSwitchCase="5">
+                                        <div class="row" *ngSwitchCase="3">
 
                                           <div class="col-sm-3">
                                             <button type="button" class="btn btn-success">Chuyển viện</button>
@@ -575,14 +580,14 @@
                                         <div class="row">
                                             <div class="col-md-2 col-sm-6">
                                                 <div class="custom-control custom-checkbox">
-                                                    <input class="form-check-input" id="accept" type="checkbox" name="hxt">
-                                                    <label class="custom-control-label" for="accept">Đã khám</label>
+                                                  <input class="form-check-input" name="kham" type="checkbox" id="inline-checkbox1" value="option1">
+                                                  <label class="form-check-label" for="inline-checkbox1">Đã khám</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 col-sm-6">
                                                 <div class="custom-control custom-checkbox">
-                                                    <input class="form-check-input" id="cancel" type="checkbox" name="hxt">
-                                                    <label class="custom-control-label" for="cancel">Huỷ khám</label>
+                                                  <input class="form-check-input" name="kham" type="checkbox" id="inline-checkbox2" value="option2">
+                                                  <label class="form-check-label" for="inline-checkbox2">Huỷ khám</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -591,7 +596,7 @@
                             </div>
                             <div class="col-12" style="top: 1rem;">
                                 <div class="panel-footer text-center">
-                                    <a a-disabled="LanKham.IsDaThanhToan" class="btn btn-primary" tabindex="15" ng-click="saveDataAndClose(false)">Lưu kết luận(Ctrl+Enter)</a>
+                                    <a a-disabled="LanKham.IsDaThanhToan" class="btn btn-primary" tabindex="15" (click)="ketThucKhamBenh()">Lưu kết luận(Ctrl+Enter)</a>
                                     <button class="btn btn-warning" tabindex="17" id="PrintKetQua" ng-click="printKetQuaKham()" ng-if="Config.InPhieuKhamBenh === 'true'">In phiếu khám bệnh(Ctrl+P)</button>
                                     <button class="btn btn-warning" tabindex="17" id="PrintKetQua" ng-click="PrintPhieuDieuTri()" ng-if="Config.InPrintPhieuDieuTri === 'true'">In phiếu điều trị(Ctrl+T)</button>
                                     <button class="btn btn-success" tabindex="18" id="PrintBangKe" ng-click="printBangKe()" ng-if="isBacSyInBangKe" ng-disabled="!isDaKham && !isInBangKeTruocKhiKeThuc">In bảng kê(Ctrl+I)</button>
