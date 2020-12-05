@@ -291,7 +291,7 @@
                                                 </th>
                                             </tr>
                                         </thead>
-                                        <tbody *ngFor="let item of listDVKTByIdPhieuKham; let id = index">
+                                        <tbody *ngFor="let item of listDVKTByIdPhieuKham; let id = index; let last = last;">
                                             <tr>
                                                 <th scope="row">
                                                   <span class="squared"></span>
@@ -316,7 +316,10 @@
                                                 </td>
                                                 <td style="text-align: center;"><i class="fa fa-trash icon" (click)="deleteDVKT(item)"></i></td>
                                             </tr>
-
+                                            <tr *ngIf="last">
+                                              <td colspan="4" class="text-right"><b>Tổng tiền:</b></td>
+                                              <td colspan="5" class="text-left"></td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -422,8 +425,7 @@
                                     <a  (click)="openICD(contenticd)" style="color: #5cb85c; font-weight: bold; cursor: pointer; font-size: 13px;">
                                         <i class="fa fa-plus-square fa-lg"></i> Chọn mã bệnh chính <span class="red">(*)</span>
                                     </a>
-                                  <!-- <span class="text-info" *ngIf="icdMainSelected">{{icdMainSelected?.name | titlecase}} <i (click)="removeICDChinh()" class="fa fa-times" style="color:red; cursor: pointer;"></i></span> -->
-                                  <span class="text-info" *ngIf="isHaveICDMain">{{phieukham.idMaBenhChinh.name | titlecase}} <i (click)="removeICDChinh()" class="fa fa-times" style="color:red; cursor: pointer;"></i></span>
+                                  <span class="text-info" *ngIf="isHaveICDMain">{{phieukham.idMaBenhChinh.ma}}-{{phieukham.idMaBenhChinh.name | titlecase}} <i (click)="removeICDChinh()" class="fa fa-times" style="color:red; cursor: pointer;"></i></span>
 
                                 </div>
                                 <ng-template #contenticd let-modal >
@@ -461,11 +463,46 @@
                                 </ng-template>
                                 <div class="hr-line-dashed" style="margin: .5rem 1rem;"></div>
                                 <div class="chi-dinh-dvkt">
-                                    <a style="color: #5cb85c; font-weight: bold; cursor: pointer; font-size: 13px;">
+                                    <a (click)="openICD(contenticdphu)" style="color: #5cb85c; font-weight: bold; cursor: pointer; font-size: 13px;">
                                         <i class="fa fa-plus-square fa-lg"></i> Chọn mã bệnh kèm theo
                                     </a>
-
+                                    <span class="text-info" *ngIf="isHaveICDKemTheo">
+                                      <span *ngFor="let item of phieukham.idMaBenhKemTheo">{{item.ma}}-{{item.name | titlecase}} <i (click)="removeICDKemTheo(item)" class="fa fa-times mr-1" style="color:red; cursor: pointer;"></i></span>
+                                    </span>
                                 </div>
+                                <ng-template #contenticdphu let-modal >
+                                  <div class="modal-header">
+                                    <h6 class="modal-title">Mã Bệnh Kèm Theo</h6>
+                                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form [formGroup]='selectedIcd' class="form-icd my-2">
+                                      <input type="text" class="form-control input-ma" formControlName="ma" placeholder="Tìm theo mã">
+                                      <input type="text" class="form-control input-name" formControlName="name" placeholder="Tìm theo tên">
+                                      <button type="button" class="btn btn-sm btn-warning" (click)="resetFormIcd()">Xoá</button>
+                                    </form>
+
+                                    <ng-container *ngIf="listICDs.length > 0">
+                                      <div class="wrap-table">
+                                        <table class="table" style="overflow: scroll;">
+                                          <tbody>
+                                            <tr *ngFor="let item of listICDs">
+                                              <td class="item-icd" (click)="pickIcdKemTheo(item)">
+                                                <span class="item-ma">{{ item.ma}}</span>
+                                                <span class="item-name">{{item.name | titlecase}}</span>
+                                              </td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                      </div>
+                                    </ng-container>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Đóng</button>
+                                  </div>
+                                </ng-template>
                                 <div class="hr-line-dashed" style="margin: .5rem 1rem;"></div>
                                 <div class="chi-dinh-dvkt">
                                     <a style="color: #5cb85c; font-weight: bold; cursor: pointer; font-size: 13px;">
