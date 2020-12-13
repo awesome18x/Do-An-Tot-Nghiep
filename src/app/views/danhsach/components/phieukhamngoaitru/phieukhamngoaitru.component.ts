@@ -3,10 +3,10 @@ import { mergeMap, switchMap, concatMap, delay, tap } from 'rxjs/operators';
 import { PhongKham } from './../../../../models/phongkham';
 import { HSPhieuKham } from './../../../../models/hsphieukham';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { DSChoKhamService } from '../../service/dschokham.service';
 import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbDatepickerI18n, NgbDateStruct, NgbDateAdapter, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { DvktService } from '../../../danhmuc/services/dvkt.service';
 import { DVKT } from '../../../../models/dvkt';
 import { CongkhamService } from '../../service/congkham.service';
@@ -20,23 +20,114 @@ import * as moment from 'moment';
 import { DanhmucicdService } from '../../../danhmuc/services/danhmucicd.service';
 import { ICD } from '../../../../models/icd';
 import { DmkhoaphongService } from '../../../../shared/services/dmkhoaphong.service';
+import { format, parseISO, differenceInDays } from 'date-fns';
+import { formatDate } from '@angular/common';
+
+
+const I18N_VALUES = {
+  'vi': {
+    weekdays: ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'],
+    months: ['Thg1', 'Thg2', 'Thg3', 'Thg4', 'Thg5', 'Thg6', 'Thg7', 'Thg8', 'Thg9', 'Thg10', 'Thg11', 'Thg12'],
+  }
+  // other languages you would support
+};
+@Injectable()
+export class I18n {
+  language = 'vi';
+}
+@Injectable()
+export class CustomDatepickerI18n extends NgbDatepickerI18n {
+
+  constructor(private _i18n: I18n) {
+    super();
+  }
+
+  getWeekdayShortName(weekday: number): string {
+    return I18N_VALUES[this._i18n.language].weekdays[weekday - 1];
+  }
+  getMonthShortName(month: number): string {
+    return I18N_VALUES[this._i18n.language].months[month - 1];
+  }
+  getMonthFullName(month: number): string {
+    return this.getMonthShortName(month);
+  }
+
+  getDayAriaLabel(date: NgbDateStruct): string {
+    return `${date.day}-${date.month}-${date.year}`;
+  }
+}
+
+@Injectable()
+export class CustomAdapter extends NgbDateAdapter<string> {
+
+  readonly DELIMITER = '-';
+
+  fromModel(value: string | null): NgbDateStruct | null {
+    if (value) {
+      let date = value.split(this.DELIMITER);
+      return {
+        day : parseInt(date[0], 10),
+        month : parseInt(date[1], 10),
+        year : parseInt(date[2], 10)
+      };
+    }
+    return null;
+  }
+
+  toModel(date: NgbDateStruct | null): string | null {
+    return date ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year : null;
+  }
+}
+
+/**
+ * This Service handles how the date is rendered and parsed from keyboard i.e. in the bound input field.
+ */
+@Injectable()
+export class CustomDateParserFormatter extends NgbDateParserFormatter {
+
+  readonly DELIMITER = '/';
+
+  parse(value: string): NgbDateStruct | null {
+    if (value) {
+      let date = value.split(this.DELIMITER);
+      return {
+        day : parseInt(date[0], 10),
+        month : parseInt(date[1], 10),
+        year : parseInt(date[2], 10)
+      };
+    }
+    return null;
+  }
+
+  format(date: NgbDateStruct | null): string {
+    return date ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year : '';
+  }
+}
+
 
 
 @Component({
   selector: 'app-phieukhamngoaitru',
   templateUrl: './phieukhamngoaitru.component.html',
-  styleUrls: ['./phieukhamngoaitru.component.scss']
+  styleUrls: ['./phieukhamngoaitru.component.scss'],
+  providers: [I18n, {provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n},
+    {provide: NgbDateAdapter, useClass: CustomAdapter},
+    {provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter}]
 })
 export class PhieukhamngoaitruComponent implements OnInit {
+  soNgayHenKham: number;
+  model: any;
+  tongTienCLS: number;
   isHaveICDMain: boolean = false;
+  isHaveICDKemTheo: boolean = false;
   id_default: string; // id phong khám hiện tại
   phongKhams: PhongKham[] = [];
   HuongXuTri = [
     {id: 1, name: 'Về'},
     {id: 2, name: 'Chuyển Phòng Khám'},
-    {id: 3, name: 'Chuyển Viện'},
+    {id: 3, name: 'Chuyển Tuyến'},
     {id: 4, name: 'Lập Bệnh Án Ngoại Trú'},
-    {id: 5, name: 'Lập Bệnh Án Nội Trú'},
+    {id: 5, name: 'Chuyển Vào Viện'},
     {id: 6, name: 'Huỷ Khám'}
   ];
   hxtValue: number;
@@ -59,7 +150,7 @@ export class PhieukhamngoaitruComponent implements OnInit {
   tien: number;
   listICDs: ICD[] = [];
   icdMainSelected: ICD;
-  icdPhus: ICD[] = [];
+  icdPhus = [];
   constructor(
     private activatedRoute: ActivatedRoute,
     private dschokhamService: DSChoKhamService,
@@ -92,6 +183,14 @@ export class PhieukhamngoaitruComponent implements OnInit {
     }, (error) => {
       console.log(error);
     });
+
+    this.khamBenhForm.get('ngaytaikham').valueChanges.subscribe(data => {
+      if (data) {
+        data = moment(data, 'DD-MM-YYYY');
+        const today = moment(new Date(), 'DD-MM-YYYY');
+        this.soNgayHenKham = data.diff(today, 'days') + 1;
+      }
+    });
   }
 
   initData() {
@@ -116,6 +215,15 @@ export class PhieukhamngoaitruComponent implements OnInit {
         if (this.phieukham.idMaBenhChinh && this.phieukham.idMaBenhChinh.name) {
           this.isHaveICDMain = true;
         }
+        if (this.phieukham.idMaBenhKemTheo && this.phieukham.idMaBenhKemTheo.length !== 0) {
+          this.isHaveICDKemTheo = true;
+        }
+        if (this.isHaveICDKemTheo) {
+          this.icdPhus = [];
+          this.phieukham.idMaBenhKemTheo.map(it => {
+            this.icdPhus.push(it._id);
+          });
+        }
         console.log(this.phieukham);
         if (this.phieukham.GioBatDauKham !== undefined && this.phieukham.GioBatDauKham !== null) {
           this.isDuocKham = true;
@@ -139,7 +247,7 @@ export class PhieukhamngoaitruComponent implements OnInit {
             cannang: this.phieukham.CanNang,
             chieucao: this.phieukham.ChieuCao,
             loidan: this.phieukham.LoiDan,
-            ngaitaikham: this.phieukham.NgayTaiKham
+            ngaitaikham: formatDate(this.phieukham.NgayTaiKham, 'mm/dd/yyyy', 'vi')
           });
         }
 
@@ -392,14 +500,42 @@ export class PhieukhamngoaitruComponent implements OnInit {
     //   });
 
     this.hsPhieuKhamService.updateThongTinPhieuKham(this.idPhieuKham, body).subscribe(data => {
+      this.isHaveICDMain = true;
       this.toastrService.success('Đã chỉ định ICD chính cho bệnh nhân');
-      setTimeout(() => {
-        this.isHaveICDMain = true;
-        this.modalService.dismissAll();
-      }, 200);
+      this.modalService.dismissAll();
     }, (error) => {
       console.log(error);
     });
+  }
+
+  pickIcdKemTheo(item: ICD) {
+    // console.log('duynv1', this.isHaveICDKemTheo);
+    // return;
+    if (!this.isHaveICDKemTheo) {
+      const body = {
+        idMaBenhKemTheo: item
+      };
+      this.hsPhieuKhamService.updateThongTinPhieuKham(this.idPhieuKham, body).subscribe(data => {
+        this.toastrService.success('Đã chỉ định ICD phụ cho bệnh nhân');
+        this.modalService.dismissAll();
+        this.initData();
+      }, (error) => {
+        console.log(error);
+      });
+    } else {
+      this.icdPhus.push(item._id);
+      const body = {
+        idMaBenhKemTheo: this.icdPhus
+      };
+      this.hsPhieuKhamService.updateThongTinPhieuKham(this.idPhieuKham, body).subscribe(data => {
+        this.toastrService.success('Đã chỉ định ICD phụ cho bệnh nhân');
+        this.modalService.dismissAll();
+        this.initData();
+      }, (error) => {
+        console.log(error);
+      });
+    }
+
   }
 
   selectKetLuan(e) {
@@ -426,11 +562,38 @@ export class PhieukhamngoaitruComponent implements OnInit {
     });
   }
 
+  removeICDKemTheo(item) {
+    this.icdPhus = this.icdPhus.filter(it => it !== item._id);
+    const bodyUpdate = {
+      idMaBenhKemTheo: this.icdPhus
+    };
+    this.hsPhieuKhamService.updateThongTinPhieuKham(this.idPhieuKham, bodyUpdate).subscribe(data => {
+      if (this.icdPhus.length === 0) {
+        this.isHaveICDKemTheo = false;
+      }
+      this.modalService.dismissAll();
+      this.initData();
+    }, (error) => {
+      console.log(error);
+    });
+  }
+
 
   ketThucKhamBenh() {
     if (!this.isHaveICDMain) {
       this.toastrService.warning('Bạn chưa chỉ định ICD chính cho bệnh nhân');
       return;
+    }
+
+    if (this.khamBenhForm.value.ngaytaikham !== null && this.khamBenhForm.value.ngaytaikham !== '') {
+      const body = {
+        NgayTaiKham: this.khamBenhForm.value.ngaytaikham
+      };
+      this.hsPhieuKhamService.updateThongTinPhieuKham(this.idPhieuKham, body).subscribe(data => {
+        console.log('Đã hẹn ngày tái khám cho bệnh nhân');
+      }, (error) => {
+        console.log(error);
+      });
     }
   }
 
