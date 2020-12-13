@@ -26,6 +26,9 @@ import { CreateIcdComponent } from './components/danhmucicd/create-icd/create-ic
 import { ListIcdComponent } from './components/danhmucicd/list-icd/list-icd.component';
 import { ListLoaikhamComponent } from './components/danhmucloaikham/list-loaikham/list-loaikham.component';
 import { CreateLoaikhamComponent } from './components/danhmucloaikham/create-loaikham/create-loaikham.component';
+import { DanhmucbenhanComponent } from './components/danhmucbenhan/danhmucbenhan.component';
+import { ListBaComponent } from './components/danhmucbenhan/list-ba/list-ba.component';
+import { CreateBaComponent } from './components/danhmucbenhan/create-ba/create-ba.component';
 
 
 @NgModule({
@@ -48,6 +51,9 @@ import { CreateLoaikhamComponent } from './components/danhmucloaikham/create-loa
     ListIcdComponent,
     ListLoaikhamComponent,
     CreateLoaikhamComponent,
+    DanhmucbenhanComponent,
+    ListBaComponent,
+    CreateBaComponent,
   ],
   imports: [
     CommonModule,

@@ -155,6 +155,11 @@ export const navItems: INavData[] = [
     icon: 'icon-list'
   },
   {
+    name: 'DM bệnh án',
+    url: '/danhmuc/benh-an',
+    icon: 'icon-list'
+  },
+  {
     name: 'DM dân tộc',
     url: '/danhmuc/dan-toc',
     icon: 'icon-list'

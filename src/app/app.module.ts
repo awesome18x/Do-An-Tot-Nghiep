@@ -48,6 +48,7 @@ import { DanhsachModule } from './views/danhsach/danhsach.module';
 import { DanhmucModule } from './views/danhmuc/danhmuc.module';
 import { OptionModule } from './views/option/option.module';
 import { SharedModule } from './shared/shared.module';
+import { DanhmucbenhanComponent } from './views/components/danhmucbenhan/danhmucbenhan.component';
 // import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -82,6 +83,7 @@ import { SharedModule } from './shared/shared.module';
     P404Component,
     P500Component,
     LoginComponent,
+    DanhmucbenhanComponent,
   ],
   providers: [{
     provide: LocationStrategy,

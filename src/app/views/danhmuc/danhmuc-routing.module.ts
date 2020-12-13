@@ -1,3 +1,5 @@
+import { CreateBaComponent } from './components/danhmucbenhan/create-ba/create-ba.component';
+import { ListBaComponent } from './components/danhmucbenhan/list-ba/list-ba.component';
 import { CreateIcdComponent } from './components/danhmucicd/create-icd/create-icd.component';
 import { DanhmucloaikhamComponent } from './components/danhmucloaikham/danhmucloaikham.component';
 import { DanhmucthuocComponent } from './components/danhmucthuoc/danhmucthuoc.component';
@@ -18,6 +20,7 @@ import { DanhmuckhoduocComponent } from './components/danhmuckhoduoc/danhmuckhod
 import { ListIcdComponent } from './components/danhmucicd/list-icd/list-icd.component';
 import { ListLoaikhamComponent } from './components/danhmucloaikham/list-loaikham/list-loaikham.component';
 import { CreateLoaikhamComponent } from './components/danhmucloaikham/create-loaikham/create-loaikham.component';
+import { DanhmucbenhanComponent } from './components/danhmucbenhan/danhmucbenhan.component';
 
 
 const routes: Routes = [
@@ -100,6 +103,28 @@ const routes: Routes = [
   {
     path: 'thuoc',
     component: DanhmucthuocComponent
+  },
+  {
+    path: 'benh-an',
+    component: DanhmucbenhanComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'list',
+        pathMatch: 'full'
+      },
+      {
+        path: 'list',
+        component: ListBaComponent
+      },
+      {
+        path: 'create-or-update',
+        component: CreateBaComponent
+      },
+      {
+        path: 'create-or-update/:id',
+        component: CreateBaComponent
+      }]
   },
   {
     path: 'kho-duoc',
