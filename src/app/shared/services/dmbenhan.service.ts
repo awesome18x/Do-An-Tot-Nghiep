@@ -15,6 +15,14 @@ export class DmbenhanService {
   ) { }
 
   createBenhAn(body: DMBenhAn): Observable<DMBenhAn> {
-    return this.http.post<DMBenhAn>(this.API_URL, body);
+    return this.http.post<DMBenhAn>(this.API_URL + 'api/dmbenhan/create', body);
+  }
+
+  getAllBenhAn(pageSize: number, pageIndex: number): Observable<DMBenhAn[]> {
+    return this.http.get<DMBenhAn[]>(this.API_URL + `api/dmbenhan?pageSize=${pageSize}&pageIndex=${pageIndex}`);
+  }
+
+  deleteBenhAnById(id: string): Observable<DMBenhAn> {
+    return this.http.delete<DMBenhAn>(this.API_URL + `api/dmbenhan/${id}`);
   }
 }
