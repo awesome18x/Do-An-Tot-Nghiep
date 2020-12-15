@@ -25,4 +25,8 @@ export class DmbenhanService {
   deleteBenhAnById(id: string): Observable<DMBenhAn> {
     return this.http.delete<DMBenhAn>(this.API_URL + `api/dmbenhan/${id}`);
   }
+
+  getDetailBenhAnById(id: string): Observable<DMBenhAn> {
+    return this.http.get<DMBenhAn>(this.API_URL + `api/dmbenhan?id=${id}`);
+  }
 }

@@ -188,6 +188,13 @@ export class PhieukhamngoaitruComponent implements OnInit {
       if (data) {
         data = moment(data, 'DD-MM-YYYY');
         const today = moment(new Date(), 'DD-MM-YYYY');
+        if (data.diff(today, 'days') < 0) {
+          this.toastrService.warning('Bạn không thể hẹn khám vào 1 ngày trong quá khứ');
+          this.khamBenhForm.patchValue({
+            ngaytaikham: ''
+          });
+          return;
+        }
         this.soNgayHenKham = data.diff(today, 'days') + 1;
       }
     });
