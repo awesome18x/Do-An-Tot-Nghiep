@@ -604,4 +604,8 @@ export class PhieukhamngoaitruComponent implements OnInit {
     }
   }
 
+  goToChuyenVien() {
+    this.router.navigate([`/danhsach/phieu-chuyen-tuyen/${this.id_default}`]);
+  }
+
 }

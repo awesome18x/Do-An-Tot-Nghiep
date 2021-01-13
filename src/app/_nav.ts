@@ -40,7 +40,7 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Danh sách chuyển tuyến',
-    url: '/danhsach',
+    url: '/danhsach/phieu-chuyen-tuyen/:id',
     icon: 'icon-calculator'
   },
   {

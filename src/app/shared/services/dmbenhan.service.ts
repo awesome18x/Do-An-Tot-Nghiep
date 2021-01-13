@@ -27,6 +27,10 @@ export class DmbenhanService {
   }
 
   getDetailBenhAnById(id: string): Observable<DMBenhAn> {
-    return this.http.get<DMBenhAn>(this.API_URL + `api/dmbenhan?id=${id}`);
+    return this.http.get<DMBenhAn>(this.API_URL + `api/dmbenhan/${id}`);
+  }
+
+  updateBenhAnById(id: string, body: DMBenhAn): Observable<DMBenhAn> {
+    return this.http.put<DMBenhAn>(this.API_URL + `api/dmbenhan/${id}`, body);
   }
 }

@@ -37,7 +37,7 @@ const routes: Routes = [
     component: PhieukhamngoaitruComponent
   },
   {
-    path: 'phieu-chuyen-tuyen',
+    path: 'phieu-chuyen-tuyen/:id',
     component: PhieuchuyentuyenComponent
   }
 
